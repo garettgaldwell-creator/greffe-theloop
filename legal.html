@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Announcements — Intranet JBSA</title>
+  <title>Legal Texts — JBSA Intranet</title>
   <style>
 
 :root {
@@ -1199,126 +1199,541 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
 
 </style>
   <style>
-    .announce-card {
-      background: var(--navy-light);
-      border: var(--border-gold);
-      border-radius: 6px;
-      padding: 2rem;
-      margin-bottom: 1.2rem;
-      position: relative;
-      transition: all 0.25s;
+    body { background: var(--navy); }
+
+    /* ── LAYOUT ── */
+    .legal-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 0;
+      min-height: calc(100vh - 56px);
     }
 
-    .announce-card:hover { border-color: rgba(201,168,76,0.6); }
+    /* ── TOC SIDEBAR ── */
+    .toc-panel {
+      background: #070a12;
+      border-right: var(--border-gold);
+      padding: 2rem 0;
+      position: sticky;
+      top: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
 
-    .pinned-badge {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(201,168,76,0.15);
+    .toc-title {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      padding: 0 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .toc-doc {
+      margin-bottom: 0.3rem;
+    }
+
+    .toc-doc-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--cream-dark);
+      transition: all 0.2s;
+      text-align: left;
+    }
+
+    .toc-doc-btn:hover { color: var(--gold); background: rgba(201,168,76,0.05); }
+    .toc-doc-btn.active { color: var(--gold); }
+
+    .toc-doc-label {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: 0.52rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+    }
+
+    .label-constitution { background: rgba(139,26,26,0.2); color: #ef4444; border: 1px solid rgba(139,26,26,0.3); }
+    .label-federal { background: rgba(30,77,100,0.2); color: #60a5fa; border: 1px solid rgba(60,130,180,0.3); }
+    .label-code { background: rgba(22,101,52,0.2); color: #4ade80; border: 1px solid rgba(22,101,52,0.3); }
+    .label-active { background: rgba(201,168,76,0.15); color: var(--gold); border: var(--border-gold); }
+
+    .toc-arrow { font-size: 0.6rem; transition: transform 0.25s; opacity: 0.5; }
+    .toc-doc-btn.open .toc-arrow { transform: rotate(180deg); }
+
+    .toc-sub {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .toc-sub.open { max-height: 600px; }
+
+    .toc-sub a {
+      display: block;
+      padding: 0.35rem 1.5rem 0.35rem 2.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: var(--cream-dark);
+      opacity: 0.55;
+      text-decoration: none;
+      transition: all 0.15s;
+      border-left: 2px solid transparent;
+    }
+
+    .toc-sub a:hover { opacity: 1; color: var(--gold); padding-left: 2.7rem; border-left-color: rgba(201,168,76,0.3); }
+    .toc-sub a.current { opacity: 1; color: var(--gold); border-left-color: var(--gold); }
+
+    .toc-divider {
+      height: 1px;
+      background: rgba(201,168,76,0.1);
+      margin: 1rem 1.5rem;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .legal-content {
+      padding: 2.5rem 3rem;
+      max-width: 900px;
+    }
+
+    /* Document section */
+    .doc-section {
+      display: none;
+    }
+    .doc-section.active { display: block; }
+
+    /* Document header */
+    .doc-header {
+      border-bottom: var(--border-gold);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .doc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+
+    .doc-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+
+    .doc-subtitle {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .doc-intro {
+      font-size: 1rem;
+      color: var(--cream-dark);
+      opacity: 0.8;
+      line-height: 1.8;
+      max-width: 720px;
+      border-left: 2px solid rgba(201,168,76,0.3);
+      padding-left: 1.2rem;
+      font-style: italic;
+    }
+
+    .doc-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .doc-stat {
+      text-align: center;
+    }
+
+    .doc-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .doc-stat-label {
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream-dark);
+      opacity: 0.55;
+      margin-top: 0.3rem;
+    }
+
+    /* Article blocks */
+    .article-part {
+      margin-bottom: 3rem;
+    }
+
+    .part-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      background: rgba(201,168,76,0.05);
+      border: var(--border-gold);
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .part-header:hover { background: rgba(201,168,76,0.09); }
+
+    .part-num {
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
       border: var(--border-gold);
       border-radius: 3px;
       padding: 0.25rem 0.6rem;
-      font-family: var(--font-ui);
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
+      flex-shrink: 0;
     }
 
-    .announce-card-meta {
+    .part-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      flex: 1;
+    }
+
+    .part-toggle {
+      font-size: 0.7rem;
+      color: var(--gold-dim);
+      transition: transform 0.25s;
+    }
+
+    .part-header.collapsed .part-toggle { transform: rotate(-90deg); }
+
+    .part-body {
+      transition: opacity 0.2s;
+    }
+
+    .part-body.collapsed { display: none; }
+
+    /* Article */
+    .article {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      scroll-margin-top: 80px;
+    }
+
+    .article-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      border-bottom: var(--border-gold);
+      background: rgba(0,0,0,0.15);
+    }
+
+    .article-num {
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+      padding-top: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    .article-body {
+      padding: 1.2rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--cream-dark);
+      line-height: 1.8;
+    }
+
+    .article-body p { margin-bottom: 0.8rem; }
+    .article-body p:last-child { margin-bottom: 0; }
+
+    .article-body strong {
+      color: var(--cream);
+      font-weight: 600;
+    }
+
+    /* Penalty box */
+    .penalty-box {
+      margin-top: 1rem;
+      display: flex;
       gap: 0.8rem;
-      margin-bottom: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .penalty-item {
+      background: rgba(139,26,26,0.12);
+      border: 1px solid rgba(139,26,26,0.3);
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
       font-family: var(--font-ui);
       font-size: 0.65rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
+      color: #fca5a5;
+    }
+
+    .penalty-item.aggravated {
+      background: rgba(139,26,26,0.2);
+      border-color: rgba(200,50,50,0.5);
+    }
+
+    .penalty-label {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      opacity: 0.7;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* Amendment style (Bill of Rights) */
+    .amendment {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      scroll-margin-top: 80px;
+    }
+
+    .amendment-header {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0;
+      border-bottom: var(--border-gold);
+    }
+
+    .amendment-num-block {
+      background: rgba(201,168,76,0.07);
+      border-right: var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 1rem;
+      gap: 0.2rem;
+    }
+
+    .amendment-roman {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .amendment-ordinal {
+      font-family: var(--font-ui);
+      font-size: 0.48rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gold-dim);
     }
 
-    .announce-card-title {
+    .amendment-title-block {
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .amendment-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .amendment-body {
+      padding: 1.2rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--cream-dark);
+      line-height: 1.85;
+    }
+
+    /* Constitution section */
+    .const-article {
+      margin-bottom: 2.5rem;
+      scroll-margin-top: 80px;
+    }
+
+    .const-article-header {
+      background: linear-gradient(90deg, rgba(201,168,76,0.08) 0%, transparent 100%);
+      border-left: 3px solid var(--gold);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .const-article-num {
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .const-article-title {
       font-family: var(--font-display);
       font-size: 1.3rem;
+      font-weight: 700;
       color: var(--white);
+    }
+
+    .const-section {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 6px;
       margin-bottom: 0.8rem;
+      overflow: hidden;
+      scroll-margin-top: 80px;
     }
 
-    .announce-card-content {
-      color: var(--cream-dark);
-      opacity: 0.8;
-      font-size: 1rem;
-      line-height: 1.8;
-    }
-
-    .announce-card-footer {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(201,168,76,0.1);
+    .const-section-header {
+      padding: 0.8rem 1.2rem;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
       display: flex;
-      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      background: rgba(0,0,0,0.1);
+    }
+
+    .const-section-num {
+      font-family: var(--font-ui);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      flex-shrink: 0;
+    }
+
+    .const-section-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .const-section-body {
+      padding: 1rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--cream-dark);
+      line-height: 1.8;
+      opacity: 0.85;
+    }
+
+    /* Breadcrumb */
+    .legal-breadcrumb {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 1.5rem;
+      display: flex;
       align-items: center;
+      gap: 0.5rem;
+    }
+
+    .legal-breadcrumb span { opacity: 0.4; }
+
+    /* Search */
+    .legal-search {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .legal-search input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: var(--border-gold);
+      border-radius: 4px;
+      padding: 0.7rem 1rem 0.7rem 2.8rem;
+      color: var(--cream);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .legal-search input:focus { border-color: var(--gold); }
+    .legal-search input::placeholder { color: rgba(245,240,232,0.3); }
+
+    .legal-search-icon {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold-dim);
+    }
+
+    .legal-search-icon svg { width: 14px; height: 14px; display: block; }
+
+    /* Highlight */
+    mark {
+      background: rgba(201,168,76,0.3);
+      color: var(--white);
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+
+    @media (max-width: 900px) {
+      .legal-layout { grid-template-columns: 1fr; }
+      .toc-panel { position: static; height: auto; }
+      .legal-content { padding: 1.5rem; }
     }
   </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400;600;700&display=swap">
 </head>
 <body>
-<div id="sidebar-mount"></div>
-
-<div class="main-content">
-  <div class="page-header">
-    <h1>Announcements & Communiqués</h1>
-    <button class="btn btn-gold btn-sm" onclick="openModal()" id="new-btn">+ Nouvelle Annonce</button>
-  </div>
-
-  <div class="page-body">
-    <div id="alert-container"></div>
-    <div id="announces-list"></div>
-  </div>
-</div>
-
-<!-- New Announcement Modal -->
-<div id="modal" class="modal-overlay hidden">
-  <div class="modal">
-    <div class="modal-header">
-      <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19 11,5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Nouvelle Annonce</h3>
-      <button class="modal-close" onclick="closeModal()">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Titre</label>
-        <input type="text" id="a-title" class="form-input" placeholder="Objet de l'annonce">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Contenu</label>
-        <textarea id="a-content" class="form-textarea" style="min-height:140px;" placeholder="Corps du message..."></textarea>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-        <div class="form-group">
-          <label class="form-label">Visibilité</label>
-          <select id="a-visibility" class="form-select">
-            <option value="all">Tous</option>
-            <option value="judge">Judges uniquement</option>
-            <option value="prosecutor">District Attorneys uniquement</option>
-            <option value="lawyer">Attorneys uniquement</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Épingler</label>
-          <select id="a-pinned" class="form-select">
-            <option value="false">Non</option>
-            <option value="true">Oui — Épingler</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal()">Annuler</button>
-      <button class="btn btn-gold" onclick="saveAnnounce()">Publier l'Annonce</button>
-    </div>
-  </div>
-</div>
 
 <script>
 // ===== JBSA AUTH & STATE SYSTEM =====
@@ -1622,90 +2037,476 @@ document.addEventListener('DOMContentLoaded', () => JBSA.init());
 </script>
 <script>
   const session = JBSA.requireAuth();
-  if (!session) throw new Error();
+  document.write(JBSA.buildSidebar(session ? session.grade : 'lawyer', 'legal'));
+</script>
 
-  const user = JBSA.getCurrentUser();
-  document.getElementById('sidebar-mount').innerHTML = JBSA.buildSidebar(session.grade, 'announcements');
+<div class="main-content">
+  <div class="page-header">
+    <h1>Legal Texts</h1>
+    <div style="display:flex;align-items:center;gap:0.8rem;">
+      <span style="font-family:var(--font-ui);font-size:0.65rem;letter-spacing:0.1em;color:var(--gold-dim);text-transform:uppercase;">State of San Andreas</span>
+    </div>
+  </div>
 
-  // Hide new button if not authorized
-  if (!['admin','judge','prosecutor'].includes(session.grade)) {
-    document.getElementById('new-btn').style.display = 'none';
-  }
+  <div class="page-body" style="padding:0;">
+    <div class="legal-layout">
 
-  function renderAnnounces() {
-    const announces = JBSA.store.get('announcements') || [];
-    const visible = announces.filter(a => a.visibility === 'all' || a.visibility === session.grade || session.grade === 'admin');
-    const sorted = [...visible.filter(a => a.pinned), ...visible.filter(a => !a.pinned)];
+      <!-- TOC SIDEBAR -->
+      <div class="toc-panel">
+        <div class="toc-title">Legal Documents</div>
 
-    const container = document.getElementById('announces-list');
-    if (!sorted.length) {
-      container.innerHTML = '<div class="alert alert-info">ℹ Aucune annonce disponible.</div>';
-      return;
-    }
-
-    const g = JBSA.getGradeConfig;
-    container.innerHTML = sorted.map(a => `
-      <div class="announce-card">
-        ${a.pinned ? '<span class="pinned-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Épinglé</span>' : ''}
-        <div class="announce-card-meta">
-          <span class="badge ${g(a.grade).badgeClass}">${g(a.grade).icon} ${g(a.grade).label}</span>
-          <span>${a.author}</span>
-          <span>·</span>
-          <span>${JBSA.formatDate(a.date)}</span>
+        <div class="toc-doc">
+          <button class="toc-doc-btn active" onclick="showDoc('bill', this)">
+            <span>Bill of Rights <span class="toc-doc-label label-federal">Federal</span></span>
+            <span class="toc-arrow">▼</span>
+          </button>
+          <div class="toc-sub open" id="toc-bill">
+            <a href="#amend-1" onclick="scrollTo('amend-1')">Amend. I — Fundamental Freedoms</a>
+            <a href="#amend-2" onclick="scrollTo('amend-2')">Amend. II — Right to Bear Arms</a>
+            <a href="#amend-3" onclick="scrollTo('amend-3')">Amend. III — Quartering of Troops</a>
+            <a href="#amend-4" onclick="scrollTo('amend-4')">Amend. IV — Search & Seizure</a>
+            <a href="#amend-5" onclick="scrollTo('amend-5')">Amend. V — Due Process</a>
+            <a href="#amend-6" onclick="scrollTo('amend-6')">Amend. VI — Right to Trial</a>
+            <a href="#amend-7" onclick="scrollTo('amend-7')">Amend. VII — Civil Jury</a>
+            <a href="#amend-8" onclick="scrollTo('amend-8')">Amend. VIII — Cruel Punishment</a>
+            <a href="#amend-9" onclick="scrollTo('amend-9')">Amend. IX — Unenumerated Rights</a>
+            <a href="#amend-10" onclick="scrollTo('amend-10')">Amend. X — Reserved Powers</a>
+          </div>
         </div>
-        <div class="announce-card-title">${a.title}</div>
-        <div class="announce-card-content">${a.content}</div>
-        ${session.grade === 'admin' ? `
-        <div class="announce-card-footer">
-          <span style="font-family:var(--font-ui);font-size:0.65rem;color:var(--cream-dark);opacity:0.4;">ID: ${a.id}</span>
-          <button class="btn btn-danger btn-sm" onclick="deleteAnnounce(${a.id})">Supprimer</button>
-        </div>` : ''}
+
+        <div class="toc-divider"></div>
+
+        <div class="toc-doc">
+          <button class="toc-doc-btn" onclick="showDoc('constitution', this)">
+            <span>Constitution of SA <span class="toc-doc-label label-constitution">State</span></span>
+            <span class="toc-arrow">▼</span>
+          </button>
+          <div class="toc-sub" id="toc-constitution">
+            <a href="#art-i" onclick="scrollTo('art-i')">Art. I — Bill of Rights</a>
+            <a href="#art-ii" onclick="scrollTo('art-ii')">Art. II — Legislative Power</a>
+            <a href="#art-iii" onclick="scrollTo('art-iii')">Art. III — Executive Power</a>
+            <a href="#art-iv" onclick="scrollTo('art-iv')">Art. IV — Judicial Power</a>
+            <a href="#art-v" onclick="scrollTo('art-v')">Art. V — Impeachment</a>
+            <a href="#art-vi" onclick="scrollTo('art-vi')">Art. VI — Electoral Rights</a>
+            <a href="#art-vii" onclick="scrollTo('art-vii')">Art. VII — Public Officers</a>
+            <a href="#art-viii" onclick="scrollTo('art-viii')">Art. VIII — Oaths & Corruption</a>
+            <a href="#art-ix" onclick="scrollTo('art-ix')">Art. IX — Emergency Powers</a>
+          </div>
+        </div>
+
+        <div class="toc-divider"></div>
+
+        <div class="toc-doc">
+          <button class="toc-doc-btn" onclick="showDoc('penal', this)">
+            <span>Penal Code <span class="toc-doc-label label-active">In Force</span></span>
+            <span class="toc-arrow">▼</span>
+          </button>
+          <div class="toc-sub" id="toc-penal">
+            <a href="#p1" onclick="scrollTo('p1')">Part I — Criminal Framework</a>
+            <a href="#p2" onclick="scrollTo('p2')">Part II — Offenses Against Persons</a>
+            <a href="#p3" onclick="scrollTo('p3')">Part III — Offenses Against Order</a>
+            <a href="#p4" onclick="scrollTo('p4')">Part IV — Offenses Against Property</a>
+            <a href="#p5" onclick="scrollTo('p5')">Part V — Offenses Against the Nation</a>
+          </div>
+        </div>
       </div>
-    `).join('');
+
+      <!-- CONTENT AREA -->
+      <div class="legal-content">
+
+        <div class="legal-search">
+          <div class="legal-search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" id="legal-search-input" placeholder="Search within this document…" oninput="searchDoc(this.value)">
+        </div>
+
+        <!-- ═══════════════════ BILL OF RIGHTS ═══════════════════ -->
+        <div class="doc-section active" id="doc-bill">
+          <div class="doc-header">
+            <div class="doc-badge label-federal">Federal Constitution</div>
+            <div class="doc-title">Bill of Rights</div>
+            <div class="doc-subtitle">United States of America — First Ten Amendments</div>
+            <p class="doc-intro">The present Declaration of Rights, adopted as amendments to the Constitution of the United States of America, recognizes and guarantees the fundamental liberties of every American citizen. These rights are inalienable and apply throughout the territory of the United States, including the State of San Andreas. They constitute federal constitutional protections binding upon all public authorities, federal and state, and may be invoked before any competent jurisdiction.</p>
+            <div class="doc-stats">
+              <div class="doc-stat"><div class="doc-stat-num">10</div><div class="doc-stat-label">Amendments</div></div>
+              <div class="doc-stat"><div class="doc-stat-num">3</div><div class="doc-stat-label">Application provisions</div></div>
+            </div>
+          </div>
+
+          <!-- AMENDMENTS -->
+          <div id="amend-1" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">I</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">FUNDAMENTAL FREEDOMS</div></div>
+            </div>
+            <div class="amendment-body">Congress shall make no law establishing an official religion or prohibiting the free exercise thereof; abridging the freedom of speech, or of the press; or the right of the people peaceably to assemble, and to petition the Government for a redress of grievances.</div>
+          </div>
+
+          <div id="amend-2" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">II</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">RIGHT TO BEAR ARMS</div></div>
+            </div>
+            <div class="amendment-body">A well regulated Militia being necessary to the security of a free State, the right of the people to keep and bear Arms shall not be infringed. The federated States nevertheless retain exclusive competence to establish regulations governing the exercise of this right — including firearms permitting systems or conditions of acquisition — provided such measures do not effectively nullify the fundamental and inalienable right of any citizen to keep and bear arms for lawful purposes.</div>
+          </div>
+
+          <div id="amend-3" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">III</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">QUARTERING OF TROOPS</div></div>
+            </div>
+            <div class="amendment-body">No Soldier shall, in time of peace be quartered in any house, without the consent of the Owner, nor in time of war, but in a manner to be prescribed by law.</div>
+          </div>
+
+          <div id="amend-4" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">IV</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">PROTECTION AGAINST UNREASONABLE SEARCHES AND SEIZURES</div></div>
+            </div>
+            <div class="amendment-body">Citizens are protected against any unreasonable search or seizure of their person, dwelling, papers, or effects. No warrant shall issue but upon probable cause, supported by oath or affirmation, and particularly describing the place to be searched, and the persons or things to be seized.</div>
+          </div>
+
+          <div id="amend-5" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">V</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">DUE PROCESS GUARANTEES</div></div>
+            </div>
+            <div class="amendment-body">No person shall be subject for the same offence to be twice put in jeopardy of life or limb; nor shall be compelled in any criminal case to be a witness against himself. No person shall be deprived of life, liberty, or property, without due process of law; nor shall private property be taken for public use, without just compensation.</div>
+          </div>
+
+          <div id="amend-6" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">VI</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">RIGHT TO A FAIR TRIAL</div></div>
+            </div>
+            <div class="amendment-body">In all criminal prosecutions, the accused shall enjoy the right to a speedy and public trial, by an impartial jury of the State and district wherein the crime shall have been committed; to be informed of the nature and cause of the accusation; to be confronted with the witnesses against him; to have compulsory process for obtaining witnesses in his favor; and to have the assistance of counsel for his defence.</div>
+          </div>
+
+          <div id="amend-7" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">VII</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">RIGHT TO JURY IN CIVIL MATTERS</div></div>
+            </div>
+            <div class="amendment-body">In suits at common law, where the value in controversy shall exceed twenty dollars, the right of trial by jury shall be preserved. No fact tried by a jury shall be otherwise re-examined in any Court of the United States, than according to the rules of the common law.</div>
+          </div>
+
+          <div id="amend-8" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">VIII</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">PROHIBITION OF EXCESSIVE PUNISHMENT</div></div>
+            </div>
+            <div class="amendment-body">Excessive bail shall not be required, nor excessive fines imposed, nor cruel and unusual punishments inflicted.</div>
+          </div>
+
+          <div id="amend-9" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">IX</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">UNENUMERATED RIGHTS</div></div>
+            </div>
+            <div class="amendment-body">The enumeration in the Constitution of certain rights shall not be construed to deny or disparage others retained by the people.</div>
+          </div>
+
+          <div id="amend-10" class="amendment">
+            <div class="amendment-header">
+              <div class="amendment-num-block"><div class="amendment-roman">X</div><div class="amendment-ordinal">Amend.</div></div>
+              <div class="amendment-title-block"><div class="amendment-title">POWERS RESERVED TO THE STATES</div></div>
+            </div>
+            <div class="amendment-body">The powers not delegated to the United States by the Constitution, nor prohibited by it to the States, are reserved to the States respectively, or to the people.</div>
+          </div>
+
+          <!-- Application provisions -->
+          <div style="background:rgba(201,168,76,0.04);border:var(--border-gold);border-radius:6px;padding:1.5rem 2rem;margin-top:2rem;">
+            <div style="font-family:var(--font-ui);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Application Provisions</div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem;">
+              <div style="display:flex;gap:1rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(201,168,76,0.1);">
+                <span style="font-family:var(--font-ui);font-size:0.65rem;color:var(--gold-dim);flex-shrink:0;">§ 1</span>
+                <span style="font-size:0.9rem;color:var(--cream-dark);line-height:1.7;">These federal constitutional rights apply in full on the territory of the State of San Andreas and prevail over any State law contrary to them.</span>
+              </div>
+              <div style="display:flex;gap:1rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(201,168,76,0.1);">
+                <span style="font-family:var(--font-ui);font-size:0.65rem;color:var(--gold-dim);flex-shrink:0;">§ 2</span>
+                <span style="font-size:0.9rem;color:var(--cream-dark);line-height:1.7;">Jurisdictions of the State of San Andreas are bound to respect and enforce these fundamental rights in the exercise of their functions.</span>
+              </div>
+              <div style="display:flex;gap:1rem;">
+                <span style="font-family:var(--font-ui);font-size:0.65rem;color:var(--gold-dim);flex-shrink:0;">§ 3</span>
+                <span style="font-size:0.9rem;color:var(--cream-dark);line-height:1.7;">Any violation of these rights by a public authority, whether federal or state, may give rise to proceedings before the competent jurisdictions.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════ CONSTITUTION ═══════════════════ -->
+        <div class="doc-section" id="doc-constitution">
+          <div class="doc-header">
+            <div class="doc-badge label-constitution">State Constitution</div>
+            <div class="doc-title">Constitution of San Andreas</div>
+            <div class="doc-subtitle">Fundamental Law of the State of San Andreas</div>
+            <p class="doc-intro">We, delegates and legitimate representatives of the people of San Andreas, vested with popular mandate and assembled in constitutional convention, proclaim and establish the following Constitution and governmental institutions, which shall be submitted to popular ratification in accordance with the democratic principles that guide us.</p>
+            <div class="doc-stats">
+              <div class="doc-stat"><div class="doc-stat-num">9</div><div class="doc-stat-label">Articles</div></div>
+              <div class="doc-stat"><div class="doc-stat-num">85</div><div class="doc-stat-label">Sections</div></div>
+            </div>
+          </div>
+
+          <!-- Art. I -->
+          <div class="const-article" id="art-i">
+            <div class="const-article-header">
+              <div class="const-article-num">Article I</div>
+              <div class="const-article-title">DECLARATION OF RIGHTS</div>
+            </div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">Popular Sovereignty</span></div><div class="const-section-body">All legitimate power emanates from the people, and every form of democratic government derives its authority from the consent of the governed. Institutions are established to guarantee social peace, collective security, and general welfare. The people retain a permanent, inalienable and imprescriptible right to reform, reorganize, or replace their government as they deem consistent with the public interest.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 2</span><span class="const-section-title">Rights of the Defense</span></div><div class="const-section-body">In any criminal proceeding, the accused has the right to be heard personally and to be assisted by legal counsel of their choice. They must be informed clearly and precisely of the exact nature of the charges. They have the right to summon favorable witnesses and to obtain a speedy, public, and fair trial before an impartial jury of the county where the acts were committed. No person may be compelled to provide testimony that incriminates them personally.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 3</span><span class="const-section-title">Right to Bear Arms</span></div><div class="const-section-body">Citizens of San Andreas hold the right to possess and carry arms for personal and collective defense, this right being recognized as fundamental and inviolable. The General Assembly is authorized to adopt reasonable regulations to govern the carrying of arms in public for the legitimate purpose of preventing criminal activity and protecting public safety.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 4</span><span class="const-section-title">Conditions of Detention</span></div><div class="const-section-body">Penitentiary institutions must be designed and maintained so as to guarantee security while preserving human dignity. Regular and independent inspections of prison facilities are mandatory. Detainees must be treated with respect for their physical and mental integrity, in accordance with recognized humanitarian standards.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 5</span><span class="const-section-title">Prohibition of Slavery</span></div><div class="const-section-body">Slavery and all forms of involuntary servitude are definitively prohibited and abolished throughout the territory of San Andreas, except as punishment for a crime duly proven after a fair trial.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 6</span><span class="const-section-title">Victims' Rights</span></div><div class="const-section-body">To preserve and strengthen the fundamental rights of crime victims in their pursuit of justice, the following guarantees are constitutionally recognized: the right to consult with prosecuting authorities; the right to be protected from intimidation, harassment, or retaliation; the right to attend all hearings; the right to be heard at critical stages of proceedings; the right to be informed of the accused's release, transfer, or escape; the right to timely resolution; the right to financial restitution from the offender; and the right to be fully informed of all their rights.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 9</span><span class="const-section-title">Religious Oath</span></div><div class="const-section-body">Any person who denies the existence of a supreme deity or who rejects the notion of transcendent justice in the afterlife may not hold a permanent civil public function within the institutions of this State.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 10</span><span class="const-section-title">Right to Marriage</span></div><div class="const-section-body">Marriage is recognized as a fundamental and universal civil right guaranteed to all citizens of San Andreas. No person may be denied the right to marry or have their union invalidated on the basis of sex, gender, or sexual orientation. All conjugal unions benefit from equal legal recognition and equivalent protection under the laws of this State.</div></div>
+          </div>
+
+          <!-- Art. II -->
+          <div class="const-article" id="art-ii">
+            <div class="const-article-header"><div class="const-article-num">Article II</div><div class="const-article-title">LEGISLATIVE POWER</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">General Assembly</span></div><div class="const-section-body">The supreme legislative power of the State of San Andreas is vested in the General Assembly, composed of its President (designated as Speaker) and the elected representatives of the people.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 3</span><span class="const-section-title">Composition</span></div><div class="const-section-body">The General Assembly is composed of ten representatives from distinct political formations, an elected Assembly President, and a designated alternate for each represented political group.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 9</span><span class="const-section-title">Disciplinary Power of the Speaker</span></div><div class="const-section-body">The President of the Assembly, vested with powers of order and policing of debates, is authorized to impose disciplinary sanctions on parliamentarians who contravene the Assembly's rules. They also have the power to initiate a recall vote against a representative in cases of serious misconduct.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 10</span><span class="const-section-title">Recall of a Representative</span></div><div class="const-section-body">A representative may only be recalled for acts constituting manifest violations of the law or serious breaches of parliamentary duties. A two-thirds majority of members present is required to pronounce the recall and terminate the mandate.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 13</span><span class="const-section-title">Parliamentary Immunity</span></div><div class="const-section-body">Every representative of the State of San Andreas benefits from parliamentary immunity conferring: immunity from liability for all opinions expressed and votes cast in the exercise of parliamentary functions; and the prohibition of arrest, prosecution, or conviction for statements made during parliamentary debates, until immunity is formally lifted by the Assembly.</div></div>
+          </div>
+
+          <!-- Art. III -->
+          <div class="const-article" id="art-iii">
+            <div class="const-article-header"><div class="const-article-num">Article III</div><div class="const-article-title">EXECUTIVE POWER</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">Governor</span></div><div class="const-section-body">The supreme executive power of the State of San Andreas is vested in a Governor elected for a six-month term. No individual may serve more than two consecutive terms in this office.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 3</span><span class="const-section-title">Eligibility Requirements</span></div><div class="const-section-body">A candidate for Governor must have reached the minimum age of thirty years, possess American citizenship, and have continuously resided in San Andreas for a minimum of seven years immediately preceding election.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 6</span><span class="const-section-title">Power of Pardon</span></div><div class="const-section-body">The Governor holds the power to temporarily suspend the execution of sentences and to grant pardons after a final conviction has been pronounced, with the exception of cases of constitutional impeachment.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 17</span><span class="const-section-title">Veto Power</span></div><div class="const-section-body">The Governor has fifteen days following adoption of legislation by the General Assembly to exercise a veto. If disapproved, the bill must be returned with written objections. The Assembly may override the veto by a two-thirds majority of elected members, whereupon the bill becomes law the following day.</div></div>
+          </div>
+
+          <!-- Art. IV -->
+          <div class="const-article" id="art-iv">
+            <div class="const-article-header"><div class="const-article-num">Article IV</div><div class="const-article-title">JUDICIAL POWER</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">Supreme Court</span></div><div class="const-section-body">The supreme judicial power of the State of San Andreas is vested in the Supreme Court, the court of last resort for constitutional interpretation and application of law within the State.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 3</span><span class="const-section-title">Composition of the Supreme Court</span></div><div class="const-section-body">The Supreme Court is composed of three justices: two permanent judges appointed for the duration of their professional careers and one judge drawn by lot from qualified judges to hear specific cases.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 5</span><span class="const-section-title">Qualifications Required</span></div><div class="const-section-body">A candidate for Supreme Court Justice must be at least thirty-five years of age, demonstrate continuous five-year residency in San Andreas, hold a Juris Doctor degree, and be an active member of the State Bar of San Andreas.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 7</span><span class="const-section-title">District Attorney General</span></div><div class="const-section-body">The Attorney General of the State of San Andreas is a senior magistrate responsible for the enforcement of criminal justice on behalf of the State. They direct the Department of Justice, advise the government on legal matters, and exercise criminal prosecution powers. Appointed by the Governor upon advice of the Supreme Court, for a renewable four-month term.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 9</span><span class="const-section-title">Compensation of Magistrates</span></div><div class="const-section-body">Judges receive compensation established proportional to their responsibilities: Supreme Court Justice — $16,563/month; Appellate Court Judge — $9,214/month; District Court Judge — $7,483/month.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 11</span><span class="const-section-title">Recusal and Conflicts of Interest</span></div><div class="const-section-body">No judge may preside over a case in which they have a personal, financial, or familial interest, or where a party is related to them by prohibited degree. A judge must also recuse themselves if they have previously acted as counsel in the matter or have already ruled on it at first instance, unless all parties expressly and unanimously consent.</div></div>
+          </div>
+
+          <!-- Art. V -->
+          <div class="const-article" id="art-v">
+            <div class="const-article-header"><div class="const-article-num">Article V</div><div class="const-article-title">IMPEACHMENT PROCEDURES</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">Exclusive Competence</span></div><div class="const-section-body">The General Assembly of San Andreas holds exclusive constitutional power to initiate and conduct impeachment proceedings against senior State officials.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 2</span><span class="const-section-title">Trial by the Supreme Court</span></div><div class="const-section-body">All impeachment proceedings are tried by the Supreme Court sitting in special formation. No conviction may be pronounced without the affirmative vote of at least two-thirds of representatives present.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 5</span><span class="const-section-title">Impeachable Officials</span></div><div class="const-section-body">The Governor, Supreme Court Justices, lower court judges, the Attorney General, and court clerks are subject to impeachment for serious offenses in the exercise of their official duties. The sanction is limited to removal from office and may include a permanent ban on holding future public office.</div></div>
+          </div>
+
+          <!-- Art. VI -->
+          <div class="const-article" id="art-vi">
+            <div class="const-article-header"><div class="const-article-num">Article VI</div><div class="const-article-title">ELECTORAL RIGHTS</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">Right of Suffrage</span></div><div class="const-section-body">Any person who has reached the age of eighteen, possesses American citizenship, has continuously resided in San Andreas for five consecutive years, and is duly registered on electoral rolls, benefits from the right to vote in all federal, state, and local elections. These eligibility conditions must be applied equally and uniformly throughout the territory.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 2</span><span class="const-section-title">Loss of Voting Rights</span></div><div class="const-section-body">Legislative provisions may be adopted to exclude from the right of suffrage persons who have received a final conviction for serious criminal offenses of an infamous nature.</div></div>
+          </div>
+
+          <!-- Art. VII -->
+          <div class="const-article" id="art-vii">
+            <div class="const-article-header"><div class="const-article-num">Article VII</div><div class="const-article-title">PUBLIC OFFICERS</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">Election of County Agents</span></div><div class="const-section-body">Qualified voters of each county elect, for a six-month term, a local legislative body, county executive, sheriff, administrator, registrar, county clerk, and property assessor. Any public officer may be removed for proven malfeasance or characterized negligence in the exercise of their duties.</div></div>
+          </div>
+
+          <!-- Art. VIII -->
+          <div class="const-article" id="art-viii">
+            <div class="const-article-header"><div class="const-article-num">Article VIII</div><div class="const-article-title">OATHS AND ELECTORAL CORRUPTION</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 1</span><span class="const-section-title">Mandatory Oath</span></div><div class="const-section-body">Every person elected or appointed to a public office of trust or remuneration must, before entering upon their duties, take the solemn oath to support the Constitution of San Andreas and the Constitution of the United States, as well as the specific oath pertaining to their function.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 2</span><span class="const-section-title">Sanctions Against Corruption</span></div><div class="const-section-body">Any voter who accepts a gift, reward, or benefit in exchange for their vote shall be liable to penal sanctions. Any person who offers, promises, or grants such a reward to be elected shall be disqualified from standing for office for six years from the date of the offense, in addition to any other penalty prescribed by the General Assembly.</div></div>
+          </div>
+
+          <!-- Art. IX -->
+          <div class="const-article" id="art-ix">
+            <div class="const-article-header"><div class="const-article-num">Article IX</div><div class="const-article-title">EMERGENCY POWERS</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 2</span><span class="const-section-title">Declaration of State of Emergency</span></div><div class="const-section-body">A state of emergency may be declared in circumstances qualified as exceptional that seriously threaten public order — including widespread riots, a series of multiple homicides within a short timeframe, coordinated attacks against law enforcement, or major natural disasters.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 6</span><span class="const-section-title">Exceptional Powers of the Governor</span></div><div class="const-section-body">During a state of emergency, the Governor may order: administrative searches without prior judicial warrant, proportionate to the circumstances; the establishment of a curfew over all or part of the territory; and large-scale preventive identity checks without requiring individualized justification.</div></div>
+            <div class="const-section"><div class="const-section-header"><span class="const-section-num">§ 8</span><span class="const-section-title">Martial Law</span></div><div class="const-section-body">Where the National Guard is deployed pursuant to Article III § 5, the Governor is authorized by official proclamation to declare martial law in the relevant county or municipality, and may promulgate orders protecting lives and property. Such orders may include: regulation of pedestrian and vehicular traffic; restriction of access to certain areas; temporary closure of public gathering establishments; prohibition on the sale of alcohol; enhanced control of persons in public spaces; and strict regulation of the possession and use of firearms, explosives, and flammable substances.</div></div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════ PENAL CODE ═══════════════════ -->
+        <div class="doc-section" id="doc-penal">
+          <div class="doc-header">
+            <div class="doc-badge label-active">In Force — Los Santos</div>
+            <div class="doc-title">Penal Code</div>
+            <div class="doc-subtitle">State of San Andreas</div>
+            <p class="doc-intro">The present Penal Code governs all criminal rules applicable throughout the territory of the State of San Andreas. It defines behaviors constituting offenses, establishes applicable sanctions, and guarantees the fundamental principles of justice and proportionality. No person may be prosecuted, convicted, or deprived of rights unless their act is provided for and punishable by the law in force at the time of the facts.</p>
+            <div class="doc-stats">
+              <div class="doc-stat"><div class="doc-stat-num">5</div><div class="doc-stat-label">Parts</div></div>
+              <div class="doc-stat"><div class="doc-stat-num">17</div><div class="doc-stat-label">Sections</div></div>
+            </div>
+            <div style="margin-top:1.2rem;background:rgba(201,168,76,0.07);border:var(--border-gold);border-radius:5px;padding:0.8rem 1.2rem;">
+              <p style="font-family:var(--font-ui);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Note on Sentence Duration</p>
+              <p style="font-size:0.82rem;color:var(--cream-dark);opacity:0.75;line-height:1.6;">Sentences expressed in <strong style="color:var(--cream);">hours of detention</strong> are served in custody for minor offenses. Sentences expressed in <strong style="color:var(--cream);">years of imprisonment</strong> require court proceedings for more serious offenses. All penalties listed represent <strong style="color:var(--cream);">maximum amounts</strong>, subject to reduction by judicial decision.</p>
+            </div>
+          </div>
+
+          <!-- PART I -->
+          <div class="article-part" id="p1">
+            <div class="part-header" onclick="togglePart(this)">
+              <span class="part-num">Part I</span>
+              <span class="part-title">Criminal Framework</span>
+              <span class="part-toggle">▼</span>
+            </div>
+            <div class="part-body">
+              <div class="article" id="art-110-1"><div class="article-header"><span class="article-num">Art. 110-1</span><span class="article-title">Classification of Offenses</span></div><div class="article-body"><p>Any act or behavior prohibited by law and criminally punishable constitutes an offense. Offenses are divided into three categories according to their severity:</p><p><strong>Infraction:</strong> minor offense not giving rise to deprivation of liberty, only a fixed fine.</p><p><strong>Misdemeanor:</strong> intermediate-gravity offense, punishable by imprisonment of up to 10 years.</p><p><strong>Felony:</strong> offense of particular gravity, punishable by at least 10 years imprisonment.</p></div></div>
+              <div class="article" id="art-110-2"><div class="article-header"><span class="article-num">Art. 110-2</span><span class="article-title">Recidivism and Aggravation of Penalties</span></div><div class="article-body"><p>Recidivism consists of committing an offense identical or comparable to one for which a final conviction has already been pronounced. When an individual already convicted of a felony or serious misdemeanor reoffends, the penalty must be at least double the previous one. For further recidivism, it is tripled. This aggravation is only applicable upon express decision of a judge pursuant to the Three Strikes Law.</p></div></div>
+              <div class="article" id="art-110-3"><div class="article-header"><span class="article-num">Art. 110-3</span><span class="article-title">Habeas Corpus</span></div><div class="article-body"><p>The principle of Habeas Corpus guarantees individual liberty against arbitrary detention. No person may be incarcerated without a prior judicial decision; every arrest must be motivated by reasonable suspicion and notified to the individual; any detained person may challenge their deprivation of liberty before a judge.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Sanction for violation</span>5 years imprisonment + $5,000</div></div></div></div>
+              <div class="article" id="art-110-4"><div class="article-header"><span class="article-num">Art. 110-4</span><span class="article-title">Citizen's Arrest</span></div><div class="article-body"><p>In the case of flagrant commission of a felony or misdemeanor punishable by imprisonment, any citizen has the right to apprehend the perpetrator, co-perpetrator, or accomplice and immediately surrender them to competent authorities. This apprehension may involve the use of force under the same conditions imposed upon police officers.</p></div></div>
+              <div class="article" id="art-120-1"><div class="article-header"><span class="article-num">Art. 120-1</span><span class="article-title">Guilt — Attempt and Complicity</span></div><div class="article-body"><p>An individual is declared guilty when recognized as responsible for an offense before a court. An <strong>attempt</strong> is constituted when an act of execution has begun but is interrupted independently of the perpetrator's will — it carries the same penalties as the completed offense, though remains an inherent mitigating circumstance. An <strong>accomplice</strong> is one who facilitates or provokes the offense by aid, instructions, threats, gifts, abuse of authority, or any other means — they face the same penalty as the principal perpetrator.</p></div></div>
+              <div class="article" id="art-120-5"><div class="article-header"><span class="article-num">Art. 120-5</span><span class="article-title">Stand Your Ground Law</span></div><div class="article-body"><p>This law authorizes the use of lethal force when an individual feels seriously threatened, even if retreat from the situation would have been possible.</p></div></div>
+              <div class="article" id="art-120-6"><div class="article-header"><span class="article-num">Art. 120-6</span><span class="article-title">Self-Defense</span></div><div class="article-body"><p>A person is not criminally liable if they respond to an attack with an act necessary to defend themselves or others, even if the response is disproportionate. Under the <strong>Castle Doctrine</strong>, an individual may use force, including lethal force, to defend their domicile against illegal intrusion. Per <em>Dawkins v. States (2011)</em>, self-defense may not be invoked if the actor was themselves engaged in illegal conduct, or if the weapon used was prohibited.</p></div></div>
+            </div>
+          </div>
+
+          <!-- PART II -->
+          <div class="article-part" id="p2">
+            <div class="part-header" onclick="togglePart(this)">
+              <span class="part-num">Part II</span>
+              <span class="part-title">Offenses Against Persons</span>
+              <span class="part-toggle">▼</span>
+            </div>
+            <div class="part-body">
+              <div class="article" id="art-210-1"><div class="article-header"><span class="article-num">Art. 210-1</span><span class="article-title">First-Degree Murder (Premeditated)</span></div><div class="article-body"><p>Voluntarily causing the death of another with prior preparation in any form constitutes first-degree murder. Any voluntary homicide committed during the execution of a felony (terrorist act, arson, rape, burglary, theft, kidnapping, aggravated assault, gross negligence) or where the victim represents judicial authority or law enforcement is also classified as first-degree murder.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Base penalty</span>35 years + $50,000</div><div class="penalty-item aggravated"><span class="penalty-label">Maximum</span>Death penalty*</div></div><p style="font-size:0.78rem;opacity:0.55;margin-top:0.8rem;">*Only upon judicial decision. Death penalty is subject to automatic review by the Supreme Court.</p></div></div>
+              <div class="article" id="art-210-2"><div class="article-header"><span class="article-num">Art. 210-2</span><span class="article-title">Second-Degree Murder (Voluntary Homicide)</span></div><div class="article-body"><p>Voluntarily causing the death of a human being without premeditation constitutes second-degree murder.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Victim adult</span>30 years + $40,000</div><div class="penalty-item"><span class="penalty-label">Victim minor</span>35 years + $45,000</div><div class="penalty-item aggravated"><span class="penalty-label">Maximum</span>Death penalty*</div></div></div></div>
+              <div class="article" id="art-210-3"><div class="article-header"><span class="article-num">Art. 210-3</span><span class="article-title">Involuntary Manslaughter</span></div><div class="article-body"><p>Causing the death of another through clumsiness, imprudence, inattention, negligence, or failure to comply with a specific duty of care imposed by law or regulation constitutes involuntary manslaughter.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>10 years + $28,000</div></div></div></div>
+              <div class="article" id="art-210-4"><div class="article-header"><span class="article-num">Art. 210-4</span><span class="article-title">Endangerment of Life</span></div><div class="article-body"><p>Directly exposing another to an immediate risk of death or serious injury through deliberate violation of a specific duty of safety or care imposed by law or regulation.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>5 years + $5,000</div></div></div></div>
+              <div class="article" id="art-210-6"><div class="article-header"><span class="article-num">Art. 210-6</span><span class="article-title">Failure to Render Assistance</span></div><div class="article-body"><p>Voluntarily refraining from providing or causing to be provided assistance to a person in peril, when it was possible to act without risk to oneself or others, constitutes failure to render assistance. The peril must be imminent, real, and serious — threatening physical integrity or life.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Base penalty</span>3 years + $3,000</div><div class="penalty-item aggravated"><span class="penalty-label">If death/serious injury results</span>8 years + $8,000</div></div></div></div>
+              <div class="article" id="art-220-1"><div class="article-header"><span class="article-num">Art. 220-1</span><span class="article-title">Torture</span></div><div class="article-body"><p>Any act voluntarily inflicting intense physical or psychological suffering upon a person.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>16 years + $18,000</div></div></div></div>
+              <div class="article" id="art-220-3"><div class="article-header"><span class="article-num">Art. 220-3</span><span class="article-title">Unlawful Imprisonment / Kidnapping</span></div><div class="article-body"><p>Depriving a person of their freedom of movement through threat, coercion, or force. Aggravated when committed to facilitate a crime, prevent public authority action, the victim suffers serious injuries, a weapon is involved, or kidnapping accompanies the acts.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Base penalty</span>10 years + $9,000</div><div class="penalty-item aggravated"><span class="penalty-label">One aggravating factor</span>12 years + $14,000</div><div class="penalty-item aggravated"><span class="penalty-label">Two or more factors</span>15 years + $24,000</div></div></div></div>
+              <div class="article" id="art-220-4"><div class="article-header"><span class="article-num">Art. 220-4</span><span class="article-title">Assault</span></div><div class="article-body"><p>Placing another in immediate danger, or making non-consensual offensive or violent physical contact. Aggravated when it causes serious sequelae (mutilation, permanent injury, disfigurement, strangulation) or is committed against a law enforcement officer, public agent in the exercise of their functions, a spouse, or is motivated by religion, origin, sex, or sexual orientation.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Simple assault</span>6 years + $4,500</div><div class="penalty-item aggravated"><span class="penalty-label">Aggravated assault</span>14 years + $18,000</div></div></div></div>
+            </div>
+          </div>
+
+          <!-- PART III -->
+          <div class="article-part" id="p3">
+            <div class="part-header" onclick="togglePart(this)">
+              <span class="part-num">Part III</span>
+              <span class="part-title">Offenses Against Public Order</span>
+              <span class="part-toggle">▼</span>
+            </div>
+            <div class="part-body">
+              <div class="article" id="art-310-1"><div class="article-header"><span class="article-num">Art. 310-1</span><span class="article-title">Failure to Stop / Fleeing Law Enforcement</span></div><div class="article-body"><p>Failure of a driver to stop following a clear and identifiable order from a law enforcement officer. Emergency lights and sirens constitute a clear and identifiable summons.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>15 hours detention + $1,000</div></div></div></div>
+              <div class="article" id="art-310-3"><div class="article-header"><span class="article-num">Art. 310-3</span><span class="article-title">Resisting Arrest</span></div><div class="article-body"><p>Refusing to comply with a lawful order given by a police officer, or physically or verbally resisting a lawful arrest.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>5 hours detention + $2,000</div></div></div></div>
+              <div class="article" id="art-310-5"><div class="article-header"><span class="article-num">Art. 310-5</span><span class="article-title">Refusal to Identify</span></div><div class="article-body"><p>Refusing to provide identity to an officer when arrested or reasonably suspected of an offense. A citizen may decline to identify themselves until informed of the reason for the stop. In case of persistent refusal, the person may be detained until identified.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>5 hours detention + $2,000</div></div></div></div>
+              <div class="article" id="art-320-1"><div class="article-header"><span class="article-num">Art. 320-1</span><span class="article-title">Riot and Incitement</span></div><div class="article-body"><p>A riot corresponds to a public disturbance involving violent acts committed by at least five persons, creating an immediate danger to persons or property. Incitement consists of pushing others to participate in a riot, particularly by encouraging violence.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Participating in a riot</span>15 hours + $6,000</div><div class="penalty-item"><span class="penalty-label">Inciting a riot</span>5 hours + $1,000</div><div class="penalty-item aggravated"><span class="penalty-label">With weapon</span>20 hours + $8,000</div><div class="penalty-item aggravated"><span class="penalty-label">Involving a minor</span>30 hours + $10,000</div></div></div></div>
+              <div class="article" id="art-330-1"><div class="article-header"><span class="article-num">Art. 330-1</span><span class="article-title">Perjury</span></div><div class="article-body"><p>Lying or voluntarily omitting information during testimony under oath before a court or police officer. Remaining silent or pleading not guilty never constitutes perjury. If false testimony leads to the execution of a person subsequently found innocent, the perpetrator may face capital punishment upon judicial decision.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>6 years + $6,500</div></div></div></div>
+              <div class="article" id="art-330-2"><div class="article-header"><span class="article-num">Art. 330-2</span><span class="article-title">Escape from Custody</span></div><div class="article-body"><p>Escaping from lawful detention or aiding a detainee to flee. Aggravated when committed through violence, break-in, corruption, or involves escape from a federal prison.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Simple escape</span>20 hours + $8,000</div><div class="penalty-item aggravated"><span class="penalty-label">Aggravated escape</span>8 years + $34,000</div></div></div></div>
+              <div class="article" id="art-330-4"><div class="article-header"><span class="article-num">Art. 330-4</span><span class="article-title">Contempt of Court</span></div><div class="article-body"><p>Insulting, disrupting, or showing disrespect to a court or its representatives. An attorney may not be prosecuted for contempt based on their defense submissions, except in cases of manifest abuse. If contempt occurs during a hearing, the judge may immediately apply the sanction.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Penalty</span>20 hours + $2,600</div></div></div></div>
+              <div class="article" id="art-240-3"><div class="article-header"><span class="article-num">Art. 240-3</span><span class="article-title">Criminal Threats</span></div><div class="article-body"><p>Expressing or implying that one will commit a crime or misdemeanor against another, even if the act has not yet been carried out. The mere intention to seek justice is not a threat. Aggravated when directed against a magistrate or law enforcement officer, of a sexual nature, constitutes a death or mutilation threat, is made with a weapon, or is repeated.</p><div class="penalty-box"><div class="penalty-item"><span class="penalty-label">Simple threat</span>$1,000 fine</div><div class="penalty-item aggravated"><span class="penalty-label">One aggravating factor</span>7 years + $5,500</div><div class="penalty-item aggravated"><span class="penalty-label">Two or more factors</span>14 years + $9,500</div></div></div></div>
+            </div>
+          </div>
+
+          <!-- PART IV -->
+          <div class="article-part" id="p4">
+            <div class="part-header" onclick="togglePart(this)">
+              <span class="part-num">Part IV</span>
+              <span class="part-title">Offenses Against Property</span>
+              <span class="part-toggle">▼</span>
+            </div>
+            <div class="part-body">
+              <div class="article"><div class="article-header"><span class="article-num">Art. 410</span><span class="article-title">Theft</span></div><div class="article-body"><p>This section encompasses all offenses relating to the unlawful taking of property belonging to another, including robbery, burglary, grand theft, and receiving stolen property. Penalties scale according to the value of property taken, the means employed, and any aggravating circumstances such as the use of weapons or commission during other felonies. Consult the full Penal Code for individual article penalties.</p></div></div>
+              <div class="article"><div class="article-header"><span class="article-num">Art. 420</span><span class="article-title">Property Damage</span></div><div class="article-body"><p>This section covers willful destruction or damage to private or public property, including vandalism, arson, and criminal mischief. The severity of the offense and resulting penalty are determined by the extent of damage caused and whether the act endangered persons. Consult the full Penal Code for individual article penalties.</p></div></div>
+            </div>
+          </div>
+
+          <!-- PART V -->
+          <div class="article-part" id="p5">
+            <div class="part-header" onclick="togglePart(this)">
+              <span class="part-num">Part V</span>
+              <span class="part-title">Offenses Against the Nation</span>
+              <span class="part-toggle">▼</span>
+            </div>
+            <div class="part-body">
+              <div class="article"><div class="article-header"><span class="article-num">Art. 510</span><span class="article-title">Treason</span></div><div class="article-body"><p>Acts of treason against the State of San Andreas or the United States of America, including providing aid and comfort to enemies of the State, espionage, or any act designed to overthrow the legitimate government of San Andreas. Treason constitutes the gravest offense recognized under State law and carries the maximum sentence available under the Penal Code, including the possibility of capital punishment upon judicial decision. The Supreme Court exercises automatic review in all capital cases.</p></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showDoc(id, btn) {
+  // Hide all sections
+  document.querySelectorAll('.doc-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.toc-sub').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.toc-doc-btn').forEach(b => b.classList.remove('active', 'open'));
+
+  // Show selected
+  document.getElementById('doc-' + id).classList.add('active');
+  document.getElementById('toc-' + id).classList.add('open');
+  btn.classList.add('active', 'open');
+
+  // Clear search
+  document.getElementById('legal-search-input').value = '';
+  clearHighlights();
+
+  // Scroll to top
+  document.querySelector('.legal-content').scrollTop = 0;
+}
+
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    setTimeout(() => { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+  }
+  // Update current TOC link
+  document.querySelectorAll('.toc-sub a').forEach(a => a.classList.remove('current'));
+  event.target.classList.add('current');
+}
+
+function togglePart(header) {
+  header.classList.toggle('collapsed');
+  header.nextElementSibling.classList.toggle('collapsed');
+}
+
+function clearHighlights() {
+  document.querySelectorAll('mark').forEach(m => {
+    const parent = m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent), m);
+    parent.normalize();
+  });
+}
+
+function searchDoc(query) {
+  clearHighlights();
+  if (!query || query.length < 2) return;
+
+  const section = document.querySelector('.doc-section.active');
+  if (!section) return;
+
+  const walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT, null, false);
+  const nodes = [];
+  let node;
+  while (node = walker.nextNode()) {
+    if (node.parentNode.tagName !== 'SCRIPT' && node.parentNode.tagName !== 'STYLE' && node.textContent.trim()) {
+      nodes.push(node);
+    }
   }
 
-  function openModal() {
-    document.getElementById('modal').classList.remove('hidden');
-  }
+  const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+  nodes.forEach(textNode => {
+    if (regex.test(textNode.textContent)) {
+      regex.lastIndex = 0;
+      const span = document.createElement('span');
+      span.innerHTML = textNode.textContent.replace(regex, match => `<mark>${match}</mark>`);
+      textNode.parentNode.replaceChild(span, textNode);
+    }
+  });
+}
 
-  function closeModal() {
-    document.getElementById('modal').classList.add('hidden');
-  }
-
-  function saveAnnounce() {
-    const title = document.getElementById('a-title').value.trim();
-    const content = document.getElementById('a-content').value.trim();
-    if (!title || !content) { JBSA.showAlert('Remplissez tous les champs.', 'error'); return; }
-
-    const announces = JBSA.store.get('announcements') || [];
-    const newA = {
-      id: Date.now(),
-      title,
-      content,
-      author: user ? user.name : session.name,
-      grade: session.grade,
-      date: new Date().toISOString().split('T')[0],
-      visibility: document.getElementById('a-visibility').value,
-      pinned: document.getElementById('a-pinned').value === 'true'
-    };
-
-    announces.unshift(newA);
-    JBSA.store.set('announcements', announces);
-    closeModal();
-    renderAnnounces();
-    JBSA.showAlert('Annonce publiée.', 'success');
-  }
-
-  function deleteAnnounce(id) {
-    if (!confirm('Supprimer cette annonce ?')) return;
-    let announces = JBSA.store.get('announcements') || [];
-    announces = announces.filter(a => a.id !== id);
-    JBSA.store.set('announcements', announces);
-    renderAnnounces();
-    JBSA.showAlert('Annonce supprimée.', 'success');
-  }
-
-  renderAnnounces();
+// Init sidebar open for first doc
+document.querySelector('.toc-doc-btn').classList.add('open');
 </script>
 </body>
 </html>
