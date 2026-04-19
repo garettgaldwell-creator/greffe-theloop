@@ -39,8 +39,8 @@ const JBSA = (() => {
 
   const defaultAnnonces = [
     {
-      id: 1, title: 'April Hearing Schedule é Revised Docket',
-      content: 'Due to administrative scheduling conflicts, hearings originally set for April 15é22 have been rescheduled. An updated court calendar will be distributed shortly.',
+      id: 1, title: 'April Hearing Schedule Ã© Revised Docket',
+      content: 'Due to administrative scheduling conflicts, hearings originally set for April 15Ã©22 have been rescheduled. An updated court calendar will be distributed shortly.',
       author: 'Hon. Robert Marshall', grade: 'judge', date: '2025-04-10',
       visibility: 'all', pinned: true
     },
@@ -51,7 +51,7 @@ const JBSA = (() => {
       visibility: 'all', pinned: false
     },
     {
-      id: 3, title: 'Barreau é Updated Rules of Professional Conduct',
+      id: 3, title: 'Barreau Ã© Updated Rules of Professional Conduct',
       content: 'The Barreau de San Andreas has issued updated Rules of Professional Conduct. All licensed avocats are required to review the amended provisions before April 30.',
       author: 'System Administrateur', grade: 'admin', date: '2025-04-05',
       visibility: 'all', pinned: false
@@ -85,12 +85,12 @@ const JBSA = (() => {
       type: 'P?nal', status: 'closed', priority: 'medium',
       judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
       lawyer: 'Sofia Garcia, Esq.', created: '2025-01-10',
-      nextHearing: null, description: 'Sentenced é 5 years, Department of Corrections.'
+      nextHearing: null, description: 'Sentenced Ã© 5 years, Department of Corrections.'
     }
   ];
 
   const defaultHearings = [
-    { id: 1, caseId: 'SA-2025-0142', date: '2025-04-28', time: '09:00', room: 'Salle d?audience A', type: 'Trial é Evidentiary Hearing' },
+    { id: 1, caseId: 'SA-2025-0142', date: '2025-04-28', time: '09:00', room: 'Salle d?audience A', type: 'Trial Ã© Evidentiary Hearing' },
     { id: 2, caseId: 'SA-2025-0118', date: '2025-05-05', time: '14:00', room: 'Salle d?audience B', type: 'Mise en accusation' },
     { id: 3, caseId: 'SA-2025-0099', date: '2025-05-12', time: '10:30', room: 'Salle d?audience C', type: 'Conf?rence de m?diation' }
   ];
@@ -110,8 +110,8 @@ const JBSA = (() => {
     if (!store.get('siteSettings')) store.set('siteSettings', {
       siteName: 'Branche judiciaire de San Andreas',
       founded: 1926,
-      heroText: 'Justice, Équité & the Primauté du droit in the État de San Andreas',
-      courtInfo: 'The Cour supr?me of San Andreas is the plus haute juridiction in l’État, exercising final appellate jurisdiction and ensuring uniformity in the interpretation of State law.',
+      heroText: 'Justice, Ã‰quitÃ© & the PrimautÃ© du droit in the Ã‰tat de San Andreas',
+      courtInfo: 'The Cour supr?me of San Andreas is the plus haute juridiction in lâ€™Ã‰tat, exercising final appellate jurisdiction and ensuring uniformity in the interpretation of State law.',
       prosecutorInfo: "The Bureau du procureur represents the People of San Andreas in criminal prosecutions. It investigates offenses and brings charges against violators of State law.",
       barInfo: "The Barreau de San Andreas regulates the legal profession and ensures that all licensed avocats meet the highest standards of competence and ethical conduct."
     });
@@ -127,7 +127,7 @@ const JBSA = (() => {
 
     // If a role was selected, enforce it
     if (requiredGrade && grade !== requiredGrade && grade !== 'admin') {
-      return { success: false, error: 'Votre compte n’a pas accès à la section sélectionnée.' };
+      return { success: false, error: 'Votre compte nâ€™a pas accÃ¨s Ã  la section sÃ©lectionnÃ©e.' };
     }
 
     const users = store.get('users') || [];
@@ -192,7 +192,7 @@ const JBSA = (() => {
 
   // ===== HELPERS =====
   function formatDate(dateStr) {
-    if (!dateStr) return 'é';
+    if (!dateStr) return 'Ã©';
     const d = new Date(dateStr);
     return d.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' });
   }
@@ -241,7 +241,7 @@ const JBSA = (() => {
       { page: 'legal',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/><polyline points="9,9 9,9"/></svg>', label: 'Textes juridiques',         href: 'legal.html' },
     ];
 
-    const adminLinks = grade === 'admin' → [
+    const adminLinks = grade === 'admin' ? [
       { page: 'admin',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>', label: 'Administration',     href: 'admin.html' },
       { page: 'admin-users',    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', label: 'Gestion des utilisateurs',    href: 'admin-users.html' },
       { page: 'admin-settings', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>', label: 'Param?tres du site',      href: 'admin-settings.html' },
