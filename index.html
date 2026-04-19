@@ -1347,7 +1347,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
 <nav class="navbar">
   <a href="index.html" class="navbar-brand">
     <div class="navbar-logo">
-      <img src="seal.webp" alt="JBSA Seal" onerror="this.parentElement.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>?';this.parentElement.style.fontSize='1.5rem'">
+      <img src="seal.webp" alt="Sceau JBSA" onerror="this.style.display='none'">
     </div>
     <div class="navbar-name">
       Judicial Branch
@@ -1386,8 +1386,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
       <div class="hero-seal anim-fade-up anim-delay-2">
         <div class="seal-wrapper">
           <div class="seal-ring"></div>
-          <img class="seal-img" src="seal.webp" alt="Sceau JBSA"
-            onerror="this.style.background='var(--navy-light)';this.style.display='flex';this.style.alignItems='center';this.style.justifyContent='center';this.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>'></svg>'">
+          <img class="seal-img" src="seal.webp" alt="Sceau JBSA" onerror="this.style.display='none'">
         </div>
       </div>
     </div>
@@ -1446,7 +1445,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
 
 <!-- DIVIDER -->
 <div class="container">
-  <div class="divider"><span class="divider-icon">?</span></div>
+  <div class="divider"><span class="divider-icon">&bull;</span></div>
 </div>
 
 <!-- NEWS + VALUES -->
@@ -1474,7 +1473,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
         </div>
         <div style="display:flex;flex-direction:column;gap:1rem;">
           <div class="value-item">
-            <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>?</div>
+            <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg></div>
             <div>
               <h4>Impartialit&eacute;</h4>
               <p>Chaque affaire est trait&eacute;e avec la m&ecirc;me rigueur et &eacute;quit&eacute;, sans distinction de statut ou d'origine.</p>
@@ -1557,7 +1556,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
     </div>
     <div class="footer-bottom">
       <p>&copy; 1926-2025 Branche judiciaire de San Andreas &middot; Tous droits r&eacute;serv&eacute;s</p>
-      <p>Powered by FiveM Ã© San Andreas RP</p>
+      <p>Propuls&eacute; par FiveM &middot; San Andreas RP</p>
     </div>
   </div>
 </footer>
@@ -1864,43 +1863,60 @@ document.addEventListener('DOMContentLoaded', () => JBSA.init());
 
 </script>
 <script>
-  // Render news from announcements
+  const publicAnnouncements = [
+    {
+      date: '2025-04-22',
+      title: 'Calendrier judiciaire mis &agrave; jour',
+      content: "Le calendrier public des audiences a &eacute;t&eacute; actualis&eacute; pour refl&eacute;ter les derni&egrave;res informations disponibles."
+    },
+    {
+      date: '2025-04-18',
+      title: 'Publication des principes directeurs',
+      content: "La branche judiciaire rappelle ses engagements en mati&egrave;re d'impartialit&eacute;, de transparence et de primaut&eacute; du droit."
+    },
+    {
+      date: '2025-04-11',
+      title: 'Divisions ouvertes au public',
+      content: "Les pr&eacute;sentations de la Cour, du Bureau du procureur et du Barreau sont d&eacute;sormais accessibles depuis la page Divisions."
+    }
+  ];
+
   function renderNews() {
-    const announcements = JBSA.store.get('announcements') || [];
     const container = document.getElementById('news-list');
-    const recent = announcements.slice(0, 3);
-    container.innerHTML = recent.map(a => {
-      const d = new Date(a.date);
+    if (!container) return;
+    container.innerHTML = publicAnnouncements.map(item => {
+      const d = new Date(item.date);
       return `
       <div class="news-item">
         <div class="news-date">
           <div class="day">${d.getDate()}</div>
-          <div class="month">${d.toLocaleDateString('fr-FR',{month:'short'})}</div>
+          <div class="month">${d.toLocaleDateString('fr-FR', { month: 'short' })}</div>
         </div>
         <div class="news-content">
-          <h4>${a.title}</h4>
-          <p>${a.content.substring(0, 120)}...</p>
+          <h4>${item.title}</h4>
+          <p>${item.content}</p>
         </div>
       </div>`;
     }).join('');
   }
 
-  // Counter animation
   function animateCounters() {
     document.querySelectorAll('[data-count]').forEach(el => {
-      const target = parseInt(el.dataset.count);
+      const target = Number(el.dataset.count || 0);
       let current = 0;
-      const step = target / 60;
+      const step = Math.max(1, Math.ceil(target / 50));
       const timer = setInterval(() => {
         current = Math.min(current + step, target);
-        el.textContent = Math.floor(current);
+        el.textContent = current.toLocaleString('fr-FR');
         if (current >= target) clearInterval(timer);
       }, 20);
     });
   }
 
-  renderNews();
-  setTimeout(animateCounters, 300);
+  document.addEventListener('DOMContentLoaded', () => {
+    renderNews();
+    setTimeout(animateCounters, 300);
+  });
 </script>
 </body>
 </html>

@@ -1393,8 +1393,8 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
     <div class="login-left">
       <img class="login-seal" src="seal.webp" alt="JBSA Seal"
         onerror="this.style.display='none'">
-      <h2>Judicial Branch<br>of San Andreas</h2>
-      <p>Secure intranet portal<br>for accredited court personnel only</p>
+      <h2>Branche judiciaire<br>de San Andreas</h2>
+      <p>Portail intranet securise<br>reserve au personnel judiciaire accredite</p>
       <div class="year">1926</div>
     </div>
 
@@ -1476,8 +1476,8 @@ const JBSA = (() => {
   const defaultUsers = [
     {
       id: 1, username: 'admin', grade: 'admin',
-      name: 'System Administrateur', email: 'admin@jbsa.gov',
-      department: 'Administration', title: 'System Administrateur',
+      name: 'Administrateur systeme', email: 'admin@jbsa.gov',
+      department: 'Administration', title: 'Administrateur systeme',
       active: true, created: '2024-01-01', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>'
     },
     {
@@ -1516,7 +1516,7 @@ const JBSA = (() => {
     {
       id: 3, title: 'Barreau Ã© Updated Rules of Professional Conduct',
       content: 'The Barreau de San Andreas has issued updated Rules of Professional Conduct. All licensed avocats are required to review the amended provisions before April 30.',
-      author: 'System Administrateur', grade: 'admin', date: '2025-04-05',
+      author: 'Administrateur systeme', grade: 'admin', date: '2025-04-05',
       visibility: 'all', pinned: false
     }
   ];
@@ -1739,10 +1739,10 @@ const JBSA = (() => {
       </nav>
       <div style="padding:1.5rem;border-top:var(--border-gold);margin-top:2rem;">
         <a href="index.html" class="sidebar-link" style="margin-bottom:0.5rem;">
-          <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> Public Site
+          <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> Site public
         </a>
         <button onclick="JBSA.logout()" class="btn btn-ghost btn-sm w-full" style="justify-content:center;">
-          Sign Out
+          Deconnexion
         </button>
       </div>
     </aside>`;
@@ -1780,17 +1780,17 @@ document.addEventListener('DOMContentLoaded', () => JBSA.init());
         return;
       }
       if (!username || !password) {
-        JBSA.showAlert('Please enter your username and password.', 'error');
+        JBSA.showAlert('Veuillez saisir votre identifiant et votre mot de passe.', 'error');
         return;
       }
 
-      btn.textContent = 'Verifying...';
+      btn.textContent = 'Verification...';
       btn.disabled = true;
 
       setTimeout(() => {
         const result = JBSA.login(username, password, selectedRole);
         if (result.success) {
-          JBSA.showAlert('Access granted. Redirecting...', 'success');
+          JBSA.showAlert('Acces autorise. Redirection...', 'success');
           setTimeout(() => { window.location.href = 'intranet.html'; }, 800);
         } else {
           JBSA.showAlert(result.error, 'error');
