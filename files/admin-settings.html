@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramètres du Site — Admin JBSA</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .settings-section {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 6px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .settings-section-header {
+      padding: 1.2rem 1.5rem;
+      border-bottom: var(--border-gold);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .settings-section-header h3 {
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+
+    .settings-section-body { padding: 2rem; }
+
+    .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 768px) { .settings-grid { grid-template-columns: 1fr; } }
+
+    .preview-box {
+      background: rgba(0,0,0,0.2);
+      border: var(--border-gold);
+      border-radius: 5px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .preview-box h4 { color: var(--gold); margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .preview-box p { color: var(--cream-dark); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; }
+
+    .reset-zone {
+      background: rgba(139,26,26,0.1);
+      border: 1px solid rgba(139,26,26,0.3);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .reset-zone h3 { color: #ef4444; margin-bottom: 0.5rem; }
+    .reset-zone p { color: var(--cream-dark); opacity: 0.7; font-size: 0.9rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+<div id="sidebar-mount"></div>
+
+<div class="main-content">
+  <div class="page-header">
+    <h1>🔧 Paramètres du Site</h1>
+    <button class="btn btn-gold btn-sm" onclick="saveAll()">💾 Sauvegarder tout</button>
+  </div>
+
+  <div class="page-body">
+    <div id="alert-container"></div>
+
+    <!-- General Info -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3>🏛️ Informations Générales</h3>
+      </div>
+      <div class="settings-section-body">
+        <div class="settings-grid">
+          <div class="form-group">
+            <label class="form-label">Nom de l'Institution</label>
+            <input type="text" id="s-name" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Année de Fondation</label>
+            <input type="number" id="s-founded" class="form-input">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Texte Hero (Page d'Accueil)</label>
+          <input type="text" id="s-hero" class="form-input">
+        </div>
+      </div>
+    </div>
+
+    <!-- Court Info -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3>⚖️ Présentation — La Cour</h3>
+      </div>
+      <div class="settings-section-body">
+        <div class="form-group">
+          <label class="form-label">Description de la Cour</label>
+          <textarea id="s-court" class="form-textarea" style="min-height:120px;"></textarea>
+        </div>
+        <div class="preview-box">
+          <h4>Aperçu :</h4>
+          <p id="court-preview"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prosecutor Info -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3>📋 Présentation — Bureau du Procureur</h3>
+      </div>
+      <div class="settings-section-body">
+        <div class="form-group">
+          <label class="form-label">Description du Bureau du Procureur</label>
+          <textarea id="s-prosecutor" class="form-textarea" style="min-height:120px;"></textarea>
+        </div>
+        <div class="preview-box">
+          <h4>Aperçu :</h4>
+          <p id="prosecutor-preview"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar Info -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3>🏛️ Présentation — Barreau</h3>
+      </div>
+      <div class="settings-section-body">
+        <div class="form-group">
+          <label class="form-label">Description du Barreau de San Andreas</label>
+          <textarea id="s-bar" class="form-textarea" style="min-height:120px;"></textarea>
+        </div>
+        <div class="preview-box">
+          <h4>Aperçu :</h4>
+          <p id="bar-preview"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="settings-section">
+      <div class="settings-section-header">
+        <h3>⚠️ Zone de Danger</h3>
+      </div>
+      <div class="settings-section-body">
+        <div class="reset-zone">
+          <h3>Réinitialiser les données</h3>
+          <p>Cette action supprimera tous les utilisateurs, dossiers, annonces et audiences et restaurera les données de démonstration. Cette action est irréversible.</p>
+          <button class="btn btn-danger" onclick="resetAll()">🗑️ Réinitialiser toutes les données</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jbsa.js"></script>
+<script>
+  const session = JBSA.requireAuth(['admin']);
+  if (!session) throw new Error();
+
+  document.getElementById('sidebar-mount').innerHTML = JBSA.buildSidebar(session.grade, 'admin-settings');
+
+  function loadSettings() {
+    const s = JBSA.store.get('siteSettings') || {};
+    document.getElementById('s-name').value = s.siteName || '';
+    document.getElementById('s-founded').value = s.founded || 1926;
+    document.getElementById('s-hero').value = s.heroText || '';
+    document.getElementById('s-court').value = s.courtInfo || '';
+    document.getElementById('s-prosecutor').value = s.prosecutorInfo || '';
+    document.getElementById('s-bar').value = s.barInfo || '';
+    updatePreviews();
+  }
+
+  function updatePreviews() {
+    document.getElementById('court-preview').textContent = document.getElementById('s-court').value;
+    document.getElementById('prosecutor-preview').textContent = document.getElementById('s-prosecutor').value;
+    document.getElementById('bar-preview').textContent = document.getElementById('s-bar').value;
+  }
+
+  ['s-court','s-prosecutor','s-bar'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updatePreviews);
+  });
+
+  function saveAll() {
+    JBSA.store.set('siteSettings', {
+      siteName: document.getElementById('s-name').value,
+      founded: parseInt(document.getElementById('s-founded').value),
+      heroText: document.getElementById('s-hero').value,
+      courtInfo: document.getElementById('s-court').value,
+      prosecutorInfo: document.getElementById('s-prosecutor').value,
+      barInfo: document.getElementById('s-bar').value
+    });
+    JBSA.showAlert('Paramètres sauvegardés avec succès.', 'success');
+  }
+
+  function resetAll() {
+    if (!confirm('⚠️ ATTENTION : Toutes les données seront effacées. Continuer ?')) return;
+    if (!confirm('Dernière confirmation : réinitialiser ?')) return;
+    const keys = ['users','announcements','cases','hearings','documents','siteSettings'];
+    keys.forEach(k => localStorage.removeItem('jbsa_' + k));
+    JBSA.init();
+    loadSettings();
+    JBSA.showAlert('Données réinitialisées. Les données de démo ont été restaurées.', 'success');
+  }
+
+  loadSettings();
+</script>
+</body>
+</html>

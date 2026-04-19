@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audiences — Intranet JBSA</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .calendar-layout { display: grid; grid-template-columns: 1fr 340px; gap: 2rem; }
+    @media (max-width: 900px) { .calendar-layout { grid-template-columns: 1fr; } }
+
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cal-nav button {
+      background: rgba(201,168,76,0.08);
+      border: var(--border-gold);
+      border-radius: 4px;
+      width: 36px;
+      height: 36px;
+      color: var(--gold);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .cal-nav button:hover { background: rgba(201,168,76,0.15); }
+
+    .cal-month-label {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      background: rgba(201,168,76,0.08);
+      border: var(--border-gold);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .cal-day-header {
+      background: rgba(201,168,76,0.06);
+      padding: 0.6rem;
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+
+    .cal-day {
+      background: var(--navy-light);
+      min-height: 80px;
+      padding: 0.5rem;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .cal-day:hover { background: rgba(201,168,76,0.07); }
+    .cal-day.other-month { opacity: 0.35; }
+
+    .cal-day.today .day-num {
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .day-num {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      color: var(--cream-dark);
+      margin-bottom: 0.3rem;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hearing-chip {
+      background: rgba(201,168,76,0.15);
+      border-left: 2px solid var(--gold);
+      padding: 0.1rem 0.3rem;
+      font-family: var(--font-ui);
+      font-size: 0.55rem;
+      color: var(--gold);
+      border-radius: 0 2px 2px 0;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+
+    /* Sidebar panel */
+    .hearing-list-item {
+      padding: 1rem;
+      border: var(--border-gold);
+      border-radius: 5px;
+      margin-bottom: 0.8rem;
+      background: rgba(201,168,76,0.04);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .hearing-list-item:hover { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.5); }
+
+    .h-date {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .h-case { font-size: 0.95rem; color: var(--white); margin-bottom: 0.2rem; font-weight: 600; }
+    .h-info { font-family: var(--font-ui); font-size: 0.65rem; color: var(--cream-dark); opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div id="sidebar-mount"></div>
+
+<div class="main-content">
+  <div class="page-header">
+    <h1>Agenda des Audiences</h1>
+    <button class="btn btn-gold btn-sm" onclick="openNewHearing()" id="new-btn">+ Planifier une Audience</button>
+  </div>
+
+  <div class="page-body">
+    <div id="alert-container"></div>
+    <div class="calendar-layout">
+      <!-- Calendar -->
+      <div>
+        <div class="cal-header">
+          <div class="cal-nav">
+            <button onclick="changeMonth(-1)">‹</button>
+            <span class="cal-month-label" id="month-label">—</span>
+            <button onclick="changeMonth(1)">›</button>
+          </div>
+          <span class="ui-label" id="today-label"></span>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+
+      <!-- Side list -->
+      <div>
+        <div style="font-family:var(--font-ui);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;padding-bottom:0.8rem;border-bottom:var(--border-gold);">
+          📅 Toutes les Audiences
+        </div>
+        <div id="hearings-side"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New Hearing Modal -->
+<div id="modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📅 Planifier une Audience</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Dossier</label>
+        <select id="h-case" class="form-select" id="h-case"></select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" id="h-date" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Heure</label>
+          <input type="time" id="h-time" class="form-input" value="09:00">
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Salle</label>
+          <select id="h-room" class="form-select">
+            <option>Salle A</option>
+            <option>Salle B</option>
+            <option>Salle C</option>
+            <option>Grande Chambre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type d'Audience</label>
+          <select id="h-type" class="form-select">
+            <option>Première comparution</option>
+            <option>Audience de fond</option>
+            <option>Audience de conciliation</option>
+            <option>Délibéré</option>
+            <option>Prononcé du jugement</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-gold" onclick="saveHearing()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jbsa.js"></script>
+<script>
+  const session = JBSA.requireAuth();
+  if (!session) throw new Error();
+
+  document.getElementById('sidebar-mount').innerHTML = JBSA.buildSidebar(session.grade, 'calendar');
+
+  if (!['admin','judge'].includes(session.grade)) {
+    document.getElementById('new-btn').style.display = 'none';
+  }
+
+  const today = new Date();
+  let viewYear = today.getFullYear();
+  let viewMonth = today.getMonth();
+
+  function renderCalendar() {
+    const hearings = JBSA.store.get('hearings') || [];
+    const cases = JBSA.store.get('cases') || [];
+
+    const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    document.getElementById('month-label').textContent = months[viewMonth] + ' ' + viewYear;
+    document.getElementById('today-label').textContent = "Aujourd'hui : " + today.toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'});
+
+    const first = new Date(viewYear, viewMonth, 1);
+    const last = new Date(viewYear, viewMonth + 1, 0);
+    let startDay = first.getDay(); // 0=Sun
+    startDay = startDay === 0 ? 6 : startDay - 1; // Mon-based
+
+    const grid = document.getElementById('cal-grid');
+    const days = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+
+    let html = days.map(d => `<div class="cal-day-header">${d}</div>`).join('');
+
+    // Previous month days
+    const prevLast = new Date(viewYear, viewMonth, 0).getDate();
+    for (let i = startDay - 1; i >= 0; i--) {
+      html += `<div class="cal-day other-month"><div class="day-num">${prevLast - i}</div></div>`;
+    }
+
+    // Current month
+    for (let d = 1; d <= last.getDate(); d++) {
+      const dateStr = `${viewYear}-${String(viewMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const isToday = d === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear();
+      const dayHearings = hearings.filter(h => h.date === dateStr);
+      const chips = dayHearings.map(h => {
+        const c = cases.find(x => x.id === h.caseId);
+        return `<div class="hearing-chip" title="${c ? c.title : h.caseId}">${h.time} ${c ? c.title.split(' ').slice(0,3).join(' ') : h.caseId}</div>`;
+      }).join('');
+
+      html += `<div class="cal-day${isToday ? ' today' : ''}">
+        <div class="day-num">${d}</div>
+        ${chips}
+      </div>`;
+    }
+
+    // Next month
+    const total = startDay + last.getDate();
+    const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+    for (let d = 1; d <= remaining; d++) {
+      html += `<div class="cal-day other-month"><div class="day-num">${d}</div></div>`;
+    }
+
+    grid.innerHTML = html;
+
+    // Side list
+    const sorted = [...hearings].sort((a, b) => a.date.localeCompare(b.date));
+    document.getElementById('hearings-side').innerHTML = sorted.map(h => {
+      const c = cases.find(x => x.id === h.caseId);
+      return `
+      <div class="hearing-list-item">
+        <div class="h-date">${JBSA.formatDate(h.date)} · ${h.time}</div>
+        <div class="h-case">${c ? c.title : h.caseId}</div>
+        <div class="h-info">${h.room} · ${h.type}</div>
+        ${session.grade === 'admin' ? `<button class="btn btn-danger btn-sm mt-2" onclick="deleteHearing(${h.id},event)">Supprimer</button>` : ''}
+      </div>`;
+    }).join('') || '<div class="alert alert-info" style="font-size:0.8rem;">Aucune audience planifiée.</div>';
+  }
+
+  function changeMonth(dir) {
+    viewMonth += dir;
+    if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+    if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar();
+  }
+
+  function openNewHearing() {
+    const cases = JBSA.store.get('cases') || [];
+    const sel = document.getElementById('h-case');
+    sel.innerHTML = cases.filter(c => c.status !== 'closed')
+      .map(c => `<option value="${c.id}">${c.id} — ${c.title}</option>`).join('');
+    document.getElementById('modal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+  }
+
+  function saveHearing() {
+    const date = document.getElementById('h-date').value;
+    if (!date) { JBSA.showAlert('Veuillez choisir une date.', 'error'); return; }
+
+    const hearings = JBSA.store.get('hearings') || [];
+    hearings.push({
+      id: Date.now(),
+      caseId: document.getElementById('h-case').value,
+      date,
+      time: document.getElementById('h-time').value,
+      room: document.getElementById('h-room').value,
+      type: document.getElementById('h-type').value
+    });
+
+    JBSA.store.set('hearings', hearings);
+    closeModal();
+    renderCalendar();
+    JBSA.showAlert('Audience planifiée.', 'success');
+  }
+
+  function deleteHearing(id, e) {
+    e.stopPropagation();
+    if (!confirm('Supprimer cette audience ?')) return;
+    let hearings = JBSA.store.get('hearings') || [];
+    hearings = hearings.filter(h => h.id !== id);
+    JBSA.store.set('hearings', hearings);
+    renderCalendar();
+    JBSA.showAlert('Audience supprimée.', 'success');
+  }
+
+  renderCalendar();
+</script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion Utilisateurs — Admin JBSA</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .user-table-row td:first-child { font-size: 1.5rem; }
+
+    .user-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .user-card {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: all 0.25s;
+    }
+
+    .user-card:hover { border-color: rgba(201,168,76,0.5); }
+
+    .user-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: var(--border-gold);
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      border: var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .user-name { font-size: 1rem; font-weight: 600; color: var(--white); }
+    .user-username { font-family: var(--font-ui); font-size: 0.65rem; color: var(--gold-dim); letter-spacing: 0.05em; }
+
+    .user-fields { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+    .user-field {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+    }
+    .user-field-key { color: var(--cream-dark); opacity: 0.5; }
+    .user-field-val { color: var(--cream-dark); }
+
+    .user-card-actions { display: flex; gap: 0.5rem; }
+
+    .inactive-overlay {
+      opacity: 0.5;
+      filter: grayscale(0.4);
+    }
+  </style>
+</head>
+<body>
+<div id="sidebar-mount"></div>
+
+<div class="main-content">
+  <div class="page-header">
+    <h1>⚙️ Gestion des Utilisateurs</h1>
+    <button class="btn btn-gold btn-sm" onclick="openNew()">+ Nouvel Utilisateur</button>
+  </div>
+
+  <div class="page-body">
+    <div id="alert-container"></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('cards',this)">Vue Cartes</button>
+      <button class="tab-btn" onclick="showTab('table',this)">Vue Tableau</button>
+    </div>
+
+    <!-- Cards view -->
+    <div id="tab-cards" class="tab-content active">
+      <div class="user-grid" id="user-grid"></div>
+    </div>
+
+    <!-- Table view -->
+    <div id="tab-table" class="tab-content">
+      <div class="table-wrap">
+        <table id="user-table">
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Nom</th>
+              <th>Identifiant</th>
+              <th>Grade</th>
+              <th>Département</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="user-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New/Edit User Modal -->
+<div id="modal" class="modal-overlay hidden">
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-header">
+      <h3 id="modal-title">👤 Nouvel Utilisateur</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Prénom & Nom</label>
+          <input type="text" id="u-name" class="form-input" placeholder="Me. Jean Dupont">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Identifiant</label>
+          <input type="text" id="u-username" class="form-input" placeholder="jean.dupont">
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Mot de passe</label>
+          <input type="text" id="u-password" class="form-input" placeholder="Laissez vide pour ne pas modifier">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Grade</label>
+          <select id="u-grade" class="form-select">
+            <option value="judge">⚖️ Juge</option>
+            <option value="prosecutor">📋 Procureur</option>
+            <option value="lawyer">🏛️ Avocat</option>
+            <option value="admin">⚙️ Administrateur</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Titre / Fonction</label>
+          <input type="text" id="u-title" class="form-input" placeholder="Juge Associé">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Département</label>
+          <select id="u-dept" class="form-select">
+            <option>Cour Suprême</option>
+            <option>Bureau du Procureur</option>
+            <option>Barreau de San Andreas</option>
+            <option>Administration</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" id="u-email" class="form-input" placeholder="prenom.nom@jbsa.gov">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Compte Actif</label>
+        <select id="u-active" class="form-select">
+          <option value="true">✅ Actif</option>
+          <option value="false">❌ Désactivé</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-gold" onclick="saveUser()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jbsa.js"></script>
+<script>
+  const session = JBSA.requireAuth(['admin']);
+  if (!session) throw new Error();
+
+  document.getElementById('sidebar-mount').innerHTML = JBSA.buildSidebar(session.grade, 'admin-users');
+
+  let editingId = null;
+
+  function renderUsers() {
+    const users = JBSA.store.get('users') || [];
+    const g = JBSA.getGradeConfig;
+
+    // Cards
+    document.getElementById('user-grid').innerHTML = users.map(u => `
+      <div class="user-card ${!u.active ? 'inactive-overlay' : ''}">
+        <div class="user-card-header">
+          <div class="user-avatar">${u.avatar || '👤'}</div>
+          <div>
+            <div class="user-name">${u.name}</div>
+            <div class="user-username">@${u.username}</div>
+            <div class="mt-1"><span class="badge ${g(u.grade).badgeClass}">${g(u.grade).icon} ${g(u.grade).label}</span></div>
+          </div>
+        </div>
+        <div class="user-fields">
+          <div class="user-field"><span class="user-field-key">Titre</span><span class="user-field-val">${u.title || '—'}</span></div>
+          <div class="user-field"><span class="user-field-key">Département</span><span class="user-field-val">${u.department || '—'}</span></div>
+          <div class="user-field"><span class="user-field-key">Email</span><span class="user-field-val">${u.email || '—'}</span></div>
+          <div class="user-field"><span class="user-field-key">Statut</span>
+            <span class="user-field-val" style="color:${u.active ? '#4ade80' : '#ef4444'}">${u.active ? '● Actif' : '● Désactivé'}</span>
+          </div>
+        </div>
+        <div class="user-card-actions">
+          <button class="btn btn-ghost btn-sm" onclick="editUser(${u.id})">✏️ Modifier</button>
+          <button class="btn btn-ghost btn-sm" onclick="toggleActive(${u.id})">${u.active ? '🔒 Désactiver' : '🔓 Activer'}</button>
+          ${u.id !== session.userId ? `<button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})">×</button>` : ''}
+        </div>
+      </div>
+    `).join('');
+
+    // Table
+    document.getElementById('user-tbody').innerHTML = users.map(u => `
+      <tr>
+        <td>${u.avatar || '👤'}</td>
+        <td style="color:var(--white);font-weight:600;">${u.name}</td>
+        <td style="font-family:var(--font-ui);font-size:0.75rem;color:var(--gold-dim);">@${u.username}</td>
+        <td><span class="badge ${g(u.grade).badgeClass}">${g(u.grade).icon} ${g(u.grade).label}</span></td>
+        <td>${u.department || '—'}</td>
+        <td style="color:${u.active ? '#4ade80' : '#ef4444'}">${u.active ? 'Actif' : 'Désactivé'}</td>
+        <td>
+          <div style="display:flex;gap:0.4rem;">
+            <button class="btn btn-ghost btn-sm" onclick="editUser(${u.id})">✏️</button>
+            ${u.id !== session.userId ? `<button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})">×</button>` : ''}
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function openNew() {
+    editingId = null;
+    document.getElementById('modal-title').textContent = '👤 Nouvel Utilisateur';
+    ['u-name','u-username','u-password','u-title','u-email'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('u-grade').value = 'lawyer';
+    document.getElementById('u-active').value = 'true';
+    document.getElementById('modal').classList.remove('hidden');
+  }
+
+  function editUser(id) {
+    const users = JBSA.store.get('users') || [];
+    const u = users.find(x => x.id === id);
+    if (!u) return;
+    editingId = id;
+    document.getElementById('modal-title').textContent = '✏️ Modifier — ' + u.name;
+    document.getElementById('u-name').value = u.name;
+    document.getElementById('u-username').value = u.username;
+    document.getElementById('u-password').value = '';
+    document.getElementById('u-grade').value = u.grade;
+    document.getElementById('u-title').value = u.title || '';
+    document.getElementById('u-dept').value = u.department || 'Administration';
+    document.getElementById('u-email').value = u.email || '';
+    document.getElementById('u-active').value = u.active ? 'true' : 'false';
+    document.getElementById('modal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+  }
+
+  function saveUser() {
+    const name = document.getElementById('u-name').value.trim();
+    const username = document.getElementById('u-username').value.trim();
+    if (!name || !username) { JBSA.showAlert('Nom et identifiant requis.', 'error'); return; }
+
+    const users = JBSA.store.get('users') || [];
+
+    if (editingId) {
+      const idx = users.findIndex(u => u.id === editingId);
+      if (idx === -1) return;
+      users[idx].name = name;
+      users[idx].username = username;
+      users[idx].grade = document.getElementById('u-grade').value;
+      users[idx].title = document.getElementById('u-title').value;
+      users[idx].department = document.getElementById('u-dept').value;
+      users[idx].email = document.getElementById('u-email').value;
+      users[idx].active = document.getElementById('u-active').value === 'true';
+      const pw = document.getElementById('u-password').value;
+      if (pw) users[idx].password = pw;
+    } else {
+      const pw = document.getElementById('u-password').value;
+      if (!pw) { JBSA.showAlert('Mot de passe requis pour un nouvel utilisateur.', 'error'); return; }
+      const grade = document.getElementById('u-grade').value;
+      const icons = { admin:'⚙️', judge:'⚖️', prosecutor:'📋', lawyer:'🏛️' };
+      users.push({
+        id: Date.now(), name, username, password: pw,
+        grade, title: document.getElementById('u-title').value,
+        department: document.getElementById('u-dept').value,
+        email: document.getElementById('u-email').value,
+        active: document.getElementById('u-active').value === 'true',
+        created: new Date().toISOString().split('T')[0],
+        avatar: icons[grade] || '👤'
+      });
+    }
+
+    JBSA.store.set('users', users);
+    closeModal();
+    renderUsers();
+    JBSA.showAlert('Utilisateur enregistré.', 'success');
+  }
+
+  function toggleActive(id) {
+    const users = JBSA.store.get('users') || [];
+    const idx = users.findIndex(u => u.id === id);
+    if (idx !== -1) users[idx].active = !users[idx].active;
+    JBSA.store.set('users', users);
+    renderUsers();
+  }
+
+  function deleteUser(id) {
+    if (!confirm('Supprimer cet utilisateur ?')) return;
+    let users = JBSA.store.get('users') || [];
+    users = users.filter(u => u.id !== id);
+    JBSA.store.set('users', users);
+    renderUsers();
+    JBSA.showAlert('Utilisateur supprimé.', 'success');
+  }
+
+  renderUsers();
+</script>
+</body>
+</html>
