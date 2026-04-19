@@ -1,25 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord | JBSA Intranet</title>
+  <title>Portail Intranet | JBSA</title>
   <link rel="icon" type="image/webp" href="seal.webp">
   <style>
     :root {
       --navy: #0a0e1a;
-      --navy-2: #111827;
-      --navy-3: #18233b;
-      --panel: #20283d;
-      --panel-soft: #243150;
+      --navy-2: #101829;
+      --navy-3: #1b2742;
+      --panel: #202b43;
       --gold: #c9a84c;
-      --gold-soft: rgba(201, 168, 76, 0.18);
       --gold-line: rgba(201, 168, 76, 0.28);
+      --gold-soft: rgba(201, 168, 76, 0.1);
       --cream: #f5f0e8;
-      --muted: #b9b2a4;
-      --danger: #e06b6b;
-      --success: #8fd3a3;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --muted: #bdb3a4;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,29 +24,30 @@
     body {
       min-height: 100vh;
       background:
-        radial-gradient(circle at top left, rgba(201, 168, 76, 0.08), transparent 28%),
-        radial-gradient(circle at top right, rgba(85, 30, 30, 0.14), transparent 22%),
+        radial-gradient(circle at top left, rgba(201, 168, 76, 0.09), transparent 28%),
+        radial-gradient(circle at top right, rgba(115, 35, 35, 0.14), transparent 20%),
         linear-gradient(180deg, #090d18 0%, #0b1120 100%);
       color: var(--cream);
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: Georgia, "Times New Roman", serif;
     }
 
     .layout {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 290px 1fr;
     }
 
     .sidebar {
-      background: rgba(5, 8, 15, 0.92);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: rgba(5, 8, 15, 0.94);
       border-right: 1px solid var(--gold-line);
       padding: 28px 18px;
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      position: sticky;
-      top: 0;
-      height: 100vh;
+      gap: 20px;
     }
 
     .brand {
@@ -61,29 +59,29 @@
     }
 
     .brand img {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       object-fit: cover;
       background: #f5f0e8;
-      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .brand-title {
-      font-size: 1.05rem;
+    .brand-name {
+      font-size: 1.02rem;
       font-weight: 700;
       color: var(--gold);
       line-height: 1.15;
     }
 
-    .brand-subtitle {
+    .brand-name small {
       display: block;
       margin-top: 4px;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.68rem;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.66rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
+      font-weight: 400;
     }
 
     .profile {
@@ -94,44 +92,43 @@
       box-shadow: var(--shadow);
     }
 
-    .profile-role {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 12px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: var(--gold-soft);
-      color: var(--gold);
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
     .profile-name {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       font-size: 1rem;
       font-weight: 700;
       color: var(--cream);
     }
 
     .profile-meta {
-      margin-top: 4px;
+      margin-top: 5px;
       color: var(--muted);
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       font-size: 0.84rem;
-      line-height: 1.5;
+      line-height: 1.55;
+    }
+
+    .profile-role {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .menu-label {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
       padding: 0 10px;
+      color: var(--gold);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
     }
 
     .menu {
@@ -139,25 +136,28 @@
       gap: 8px;
     }
 
-    .menu a, .menu button {
+    .menu button,
+    .menu a {
       width: 100%;
       display: flex;
       align-items: center;
       gap: 12px;
-      text-decoration: none;
-      color: var(--cream);
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 12px;
       padding: 12px 14px;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.92rem;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--cream);
+      text-decoration: none;
       cursor: pointer;
-      transition: 0.2s ease;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
       text-align: left;
+      transition: 0.2s ease;
     }
 
-    .menu a:hover, .menu button:hover, .menu a.active {
+    .menu button:hover,
+    .menu a:hover,
+    .menu button.active {
       background: rgba(201, 168, 76, 0.08);
       border-color: var(--gold-line);
       color: var(--gold);
@@ -169,17 +169,6 @@
       font-size: 1rem;
     }
 
-    .sidebar-footer {
-      margin-top: auto;
-      display: grid;
-      gap: 10px;
-    }
-
-    .sidebar-footer a,
-    .sidebar-footer button {
-      justify-content: center;
-    }
-
     .main {
       padding: 32px;
     }
@@ -188,281 +177,51 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 24px;
-      padding-bottom: 26px;
+      gap: 22px;
+      padding-bottom: 24px;
       border-bottom: 1px solid var(--gold-line);
-      margin-bottom: 32px;
+      margin-bottom: 26px;
     }
 
     .eyebrow {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--gold);
+      font-family: "Segoe UI", Arial, sans-serif;
       font-size: 0.72rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
       margin-bottom: 10px;
     }
 
     h1 {
       font-size: clamp(2.1rem, 4vw, 3rem);
-      line-height: 1.05;
-      margin-bottom: 12px;
+      line-height: 1.06;
+      margin-bottom: 10px;
     }
 
     .lead {
-      max-width: 760px;
+      max-width: 780px;
       color: var(--muted);
-      font-size: 1.05rem;
+      font-size: 1.04rem;
       line-height: 1.7;
     }
 
-    .header-badge {
-      min-width: 220px;
+    .session-card {
+      min-width: 260px;
       background: rgba(201, 168, 76, 0.06);
       border: 1px solid var(--gold-line);
       border-radius: 16px;
       padding: 16px 18px;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       box-shadow: var(--shadow);
     }
 
-    .header-badge strong {
+    .session-card strong {
       display: block;
       color: var(--gold);
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .grid-stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-      margin-bottom: 26px;
-    }
-
-    .stat-card,
-    .panel,
-    .welcome-card {
-      background: linear-gradient(180deg, rgba(33, 42, 66, 0.96), rgba(23, 31, 49, 0.96));
-      border: 1px solid var(--gold-line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .welcome-card {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 24px;
-      margin-bottom: 26px;
-    }
-
-    .welcome-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(201, 168, 76, 0.08);
-      border: 1px solid var(--gold-line);
-      font-size: 1.6rem;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-
-    .welcome-text h2 {
-      font-size: 2rem;
-      margin-bottom: 8px;
-    }
-
-    .welcome-text p {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .stat-card {
-      padding: 20px;
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .stat-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.35rem;
-      background: rgba(201, 168, 76, 0.08);
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-
-    .stat-value {
-      font-size: 2.1rem;
-      color: var(--gold);
-      line-height: 1;
-      font-weight: 700;
-    }
-
-    .stat-label {
-      margin-top: 6px;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.74rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
-      gap: 24px;
-    }
-
-    .stack {
-      display: grid;
-      gap: 24px;
-    }
-
-    .panel-header {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--gold-line);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .panel-title {
-      color: var(--gold);
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.82rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .panel-body {
-      padding: 16px 20px 20px;
-    }
-
-    .btn-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 14px;
-      border: 1px solid var(--gold-line);
-      border-radius: 10px;
-      color: var(--cream);
-      text-decoration: none;
-      font-family: 'Segoe UI', Arial, sans-serif;
       font-size: 0.76rem;
-      font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      transition: 0.2s ease;
-    }
-
-    .btn-link:hover {
-      color: var(--gold);
-      background: rgba(201, 168, 76, 0.08);
-    }
-
-    .list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .list-item {
-      display: grid;
-      gap: 6px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .list-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .list-id {
-      color: var(--gold);
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.74rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .list-title {
-      font-size: 1.02rem;
-      color: var(--cream);
-      line-height: 1.45;
-    }
-
-    .list-meta {
-      color: var(--muted);
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.85rem;
-      line-height: 1.55;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .status-open { background: rgba(94, 187, 133, 0.16); color: #9ae7b2; }
-    .status-pending { background: rgba(223, 169, 74, 0.16); color: #f0c76c; }
-    .status-closed { background: rgba(182, 95, 95, 0.16); color: #f3a4a4; }
-
-    .quick-actions {
-      display: grid;
-      gap: 12px;
-    }
-
-    .quick-actions a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      text-decoration: none;
-      color: var(--cream);
-      border-radius: 12px;
-      border: 1px solid var(--gold-line);
-      background: rgba(255,255,255,0.03);
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-weight: 600;
-      transition: 0.2s ease;
-    }
-
-    .quick-actions a:hover {
-      color: var(--gold);
-      background: rgba(201, 168, 76, 0.08);
-    }
-
-    .empty {
-      color: var(--muted);
-      font-family: 'Segoe UI', Arial, sans-serif;
-      line-height: 1.7;
+      margin-bottom: 8px;
     }
 
     #alert-box {
@@ -470,7 +229,7 @@
       margin-bottom: 22px;
       padding: 14px 16px;
       border-radius: 12px;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       font-size: 0.92rem;
       line-height: 1.6;
       border: 1px solid rgba(255,255,255,0.08);
@@ -490,9 +249,370 @@
       color: #ffd8d8;
     }
 
-    @media (max-width: 1180px) {
-      .grid-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .dashboard-grid { grid-template-columns: 1fr; }
+    .section {
+      display: none;
+      gap: 22px;
+    }
+
+    .section.active {
+      display: grid;
+    }
+
+    .welcome-card,
+    .stat-card,
+    .panel,
+    .admin-overview-card {
+      background: linear-gradient(180deg, rgba(33, 42, 66, 0.96), rgba(23, 31, 49, 0.96));
+      border: 1px solid var(--gold-line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .welcome-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 24px;
+    }
+
+    .welcome-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(201, 168, 76, 0.08);
+      border: 1px solid var(--gold-line);
+      font-size: 1.6rem;
+      color: var(--gold);
+    }
+
+    .welcome-text h2 {
+      font-size: 1.9rem;
+      margin-bottom: 8px;
+    }
+
+    .welcome-text p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .stat-card {
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(201, 168, 76, 0.08);
+      color: var(--gold);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      color: var(--gold);
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      margin-top: 6px;
+      color: var(--muted);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .dashboard-grid,
+    .admin-grid,
+    .two-col {
+      display: grid;
+      gap: 22px;
+    }
+
+    .dashboard-grid {
+      grid-template-columns: minmax(0, 2fr) minmax(330px, 1fr);
+    }
+
+    .admin-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .two-col {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .panel-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--gold-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .panel-title {
+      color: var(--gold);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .panel-body {
+      padding: 18px 20px 20px;
+    }
+
+    .list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .list-item {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: grid;
+      gap: 6px;
+    }
+
+    .list-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .list-id {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.73rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .list-title {
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+
+    .list-meta,
+    .empty,
+    .table-cell-muted {
+      color: var(--muted);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .status {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status-open { background: rgba(94, 187, 133, 0.16); color: #9ae7b2; }
+    .status-pending { background: rgba(223, 169, 74, 0.16); color: #f0c76c; }
+    .status-closed { background: rgba(182, 95, 95, 0.16); color: #f3a4a4; }
+    .status-review { background: rgba(108, 137, 228, 0.18); color: #b6cbff; }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .toolbar select,
+    .toolbar input,
+    form input,
+    form select,
+    form textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(9, 14, 26, 0.84);
+      color: var(--cream);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .toolbar select,
+    .toolbar input {
+      width: auto;
+      min-width: 180px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-grid-2,
+    .form-grid-3 {
+      display: grid;
+      gap: 12px;
+    }
+
+    .form-grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .form-grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .btn,
+    .ghost-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 15px;
+      border-radius: 12px;
+      border: 1px solid var(--gold-line);
+      background: rgba(201, 168, 76, 0.12);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover,
+    .ghost-btn:hover {
+      color: var(--gold);
+      background: rgba(201, 168, 76, 0.08);
+    }
+
+    .ghost-btn {
+      background: transparent;
+    }
+
+    .actions-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .admin-overview-card {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .admin-overview-card h3 {
+      font-size: 1.1rem;
+      color: var(--cream);
+    }
+
+    .admin-overview-card p {
+      color: var(--muted);
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 1280px) {
+      .admin-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 1100px) {
+      .dashboard-grid,
+      .two-col,
+      .form-grid-3 { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 900px) {
@@ -505,43 +625,54 @@
       }
       .main { padding: 22px; }
       .page-header { flex-direction: column; }
-      .header-badge { min-width: 0; width: 100%; }
+      .session-card { width: 100%; }
     }
 
     @media (max-width: 640px) {
-      .grid-stats { grid-template-columns: 1fr; }
+      .stats-grid,
+      .admin-grid,
+      .form-grid-2 { grid-template-columns: 1fr; }
       .welcome-card { align-items: flex-start; }
-      .panel-header { flex-direction: column; align-items: flex-start; }
+      .toolbar select,
+      .toolbar input { width: 100%; }
     }
   </style>
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <a class="brand" href="intranet.html">
+      <a href="intranet.html" class="brand">
         <img src="seal.webp" alt="JBSA" onerror="this.style.opacity='0'">
-        <div>
-          <div class="brand-title">Judicial Branch</div>
-          <span class="brand-subtitle">Intranet</span>
-        </div>
+        <div class="brand-name">Judicial Branch<small>Intranet de gestion</small></div>
       </a>
 
       <section class="profile">
         <div class="profile-name" id="profile-name">Utilisateur</div>
-        <div class="profile-meta" id="profile-meta">Session intranet active</div>
+        <div class="profile-meta" id="profile-meta">Chargement...</div>
         <div class="profile-role" id="profile-role">Role</div>
       </section>
 
       <div class="menu-label">Navigation</div>
       <nav class="menu">
-        <a href="intranet.html" class="active"><span class="icon">⌂</span>Tableau de bord</a>
-        <a href="division.html"><span class="icon">◫</span>Divisions publiques</a>
-        <a href="index.html"><span class="icon">↩</span>Retour au site public</a>
+        <button type="button" class="nav-button active" data-section="dashboard"><span class="icon">⌂</span>Tableau de bord</button>
+        <button type="button" class="nav-button" data-section="cases"><span class="icon">⚖</span>Dossiers</button>
+        <button type="button" class="nav-button" data-section="hearings"><span class="icon">◷</span>Audiences</button>
+        <button type="button" class="nav-button" data-section="announcements"><span class="icon">✦</span>Annonces</button>
       </nav>
 
-      <div class="menu-label">Outils</div>
-      <div class="menu sidebar-footer">
-        <button type="button" id="refresh-button"><span class="icon">↻</span>Actualiser les donnees</button>
+      <div class="menu-label admin-only hidden">Administration</div>
+      <nav class="menu admin-only hidden">
+        <button type="button" class="nav-button" data-section="admin-overview"><span class="icon">☰</span>Centre admin</button>
+        <button type="button" class="nav-button" data-section="admin-users"><span class="icon">👥</span>Gestion utilisateurs</button>
+        <button type="button" class="nav-button" data-section="admin-grades"><span class="icon">⇄</span>Gestion grades</button>
+        <button type="button" class="nav-button" data-section="admin-cases"><span class="icon">▣</span>Gestion affaires</button>
+        <button type="button" class="nav-button" data-section="admin-site"><span class="icon">⌘</span>Gestion site</button>
+      </nav>
+
+      <div class="menu-label">Liens utiles</div>
+      <div class="menu">
+        <a href="division.html"><span class="icon">◫</span>Divisions publiques</a>
+        <a href="index.html"><span class="icon">↩</span>Retour au site public</a>
         <button type="button" id="logout-button"><span class="icon">⎋</span>Deconnexion</button>
       </div>
     </aside>
@@ -549,99 +680,548 @@
     <main class="main">
       <header class="page-header">
         <div>
-          <div class="eyebrow">Portail securise</div>
-          <h1>Tableau de bord intranet</h1>
-          <p class="lead">Suivi des dossiers, audiences et communications internes de la branche judiciaire de San Andreas.</p>
+          <div class="eyebrow">Systeme de gestion judiciaire</div>
+          <h1>Tableau de bord interconnecte</h1>
+          <p class="lead">Un espace commun pour les juges, procureurs, avocats et administrateurs, avec des dossiers relies aux audiences, aux annonces et aux affectations de personnel.</p>
         </div>
-        <div class="header-badge">
-          <strong>Session</strong>
+        <div class="session-card">
+          <strong>Session active</strong>
           <div id="session-summary">Chargement...</div>
         </div>
       </header>
 
       <div id="alert-box"></div>
 
-      <section class="welcome-card">
-        <div class="welcome-icon" id="welcome-icon">J</div>
-        <div class="welcome-text">
-          <h2 id="welcome-title">Bienvenue</h2>
-          <p id="welcome-copy">Le portail charge vos informations et les donnees de service.</p>
+      <section class="section active" id="section-dashboard">
+        <article class="welcome-card">
+          <div class="welcome-icon" id="welcome-icon">⚖</div>
+          <div class="welcome-text">
+            <h2 id="welcome-title">Bienvenue</h2>
+            <p id="welcome-copy">Chargement des informations de votre portail intranet.</p>
+          </div>
+        </article>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-icon">⚖</div>
+            <div>
+              <div class="stat-value" id="stat-cases">0</div>
+              <div class="stat-label">Dossiers visibles</div>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon">◷</div>
+            <div>
+              <div class="stat-value" id="stat-hearings">0</div>
+              <div class="stat-label">Audiences a venir</div>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon">✦</div>
+            <div>
+              <div class="stat-value" id="stat-announcements">0</div>
+              <div class="stat-label">Annonces</div>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon">☰</div>
+            <div>
+              <div class="stat-value" id="stat-members">0</div>
+              <div class="stat-label">Membres actifs</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="stack">
+            <article class="panel">
+              <div class="panel-header">
+                <div class="panel-title">Mes dossiers</div>
+                <button type="button" class="ghost-btn jump-button" data-section="cases">Ouvrir les dossiers</button>
+              </div>
+              <div class="panel-body">
+                <div class="list" id="dashboard-cases"></div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <div class="panel-title">Annonces recentes</div>
+                <button type="button" class="ghost-btn jump-button" data-section="announcements">Voir les annonces</button>
+              </div>
+              <div class="panel-body">
+                <div class="list" id="dashboard-announcements"></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="stack">
+            <article class="panel">
+              <div class="panel-header">
+                <div class="panel-title">Prochaines audiences</div>
+                <button type="button" class="ghost-btn jump-button" data-section="hearings">Voir l agenda</button>
+              </div>
+              <div class="panel-body">
+                <div class="list" id="dashboard-hearings"></div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <div class="panel-title">Actions rapides</div>
+              </div>
+              <div class="panel-body actions-row" id="quick-actions"></div>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section class="grid-stats">
-        <article class="stat-card">
-          <div class="stat-icon">⚖</div>
-          <div>
-            <div class="stat-value" id="stat-active-cases">0</div>
-            <div class="stat-label">Dossiers actifs</div>
+      <section class="section" id="section-cases">
+        <article class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Gestion des dossiers interconnectes</div>
+          </div>
+          <div class="panel-body">
+            <div class="toolbar">
+              <input type="search" id="case-search" placeholder="Rechercher un dossier, un type ou une division">
+              <select id="case-filter-status">
+                <option value="all">Tous les statuts</option>
+                <option value="open">Actif</option>
+                <option value="pending">En attente</option>
+                <option value="review">En revision</option>
+                <option value="closed">Clos</option>
+              </select>
+            </div>
+            <div class="list" id="cases-list"></div>
           </div>
         </article>
-        <article class="stat-card">
-          <div class="stat-icon">◷</div>
-          <div>
-            <div class="stat-value" id="stat-hearings">0</div>
-            <div class="stat-label">Audiences a venir</div>
-          </div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-icon">✦</div>
-          <div>
-            <div class="stat-value" id="stat-announcements">0</div>
-            <div class="stat-label">Annonces internes</div>
-          </div>
-        </article>
-        <article class="stat-card">
-          <div class="stat-icon">☰</div>
-          <div>
-            <div class="stat-value" id="stat-members">0</div>
-            <div class="stat-label">Membres actifs</div>
-          </div>
-        </article>
-      </section>
 
-      <section class="dashboard-grid">
-        <div class="stack">
+        <div class="two-col">
           <article class="panel">
             <div class="panel-header">
-              <div class="panel-title">Dossiers recents</div>
-              <a class="btn-link" href="division.html">Voir les divisions</a>
+              <div class="panel-title">Fiche dossier</div>
             </div>
-            <div class="panel-body">
-              <div class="list" id="cases-list"></div>
+            <div class="panel-body" id="case-detail">
+              <div class="empty">Selectionnez un dossier pour afficher son detail, ses affectations et sa prochaine audience.</div>
             </div>
           </article>
 
           <article class="panel">
             <div class="panel-header">
-              <div class="panel-title">Annonces recentes</div>
-              <a class="btn-link" href="index.html">Site public</a>
+              <div class="panel-title">Edition dossier</div>
             </div>
             <div class="panel-body">
-              <div class="list" id="announcements-list"></div>
+              <form id="case-form">
+                <input type="hidden" id="case-id">
+                <div class="form-grid-2">
+                  <label>Reference
+                    <input type="text" id="case-reference" placeholder="SA-2025-0201" required>
+                  </label>
+                  <label>Statut
+                    <select id="case-status">
+                      <option value="open">Actif</option>
+                      <option value="pending">En attente</option>
+                      <option value="review">En revision</option>
+                      <option value="closed">Clos</option>
+                    </select>
+                  </label>
+                </div>
+                <label>Intitule du dossier
+                  <input type="text" id="case-title-input" required>
+                </label>
+                <div class="form-grid-3">
+                  <label>Type
+                    <input type="text" id="case-type" placeholder="Penal, civil, appel...">
+                  </label>
+                  <label>Division
+                    <input type="text" id="case-division" placeholder="Division criminelle">
+                  </label>
+                  <label>Priorite
+                    <select id="case-priority">
+                      <option value="high">Haute</option>
+                      <option value="medium">Moyenne</option>
+                      <option value="low">Basse</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="form-grid-3">
+                  <label>Juge assigne
+                    <select id="case-judge"></select>
+                  </label>
+                  <label>Procureur assigne
+                    <select id="case-prosecutor"></select>
+                  </label>
+                  <label>Avocat assigne
+                    <select id="case-lawyer"></select>
+                  </label>
+                </div>
+                <label>Resume
+                  <textarea id="case-summary" placeholder="Resume procedural du dossier"></textarea>
+                </label>
+                <div class="actions-row">
+                  <button type="submit" class="btn">Enregistrer le dossier</button>
+                  <button type="button" class="ghost-btn" id="case-reset">Nouveau dossier</button>
+                </div>
+              </form>
             </div>
           </article>
         </div>
+      </section>
 
-        <div class="stack">
+      <section class="section" id="section-hearings">
+        <div class="two-col">
           <article class="panel">
             <div class="panel-header">
-              <div class="panel-title">Prochaines audiences</div>
-              <span class="btn-link">Agenda interne</span>
+              <div class="panel-title">Agenda des audiences</div>
             </div>
             <div class="panel-body">
+              <div class="toolbar">
+                <select id="hearing-filter-case"></select>
+              </div>
               <div class="list" id="hearings-list"></div>
             </div>
           </article>
 
           <article class="panel">
             <div class="panel-header">
-              <div class="panel-title">Acces rapide</div>
+              <div class="panel-title">Planifier une audience</div>
             </div>
-            <div class="panel-body quick-actions">
-              <a href="division.html"><span>▣</span>Consulter les divisions publiques</a>
-              <a href="index.html"><span>⌂</span>Ouvrir l'accueil du site</a>
-              <a href="login.html"><span>⇢</span>Changer de compte</a>
+            <div class="panel-body">
+              <form id="hearing-form">
+                <input type="hidden" id="hearing-id">
+                <label>Dossier relie
+                  <select id="hearing-case" required></select>
+                </label>
+                <div class="form-grid-3">
+                  <label>Date
+                    <input type="date" id="hearing-date" required>
+                  </label>
+                  <label>Heure
+                    <input type="time" id="hearing-time" required>
+                  </label>
+                  <label>Salle
+                    <input type="text" id="hearing-room" placeholder="Salle A" required>
+                  </label>
+                </div>
+                <label>Type d audience
+                  <input type="text" id="hearing-type" placeholder="Audience de preuve" required>
+                </label>
+                <div class="actions-row">
+                  <button type="submit" class="btn">Enregistrer l audience</button>
+                  <button type="button" class="ghost-btn" id="hearing-reset">Nouvelle audience</button>
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="section-announcements">
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Flux des annonces internes</div>
+            </div>
+            <div class="panel-body">
+              <div class="list" id="announcements-list"></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Publier une annonce</div>
+            </div>
+            <div class="panel-body">
+              <form id="announcement-form">
+                <label>Titre
+                  <input type="text" id="announcement-title" required>
+                </label>
+                <label>Contenu
+                  <textarea id="announcement-content" required></textarea>
+                </label>
+                <label>Portee
+                  <select id="announcement-scope">
+                    <option value="all">Tous les services</option>
+                    <option value="judge">Juges</option>
+                    <option value="prosecutor">Procureurs</option>
+                    <option value="lawyer">Avocats</option>
+                    <option value="admin">Administrateurs</option>
+                  </select>
+                </label>
+                <div class="actions-row">
+                  <button type="submit" class="btn">Publier</button>
+                  <button type="button" class="ghost-btn" id="announcement-reset">Nouvelle annonce</button>
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="section-admin-overview">
+        <div class="admin-grid">
+          <article class="admin-overview-card">
+            <h3>Gestion utilisateurs</h3>
+            <p>Creer, activer, desactiver et superviser les comptes de connexion utilises par le portail intranet.</p>
+            <button type="button" class="ghost-btn jump-button" data-section="admin-users">Ouvrir</button>
+          </article>
+          <article class="admin-overview-card">
+            <h3>Gestion grades</h3>
+            <p>Modifier les grades, titres et affectations de service sans casser la connexion ni les dossiers relies.</p>
+            <button type="button" class="ghost-btn jump-button" data-section="admin-grades">Ouvrir</button>
+          </article>
+          <article class="admin-overview-card">
+            <h3>Gestion affaires</h3>
+            <p>Piloter l ensemble des dossiers, reassigner les intervenants et controler le statut procedural.</p>
+            <button type="button" class="ghost-btn jump-button" data-section="admin-cases">Ouvrir</button>
+          </article>
+          <article class="admin-overview-card">
+            <h3>Gestion site</h3>
+            <p>Configurer le nom du portail, les messages d accueil et les textes institutionnels exposes au public.</p>
+            <button type="button" class="ghost-btn jump-button" data-section="admin-site">Ouvrir</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="section-admin-users">
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Comptes utilisateurs</div>
+            </div>
+            <div class="panel-body">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Utilisateur</th>
+                      <th>Grade</th>
+                      <th>Division</th>
+                      <th>Etat</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="users-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Creer ou modifier un compte</div>
+            </div>
+            <div class="panel-body">
+              <form id="user-form">
+                <input type="hidden" id="user-edit-id">
+                <div class="form-grid-2">
+                  <label>Nom complet
+                    <input type="text" id="user-name" required>
+                  </label>
+                  <label>Nom d utilisateur
+                    <input type="text" id="user-username" required>
+                  </label>
+                </div>
+                <div class="form-grid-2">
+                  <label>Mot de passe
+                    <input type="text" id="user-password" required>
+                  </label>
+                  <label>Grade
+                    <select id="user-grade">
+                      <option value="judge">Juge</option>
+                      <option value="prosecutor">Procureur</option>
+                      <option value="lawyer">Avocat</option>
+                      <option value="admin">Administrateur</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="form-grid-2">
+                  <label>Titre
+                    <input type="text" id="user-title" placeholder="Juge en chef">
+                  </label>
+                  <label>Division
+                    <input type="text" id="user-division" placeholder="Cour de justice">
+                  </label>
+                </div>
+                <label>Etat du compte
+                  <select id="user-active">
+                    <option value="true">Actif</option>
+                    <option value="false">Desactive</option>
+                  </select>
+                </label>
+                <div class="actions-row">
+                  <button type="submit" class="btn">Enregistrer le compte</button>
+                  <button type="button" class="ghost-btn" id="user-reset">Nouveau compte</button>
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="section-admin-grades">
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Affectations et grades</div>
+            </div>
+            <div class="panel-body">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Username</th>
+                      <th>Grade</th>
+                      <th>Titre</th>
+                      <th>Division</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="grades-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Modifier une affectation</div>
+            </div>
+            <div class="panel-body">
+              <form id="grade-form">
+                <label>Utilisateur cible
+                  <select id="grade-user" required></select>
+                </label>
+                <div class="form-grid-3">
+                  <label>Nouveau grade
+                    <select id="grade-value">
+                      <option value="judge">Juge</option>
+                      <option value="prosecutor">Procureur</option>
+                      <option value="lawyer">Avocat</option>
+                      <option value="admin">Administrateur</option>
+                    </select>
+                  </label>
+                  <label>Nouveau titre
+                    <input type="text" id="grade-title">
+                  </label>
+                  <label>Nouvelle division
+                    <input type="text" id="grade-division">
+                  </label>
+                </div>
+                <label>Etat du compte
+                  <select id="grade-active">
+                    <option value="true">Actif</option>
+                    <option value="false">Desactive</option>
+                  </select>
+                </label>
+                <div class="actions-row">
+                  <button type="submit" class="btn">Appliquer les changements</button>
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="section-admin-cases">
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Pilotage global des affaires</div>
+            </div>
+            <div class="panel-body">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Reference</th>
+                      <th>Statut</th>
+                      <th>Juge</th>
+                      <th>Procureur</th>
+                      <th>Avocat</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-cases-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Reassignation rapide</div>
+            </div>
+            <div class="panel-body">
+              <form id="assignment-form">
+                <label>Dossier cible
+                  <select id="assignment-case" required></select>
+                </label>
+                <div class="form-grid-3">
+                  <label>Juge
+                    <select id="assignment-judge"></select>
+                  </label>
+                  <label>Procureur
+                    <select id="assignment-prosecutor"></select>
+                  </label>
+                  <label>Avocat
+                    <select id="assignment-lawyer"></select>
+                  </label>
+                </div>
+                <label>Statut procedural
+                  <select id="assignment-status">
+                    <option value="open">Actif</option>
+                    <option value="pending">En attente</option>
+                    <option value="review">En revision</option>
+                    <option value="closed">Clos</option>
+                  </select>
+                </label>
+                <div class="actions-row">
+                  <button type="submit" class="btn">Mettre a jour le dossier</button>
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="section-admin-site">
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Parametres du site</div>
+            </div>
+            <div class="panel-body">
+              <form id="site-form">
+                <label>Nom du site
+                  <input type="text" id="site-name">
+                </label>
+                <label>Sous-titre du portail
+                  <input type="text" id="site-tagline">
+                </label>
+                <label>Presentation de la cour
+                  <textarea id="site-court"></textarea>
+                </label>
+                <label>Presentation du bureau du procureur
+                  <textarea id="site-prosecutor"></textarea>
+                </label>
+                <label>Presentation du barreau
+                  <textarea id="site-bar"></textarea>
+                </label>
+                <div class="actions-row">
+                  <button type="submit" class="btn">Sauvegarder le site</button>
+                </div>
+              </form>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Resume de configuration</div>
+            </div>
+            <div class="panel-body">
+              <div class="list" id="site-summary"></div>
             </div>
           </article>
         </div>
@@ -652,9 +1232,10 @@
   <script>
     const STORAGE_KEYS = {
       users: 'jbsa_users',
-      announcements: 'jbsa_announcements',
       cases: 'jbsa_cases',
-      hearings: 'jbsa_hearings'
+      hearings: 'jbsa_hearings',
+      announcements: 'jbsa_announcements',
+      site: 'jbsa_site_settings'
     };
 
     const ROLE_LABELS = {
@@ -665,7 +1246,7 @@
     };
 
     const ROLE_SYMBOLS = {
-      admin: '⚙',
+      admin: '⌘',
       judge: '⚖',
       prosecutor: '▣',
       lawyer: '◫'
@@ -673,122 +1254,40 @@
 
     const defaults = {
       users: [
-        {
-          username: 'admin',
-          grade: 'admin',
-          name: 'Administrateur systeme',
-          title: 'Administrateur de la plateforme',
-          division: 'Intranet judiciaire',
-          active: true
-        },
-        {
-          username: 'r.marshall',
-          grade: 'judge',
-          name: 'Juge en chef Rebecca Marshall',
-          title: 'Juge en chef',
-          division: 'Cour de justice',
-          active: true
-        },
-        {
-          username: 'da.johnson',
-          grade: 'prosecutor',
-          name: 'Procureur Marcus Johnson',
-          title: 'Procureur de district',
-          division: 'Bureau du procureur',
-          active: true
-        },
-        {
-          username: 'atty.garcia',
-          grade: 'lawyer',
-          name: 'Batonnier Elena Garcia',
-          title: 'Presidente du barreau',
-          division: 'Bar Association',
-          active: true
-        }
-      ],
-      announcements: [
-        {
-          id: 1,
-          title: 'Mise a jour des audiences de printemps',
-          content: 'Les audiences prevues cette semaine ont ete confirmees. Merci de verifier vos horaires avant de vous presenter au palais de justice.',
-          author: 'Juge en chef Rebecca Marshall',
-          date: '2025-04-10'
-        },
-        {
-          id: 2,
-          title: 'Depot numerique des actes de procedure',
-          content: 'Tous les depots internes doivent desormais passer par la plateforme numerique du service judiciaire.',
-          author: 'Procureur Marcus Johnson',
-          date: '2025-04-08'
-        },
-        {
-          id: 3,
-          title: 'Rappel de conformite professionnelle',
-          content: 'Le barreau rappelle a ses membres de mettre a jour leurs informations de certification avant la fin du mois.',
-          author: 'Batonnier Elena Garcia',
-          date: '2025-04-05'
-        }
+        { id: 1, username: 'admin', password: 'JBSA#System@2025', grade: 'admin', name: 'Administrateur systeme', title: 'Administrateur de la plateforme', division: 'Intranet judiciaire', active: true },
+        { id: 2, username: 'r.marshall', password: 'Court#RM@1926', grade: 'judge', name: 'Juge en chef Rebecca Marshall', title: 'Juge en chef', division: 'Cour de justice', active: true },
+        { id: 3, username: 'da.johnson', password: 'DA#Office@SA', grade: 'prosecutor', name: 'Procureur Marcus Johnson', title: 'Procureur de district', division: 'Bureau du procureur', active: true },
+        { id: 4, username: 'atty.garcia', password: 'Bar#Assoc@2025', grade: 'lawyer', name: 'Batonnier Elena Garcia', title: 'Presidente du barreau', division: 'Bar Association', active: true }
       ],
       cases: [
-        {
-          id: 'SA-2025-0142',
-          title: 'Etat contre Marcus Webb',
-          status: 'open',
-          division: 'Division criminelle',
-          nextHearing: '2025-04-28',
-          summary: 'Affaire penale en attente d audience contradictoire.'
-        },
-        {
-          id: 'SA-2025-0118',
-          title: 'Etat contre Diana Torres',
-          status: 'pending',
-          division: 'Division criminelle',
-          nextHearing: '2025-05-05',
-          summary: 'Procedure en cours avec examen preliminaire a venir.'
-        },
-        {
-          id: 'SA-2025-0099',
-          title: 'Vespucci Corp. contre Liberty Holdings',
-          status: 'open',
-          division: 'Division civile',
-          nextHearing: '2025-05-12',
-          summary: 'Contentieux commercial relatif a une rupture contractuelle.'
-        },
-        {
-          id: 'SA-2025-0075',
-          title: 'Etat contre Kevin Park',
-          status: 'closed',
-          division: 'Division criminelle',
-          nextHearing: '',
-          summary: 'Affaire close apres jugement definitif.'
-        }
+        { id: 'SA-2025-0142', title: 'Etat contre Marcus Webb', type: 'Penal', division: 'Division criminelle', priority: 'high', status: 'open', judge: 'r.marshall', prosecutor: 'da.johnson', lawyer: 'atty.garcia', summary: 'Affaire penale en cours avec audience de preuve planifiee.' },
+        { id: 'SA-2025-0118', title: 'Etat contre Diana Torres', type: 'Penal', division: 'Division criminelle', priority: 'medium', status: 'pending', judge: 'r.marshall', prosecutor: 'da.johnson', lawyer: '', summary: 'Dossier en attente de finalisation des conclusions de poursuite.' },
+        { id: 'SA-2025-0099', title: 'Vespucci Corp. contre Liberty Holdings', type: 'Civil', division: 'Division civile', priority: 'low', status: 'review', judge: 'r.marshall', prosecutor: '', lawyer: 'atty.garcia', summary: 'Litige commercial avec conference preparatoire au calendrier.' },
+        { id: 'SA-2025-0075', title: 'Etat contre Kevin Park', type: 'Penal', division: 'Division criminelle', priority: 'medium', status: 'closed', judge: 'r.marshall', prosecutor: 'da.johnson', lawyer: 'atty.garcia', summary: 'Affaire close apres jugement definitif.' }
       ],
       hearings: [
-        {
-          id: 'HRG-091',
-          caseId: 'SA-2025-0142',
-          date: '2025-04-28',
-          time: '09:00',
-          room: 'Salle A',
-          type: 'Audience de preuve'
-        },
-        {
-          id: 'HRG-096',
-          caseId: 'SA-2025-0118',
-          date: '2025-05-05',
-          time: '14:00',
-          room: 'Salle B',
-          type: 'Mise en accusation'
-        },
-        {
-          id: 'HRG-103',
-          caseId: 'SA-2025-0099',
-          date: '2025-05-12',
-          time: '10:30',
-          room: 'Salle C',
-          type: 'Conference preparatoire'
-        }
-      ]
+        { id: 'HRG-091', caseId: 'SA-2025-0142', date: '2025-04-28', time: '09:00', room: 'Salle A', type: 'Audience de preuve' },
+        { id: 'HRG-096', caseId: 'SA-2025-0118', date: '2025-05-05', time: '14:00', room: 'Salle B', type: 'Mise en accusation' },
+        { id: 'HRG-103', caseId: 'SA-2025-0099', date: '2025-05-12', time: '10:30', room: 'Salle C', type: 'Conference preparatoire' }
+      ],
+      announcements: [
+        { id: 1, title: 'Mise a jour des audiences de printemps', content: 'Les audiences prevues cette semaine ont ete confirmees. Merci de verifier vos horaires avant de vous presenter au palais de justice.', author: 'Juge en chef Rebecca Marshall', authorRole: 'judge', scope: 'all', date: '2025-04-10' },
+        { id: 2, title: 'Depot numerique des actes de procedure', content: 'Tous les depots internes doivent desormais passer par la plateforme numerique du service judiciaire.', author: 'Procureur Marcus Johnson', authorRole: 'prosecutor', scope: 'all', date: '2025-04-08' },
+        { id: 3, title: 'Rappel de conformite professionnelle', content: 'Le barreau rappelle a ses membres de mettre a jour leurs informations de certification avant la fin du mois.', author: 'Batonnier Elena Garcia', authorRole: 'lawyer', scope: 'all', date: '2025-04-05' }
+      ],
+      site: {
+        siteName: 'Judicial Branch of San Andreas',
+        tagline: 'Portail public et intranet de la branche judiciaire de San Andreas.',
+        courtText: 'La Cour de justice garantit l application egale du droit, la tenue des audiences et le controle juridictionnel dans tout l Etat.',
+        prosecutorText: 'Le Bureau du procureur conduit les poursuites, prepare les dossiers penaux et coordonne l action publique.',
+        barText: 'La Bar Association encadre la profession d avocat, la discipline et la conformite des membres du barreau.'
+      }
+    };
+
+    const state = {
+      session: null,
+      currentUser: null,
+      selectedCaseId: null
     };
 
     function getJson(key, fallback) {
@@ -804,12 +1303,41 @@
       localStorage.setItem(key, JSON.stringify(value));
     }
 
-    function ensureData() {
-      if (!localStorage.getItem(STORAGE_KEYS.users)) setJson(STORAGE_KEYS.users, defaults.users);
-      if (!localStorage.getItem(STORAGE_KEYS.announcements)) setJson(STORAGE_KEYS.announcements, defaults.announcements);
+    function ensureSeedData() {
+      const existingUsers = getJson(STORAGE_KEYS.users, null);
+      if (!Array.isArray(existingUsers)) {
+        setJson(STORAGE_KEYS.users, defaults.users);
+      } else {
+        const byUsername = new Map();
+        defaults.users.forEach((user) => byUsername.set(user.username, { ...user }));
+        existingUsers.forEach((user) => {
+          const base = byUsername.get(user.username) || {};
+          byUsername.set(user.username, { ...base, ...user });
+        });
+        const mergedUsers = Array.from(byUsername.values()).map((user, index) => ({
+          ...user,
+          id: user.id ?? index + 1,
+          active: user.active !== false,
+          password: user.password || (defaults.users.find((entry) => entry.username === user.username)?.password || '')
+        }));
+        setJson(STORAGE_KEYS.users, mergedUsers);
+      }
       if (!localStorage.getItem(STORAGE_KEYS.cases)) setJson(STORAGE_KEYS.cases, defaults.cases);
       if (!localStorage.getItem(STORAGE_KEYS.hearings)) setJson(STORAGE_KEYS.hearings, defaults.hearings);
+      if (!localStorage.getItem(STORAGE_KEYS.announcements)) setJson(STORAGE_KEYS.announcements, defaults.announcements);
+      if (!localStorage.getItem(STORAGE_KEYS.site)) setJson(STORAGE_KEYS.site, defaults.site);
     }
+
+    function getUsers() { return getJson(STORAGE_KEYS.users, defaults.users); }
+    function getCases() { return getJson(STORAGE_KEYS.cases, defaults.cases); }
+    function getHearings() { return getJson(STORAGE_KEYS.hearings, defaults.hearings); }
+    function getAnnouncements() { return getJson(STORAGE_KEYS.announcements, defaults.announcements); }
+    function getSiteSettings() { return getJson(STORAGE_KEYS.site, defaults.site); }
+    function saveUsers(users) { setJson(STORAGE_KEYS.users, users); }
+    function saveCases(items) { setJson(STORAGE_KEYS.cases, items); }
+    function saveHearings(items) { setJson(STORAGE_KEYS.hearings, items); }
+    function saveAnnouncements(items) { setJson(STORAGE_KEYS.announcements, items); }
+    function saveSiteSettings(settings) { setJson(STORAGE_KEYS.site, settings); }
 
     function getSession() {
       try {
@@ -832,6 +1360,13 @@
       window.location.href = 'login.html';
     }
 
+    function revealAlert(message, type) {
+      const box = document.getElementById('alert-box');
+      box.style.display = 'block';
+      box.className = type;
+      box.textContent = message;
+    }
+
     function formatDate(dateString) {
       if (!dateString) return 'Non planifie';
       const date = new Date(dateString + 'T12:00:00');
@@ -842,6 +1377,7 @@
     function statusLabel(status) {
       if (status === 'open') return 'Actif';
       if (status === 'pending') return 'En attente';
+      if (status === 'review') return 'En revision';
       if (status === 'closed') return 'Clos';
       return status;
     }
@@ -849,114 +1385,658 @@
     function statusClass(status) {
       if (status === 'open') return 'status-open';
       if (status === 'pending') return 'status-pending';
+      if (status === 'review') return 'status-review';
       return 'status-closed';
     }
 
-    function showAlert(message, type) {
-      const box = document.getElementById('alert-box');
-      box.className = type;
-      box.textContent = message;
+    function roleLabel(role) {
+      return ROLE_LABELS[role] || 'Membre';
     }
 
-    function renderList(containerId, items, renderItem, emptyText) {
+    function roleSymbol(role) {
+      return ROLE_SYMBOLS[role] || '•';
+    }
+
+    function nextNumericId(items) {
+      return items.reduce((max, item) => Math.max(max, Number(item.id) || 0), 0) + 1;
+    }
+
+    function findUser(username) {
+      return getUsers().find((user) => user.username === username) || null;
+    }
+
+    function displayUser(username) {
+      if (!username) return 'Non assigne';
+      const user = findUser(username);
+      return user ? user.name : username;
+    }
+
+    function getVisibleCases() {
+      const items = getCases();
+      if (state.session.grade === 'admin') return items;
+      return items.filter((item) =>
+        item.judge === state.currentUser.username ||
+        item.prosecutor === state.currentUser.username ||
+        item.lawyer === state.currentUser.username
+      );
+    }
+
+    function getVisibleHearings() {
+      const items = getHearings();
+      if (state.session.grade === 'admin') return items;
+      const visibleCaseIds = new Set(getVisibleCases().map((item) => item.id));
+      return items.filter((item) => visibleCaseIds.has(item.caseId));
+    }
+
+    function getVisibleAnnouncements() {
+      return getAnnouncements().filter((item) => item.scope === 'all' || item.scope === state.session.grade || state.session.grade === 'admin');
+    }
+
+    function setSection(sectionId) {
+      document.querySelectorAll('.section').forEach((section) => {
+        section.classList.toggle('active', section.id === 'section-' + sectionId);
+      });
+      document.querySelectorAll('.nav-button').forEach((button) => {
+        button.classList.toggle('active', button.dataset.section === sectionId);
+      });
+    }
+
+    function renderSimpleList(containerId, items, emptyText) {
       const container = document.getElementById(containerId);
       if (!items.length) {
         container.innerHTML = '<div class="empty">' + emptyText + '</div>';
         return;
       }
-      container.innerHTML = items.map(renderItem).join('');
+      container.innerHTML = items.map((item) =>
+        '<div class="list-item">' +
+          '<div class="list-top"><span class="list-id">' + item.topLeft + '</span><span>' + item.topRight + '</span></div>' +
+          '<div class="list-title">' + item.title + '</div>' +
+          '<div class="list-meta">' + item.meta1 + '</div>' +
+          '<div class="list-meta">' + item.meta2 + '</div>' +
+        '</div>'
+      ).join('');
     }
 
-    ensureData();
+    function bindJumpButtons() {
+      document.querySelectorAll('.jump-button').forEach((button) => {
+        button.addEventListener('click', () => setSection(button.dataset.section));
+      });
+    }
 
-    const session = getSession();
-    if (!session) {
-      window.location.href = 'login.html';
-    } else {
-      const users = getJson(STORAGE_KEYS.users, defaults.users);
-      const announcements = getJson(STORAGE_KEYS.announcements, defaults.announcements);
-      const cases = getJson(STORAGE_KEYS.cases, defaults.cases);
-      const hearings = getJson(STORAGE_KEYS.hearings, defaults.hearings);
-      const currentUser = users.find((user) => user.username === session.userId) || {
-        username: session.userId,
-        grade: session.grade,
-        name: session.name,
-        title: ROLE_LABELS[session.grade] || 'Membre',
-        division: 'Branche judiciaire'
-      };
+    function populateProfile() {
+      document.getElementById('profile-name').textContent = state.currentUser.name;
+      document.getElementById('profile-meta').textContent = state.currentUser.title + ' • ' + state.currentUser.division;
+      document.getElementById('profile-role').textContent = roleLabel(state.session.grade);
+      document.getElementById('session-summary').textContent = roleLabel(state.session.grade) + ' connecte • ' + state.currentUser.username;
+      document.getElementById('welcome-icon').textContent = roleSymbol(state.session.grade);
+      document.getElementById('welcome-title').textContent = 'Bienvenue, ' + state.currentUser.name;
+      document.getElementById('welcome-copy').textContent = 'Ce portail relie les dossiers, les audiences, les annonces et les affectations des juges, procureurs et avocats dans un meme systeme de gestion.';
+      if (state.session.grade === 'admin') {
+        document.querySelectorAll('.admin-only').forEach((item) => item.classList.remove('hidden'));
+      }
+    }
 
-      const activeCases = cases.filter((item) => item.status !== 'closed');
-      const activeUsers = users.filter((item) => item.active !== false);
-      const roleLabel = ROLE_LABELS[session.grade] || 'Membre';
-      const roleSymbol = ROLE_SYMBOLS[session.grade] || '•';
+    function renderQuickActions() {
+      const actions = [
+        '<button type="button" class="ghost-btn jump-button" data-section="cases">Ouvrir les dossiers</button>',
+        '<button type="button" class="ghost-btn jump-button" data-section="hearings">Planifier une audience</button>',
+        '<button type="button" class="ghost-btn jump-button" data-section="announcements">Publier une annonce</button>'
+      ];
+      if (state.session.grade === 'admin') {
+        actions.push('<button type="button" class="ghost-btn jump-button" data-section="admin-users">Creer un utilisateur</button>');
+        actions.push('<button type="button" class="ghost-btn jump-button" data-section="admin-cases">Gerer les affaires</button>');
+      }
+      document.getElementById('quick-actions').innerHTML = actions.join('');
+      bindJumpButtons();
+    }
 
-      document.getElementById('profile-name').textContent = currentUser.name;
-      document.getElementById('profile-meta').textContent = currentUser.title + ' • ' + currentUser.division;
-      document.getElementById('profile-role').textContent = roleLabel;
-      document.getElementById('welcome-icon').textContent = roleSymbol;
-      document.getElementById('welcome-title').textContent = 'Bienvenue, ' + currentUser.name;
-      document.getElementById('welcome-copy').textContent = 'Votre espace intranet est pret. Vous pouvez suivre l activite des dossiers, verifier les audiences et consulter les annonces du service.';
-      document.getElementById('session-summary').textContent = roleLabel + ' connecte • expiration de session dans la journee';
-
-      document.getElementById('stat-active-cases').textContent = String(activeCases.length);
-      document.getElementById('stat-hearings').textContent = String(hearings.length);
-      document.getElementById('stat-announcements').textContent = String(announcements.length);
+    function renderDashboard() {
+      const visibleCases = getVisibleCases();
+      const visibleHearings = getVisibleHearings();
+      const visibleAnnouncements = getVisibleAnnouncements();
+      const activeUsers = getUsers().filter((user) => user.active !== false);
+      document.getElementById('stat-cases').textContent = String(visibleCases.length);
+      document.getElementById('stat-hearings').textContent = String(visibleHearings.length);
+      document.getElementById('stat-announcements').textContent = String(visibleAnnouncements.length);
       document.getElementById('stat-members').textContent = String(activeUsers.length);
 
-      renderList(
-        'cases-list',
-        activeCases.slice(0, 4),
-        (item) => '<div class="list-item">' +
-          '<div class="list-top">' +
-            '<span class="list-id">' + item.id + '</span>' +
-            '<span class="status ' + statusClass(item.status) + '">' + statusLabel(item.status) + '</span>' +
-          '</div>' +
-          '<div class="list-title">' + item.title + '</div>' +
-          '<div class="list-meta">' + item.division + ' • Prochaine audience : ' + formatDate(item.nextHearing) + '</div>' +
-          '<div class="list-meta">' + item.summary + '</div>' +
-        '</div>',
-        'Aucun dossier actif pour le moment.'
-      );
+      renderSimpleList('dashboard-cases', visibleCases.slice(0, 4).map((item) => ({
+        topLeft: item.id,
+        topRight: '<span class="status ' + statusClass(item.status) + '">' + statusLabel(item.status) + '</span>',
+        title: item.title,
+        meta1: item.type + ' • ' + item.division,
+        meta2: 'Juge: ' + displayUser(item.judge) + ' • Procureur: ' + displayUser(item.prosecutor) + ' • Avocat: ' + displayUser(item.lawyer)
+      })), 'Aucun dossier visible pour ce compte.');
 
-      renderList(
-        'hearings-list',
-        hearings.slice(0, 4),
-        (item) => {
-          const linkedCase = cases.find((entry) => entry.id === item.caseId);
-          return '<div class="list-item">' +
-            '<div class="list-top">' +
-              '<span class="list-id">' + item.id + '</span>' +
-              '<span class="list-meta">' + item.time + '</span>' +
+      renderSimpleList('dashboard-hearings', visibleHearings.slice(0, 4).map((item) => ({
+        topLeft: item.id,
+        topRight: item.time,
+        title: item.type,
+        meta1: formatDate(item.date) + ' • ' + item.room,
+        meta2: 'Dossier: ' + item.caseId
+      })), 'Aucune audience visible.');
+
+      renderSimpleList('dashboard-announcements', visibleAnnouncements.slice(0, 4).map((item) => ({
+        topLeft: 'Annonce',
+        topRight: formatDate(item.date),
+        title: item.title,
+        meta1: item.content,
+        meta2: 'Par ' + item.author + ' • Portee: ' + (item.scope === 'all' ? 'Tous les services' : roleLabel(item.scope))
+      })), 'Aucune annonce interne disponible.');
+
+      renderQuickActions();
+    }
+
+    function openCaseDetail(caseId) {
+      state.selectedCaseId = caseId;
+      const item = getCases().find((entry) => entry.id === caseId);
+      const hearings = getHearings().filter((entry) => entry.caseId === caseId);
+      const detail = document.getElementById('case-detail');
+      if (!item) {
+        detail.innerHTML = '<div class="empty">Ce dossier n existe plus.</div>';
+        return;
+      }
+      const hearingsHtml = hearings.length
+        ? hearings.map((entry) => '<div class="list-item"><div class="list-top"><span class="list-id">' + entry.id + '</span><span>' + entry.time + '</span></div><div class="list-title">' + entry.type + '</div><div class="list-meta">' + formatDate(entry.date) + ' • ' + entry.room + '</div></div>').join('')
+        : '<div class="empty">Aucune audience liee a ce dossier.</div>';
+
+      detail.innerHTML =
+        '<div class="list-item">' +
+          '<div class="list-top"><span class="list-id">' + item.id + '</span><span class="status ' + statusClass(item.status) + '">' + statusLabel(item.status) + '</span></div>' +
+          '<div class="list-title">' + item.title + '</div>' +
+          '<div class="list-meta">Type: ' + item.type + ' • Division: ' + item.division + ' • Priorite: ' + item.priority + '</div>' +
+          '<div class="list-meta">Juge: ' + displayUser(item.judge) + '</div>' +
+          '<div class="list-meta">Procureur: ' + displayUser(item.prosecutor) + '</div>' +
+          '<div class="list-meta">Avocat: ' + displayUser(item.lawyer) + '</div>' +
+          '<div class="list-meta">Resume: ' + item.summary + '</div>' +
+        '</div>' +
+        '<div style="height:14px"></div>' +
+        '<div class="panel-title" style="margin-bottom:12px">Audiences liees</div>' +
+        '<div class="list">' + hearingsHtml + '</div>';
+    }
+
+    function userOptions(role) {
+      const items = getUsers().filter((user) => user.active !== false && (!role || user.grade === role));
+      const options = ['<option value="">Non assigne</option>'];
+      items.forEach((user) => {
+        options.push('<option value="' + user.username + '">' + user.name + '</option>');
+      });
+      return options.join('');
+    }
+
+    function populateCaseSelectors() {
+      document.getElementById('case-judge').innerHTML = userOptions('judge');
+      document.getElementById('case-prosecutor').innerHTML = userOptions('prosecutor');
+      document.getElementById('case-lawyer').innerHTML = userOptions('lawyer');
+      document.getElementById('assignment-judge').innerHTML = userOptions('judge');
+      document.getElementById('assignment-prosecutor').innerHTML = userOptions('prosecutor');
+      document.getElementById('assignment-lawyer').innerHTML = userOptions('lawyer');
+    }
+
+    function renderCasesSection() {
+      const query = document.getElementById('case-search').value.trim().toLowerCase();
+      const status = document.getElementById('case-filter-status').value;
+      const items = getVisibleCases().filter((item) => {
+        const haystack = [item.id, item.title, item.type, item.division, item.summary].join(' ').toLowerCase();
+        const matchesText = !query || haystack.includes(query);
+        const matchesStatus = status === 'all' || item.status === status;
+        return matchesText && matchesStatus;
+      });
+      const list = document.getElementById('cases-list');
+      if (!items.length) {
+        list.innerHTML = '<div class="empty">Aucun dossier ne correspond a votre recherche.</div>';
+      } else {
+        list.innerHTML = items.map((item) =>
+          '<div class="list-item">' +
+            '<div class="list-top"><span class="list-id">' + item.id + '</span><span class="status ' + statusClass(item.status) + '">' + statusLabel(item.status) + '</span></div>' +
+            '<div class="list-title">' + item.title + '</div>' +
+            '<div class="list-meta">' + item.type + ' • ' + item.division + ' • Priorite: ' + item.priority + '</div>' +
+            '<div class="list-meta">Juge: ' + displayUser(item.judge) + ' • Procureur: ' + displayUser(item.prosecutor) + ' • Avocat: ' + displayUser(item.lawyer) + '</div>' +
+            '<div class="actions-row">' +
+              '<button type="button" class="ghost-btn case-open" data-case-id="' + item.id + '">Voir la fiche</button>' +
+              ((state.session.grade === 'admin' || state.session.grade === 'judge' || state.session.grade === 'prosecutor') ? '<button type="button" class="ghost-btn case-edit" data-case-id="' + item.id + '">Editer</button>' : '') +
             '</div>' +
+          '</div>'
+        ).join('');
+      }
+      document.querySelectorAll('.case-open').forEach((button) => {
+        button.addEventListener('click', () => openCaseDetail(button.dataset.caseId));
+      });
+      document.querySelectorAll('.case-edit').forEach((button) => {
+        button.addEventListener('click', () => fillCaseForm(button.dataset.caseId));
+      });
+      if (state.selectedCaseId) openCaseDetail(state.selectedCaseId);
+    }
+
+    function fillCaseForm(caseId) {
+      const item = getCases().find((entry) => entry.id === caseId);
+      if (!item) return;
+      document.getElementById('case-id').value = item.id;
+      document.getElementById('case-reference').value = item.id;
+      document.getElementById('case-title-input').value = item.title;
+      document.getElementById('case-status').value = item.status;
+      document.getElementById('case-type').value = item.type;
+      document.getElementById('case-division').value = item.division;
+      document.getElementById('case-priority').value = item.priority;
+      document.getElementById('case-judge').value = item.judge;
+      document.getElementById('case-prosecutor').value = item.prosecutor;
+      document.getElementById('case-lawyer').value = item.lawyer;
+      document.getElementById('case-summary').value = item.summary;
+      setSection('cases');
+    }
+
+    function resetCaseForm() {
+      document.getElementById('case-form').reset();
+      document.getElementById('case-id').value = '';
+      document.getElementById('case-status').value = 'open';
+      document.getElementById('case-priority').value = 'high';
+    }
+
+    function handleCaseSubmit(event) {
+      event.preventDefault();
+      const editingId = document.getElementById('case-id').value.trim();
+      let items = getCases();
+      const payload = {
+        id: document.getElementById('case-reference').value.trim(),
+        title: document.getElementById('case-title-input').value.trim(),
+        status: document.getElementById('case-status').value,
+        type: document.getElementById('case-type').value.trim() || 'General',
+        division: document.getElementById('case-division').value.trim() || 'Division generale',
+        priority: document.getElementById('case-priority').value,
+        judge: document.getElementById('case-judge').value,
+        prosecutor: document.getElementById('case-prosecutor').value,
+        lawyer: document.getElementById('case-lawyer').value,
+        summary: document.getElementById('case-summary').value.trim() || 'Aucun resume renseigne.'
+      };
+      if (!payload.id || !payload.title) {
+        revealAlert('La reference et le titre du dossier sont obligatoires.', 'error');
+        return;
+      }
+      if (editingId) {
+        items = items.map((item) => item.id === editingId ? payload : item);
+      } else {
+        if (items.some((item) => item.id === payload.id)) {
+          revealAlert('Cette reference de dossier existe deja.', 'error');
+          return;
+        }
+        items.unshift(payload);
+      }
+      saveCases(items);
+      resetCaseForm();
+      state.selectedCaseId = payload.id;
+      renderAll();
+      revealAlert('Le dossier a ete enregistre et les affectations ont ete mises a jour.', 'success');
+    }
+
+    function populateHearingSelectors() {
+      const items = getCases();
+      const options = ['<option value="">Choisir un dossier</option>'].concat(items.map((item) => '<option value="' + item.id + '">' + item.id + ' • ' + item.title + '</option>'));
+      document.getElementById('hearing-case').innerHTML = options.join('');
+      document.getElementById('hearing-filter-case').innerHTML = '<option value="all">Tous les dossiers</option>' + options.slice(1).join('');
+      document.getElementById('assignment-case').innerHTML = options.join('');
+    }
+
+    function renderHearingsSection() {
+      const filterCaseId = document.getElementById('hearing-filter-case').value;
+      const items = getVisibleHearings().filter((item) => filterCaseId === 'all' || item.caseId === filterCaseId);
+      const list = document.getElementById('hearings-list');
+      if (!items.length) {
+        list.innerHTML = '<div class="empty">Aucune audience ne correspond au filtre selectionne.</div>';
+      } else {
+        list.innerHTML = items.map((item) =>
+          '<div class="list-item">' +
+            '<div class="list-top"><span class="list-id">' + item.id + '</span><span>' + item.time + '</span></div>' +
             '<div class="list-title">' + item.type + '</div>' +
             '<div class="list-meta">' + formatDate(item.date) + ' • ' + item.room + '</div>' +
-            '<div class="list-meta">' + (linkedCase ? linkedCase.title : 'Dossier interne') + '</div>' +
-          '</div>';
-        },
-        'Aucune audience a venir pour le moment.'
-      );
-
-      renderList(
-        'announcements-list',
-        announcements.slice(0, 3),
-        (item) => '<div class="list-item">' +
-          '<div class="list-top">' +
-            '<span class="list-id">Annonce interne</span>' +
-            '<span class="list-meta">' + formatDate(item.date) + '</span>' +
-          '</div>' +
-          '<div class="list-title">' + item.title + '</div>' +
-          '<div class="list-meta">' + item.content + '</div>' +
-          '<div class="list-meta">Par ' + item.author + '</div>' +
-        '</div>',
-        'Aucune annonce interne disponible.'
-      );
-
-      document.getElementById('logout-button').addEventListener('click', logout);
-      document.getElementById('refresh-button').addEventListener('click', () => {
-        window.location.reload();
+            '<div class="list-meta">Dossier relie: ' + item.caseId + '</div>' +
+            ((state.session.grade === 'admin' || state.session.grade === 'judge') ? '<div class="actions-row"><button type="button" class="ghost-btn hearing-edit" data-hearing-id="' + item.id + '">Editer</button></div>' : '') +
+          '</div>'
+        ).join('');
+      }
+      document.querySelectorAll('.hearing-edit').forEach((button) => {
+        button.addEventListener('click', () => fillHearingForm(button.dataset.hearingId));
       });
+    }
 
-      showAlert('Le tableau de bord intranet a ete recharge avec des donnees stables.', 'success');
+    function fillHearingForm(hearingId) {
+      const item = getHearings().find((entry) => entry.id === hearingId);
+      if (!item) return;
+      document.getElementById('hearing-id').value = item.id;
+      document.getElementById('hearing-case').value = item.caseId;
+      document.getElementById('hearing-date').value = item.date;
+      document.getElementById('hearing-time').value = item.time;
+      document.getElementById('hearing-room').value = item.room;
+      document.getElementById('hearing-type').value = item.type;
+      setSection('hearings');
+    }
+
+    function resetHearingForm() {
+      document.getElementById('hearing-form').reset();
+      document.getElementById('hearing-id').value = '';
+    }
+
+    function handleHearingSubmit(event) {
+      event.preventDefault();
+      const editingId = document.getElementById('hearing-id').value.trim();
+      let items = getHearings();
+      const payload = {
+        id: editingId || 'HRG-' + String(Date.now()).slice(-4),
+        caseId: document.getElementById('hearing-case').value,
+        date: document.getElementById('hearing-date').value,
+        time: document.getElementById('hearing-time').value,
+        room: document.getElementById('hearing-room').value.trim(),
+        type: document.getElementById('hearing-type').value.trim()
+      };
+      if (!payload.caseId || !payload.date || !payload.time || !payload.room || !payload.type) {
+        revealAlert('Tous les champs d audience sont obligatoires.', 'error');
+        return;
+      }
+      if (editingId) {
+        items = items.map((item) => item.id === editingId ? payload : item);
+      } else {
+        items.unshift(payload);
+      }
+      saveHearings(items);
+      resetHearingForm();
+      renderAll();
+      revealAlert('L audience a ete enregistree et liee au dossier selectionne.', 'success');
+    }
+
+    function renderAnnouncementsSection() {
+      const items = getVisibleAnnouncements();
+      const list = document.getElementById('announcements-list');
+      if (!items.length) {
+        list.innerHTML = '<div class="empty">Aucune annonce visible pour votre role.</div>';
+      } else {
+        list.innerHTML = items.map((item) =>
+          '<div class="list-item">' +
+            '<div class="list-top"><span class="list-id">Annonce</span><span class="table-cell-muted">' + formatDate(item.date) + '</span></div>' +
+            '<div class="list-title">' + item.title + '</div>' +
+            '<div class="list-meta">' + item.content + '</div>' +
+            '<div class="list-meta">Par ' + item.author + ' • Portee: ' + (item.scope === 'all' ? 'Tous les services' : roleLabel(item.scope)) + '</div>' +
+          '</div>'
+        ).join('');
+      }
+    }
+
+    function resetAnnouncementForm() {
+      document.getElementById('announcement-form').reset();
+      document.getElementById('announcement-scope').value = 'all';
+    }
+
+    function handleAnnouncementSubmit(event) {
+      event.preventDefault();
+      const items = getAnnouncements();
+      const payload = {
+        id: nextNumericId(items),
+        title: document.getElementById('announcement-title').value.trim(),
+        content: document.getElementById('announcement-content').value.trim(),
+        author: state.currentUser.name,
+        authorRole: state.session.grade,
+        scope: document.getElementById('announcement-scope').value,
+        date: new Date().toISOString().slice(0, 10)
+      };
+      if (!payload.title || !payload.content) {
+        revealAlert('Le titre et le contenu de l annonce sont obligatoires.', 'error');
+        return;
+      }
+      items.unshift(payload);
+      saveAnnouncements(items);
+      resetAnnouncementForm();
+      renderAll();
+      revealAlert('L annonce a ete publiee dans le flux intranet.', 'success');
+    }
+
+    function renderUsersAdmin() {
+      const users = getUsers();
+      document.getElementById('users-table').innerHTML = users.map((user) =>
+        '<tr>' +
+          '<td><strong>' + user.name + '</strong><div class="table-cell-muted">' + user.username + '</div></td>' +
+          '<td>' + roleLabel(user.grade) + '</td>' +
+          '<td>' + user.division + '</td>' +
+          '<td>' + (user.active !== false ? 'Actif' : 'Desactive') + '</td>' +
+          '<td><button type="button" class="ghost-btn user-edit-button" data-username="' + user.username + '">Modifier</button></td>' +
+        '</tr>'
+      ).join('');
+    }
+
+    function populateGradeSelectors() {
+      const users = getUsers();
+      document.getElementById('grade-user').innerHTML = users.map((user) => '<option value="' + user.username + '">' + user.name + ' • ' + user.username + '</option>').join('');
+    }
+
+    function handleUserSubmit(event) {
+      event.preventDefault();
+      const editId = document.getElementById('user-edit-id').value.trim();
+      let users = getUsers();
+      const payload = {
+        id: editId ? Number(editId) : nextNumericId(users),
+        name: document.getElementById('user-name').value.trim(),
+        username: document.getElementById('user-username').value.trim(),
+        password: document.getElementById('user-password').value.trim(),
+        grade: document.getElementById('user-grade').value,
+        title: document.getElementById('user-title').value.trim() || roleLabel(document.getElementById('user-grade').value),
+        division: document.getElementById('user-division').value.trim() || 'Branche judiciaire',
+        active: document.getElementById('user-active').value === 'true'
+      };
+      if (!payload.name || !payload.username || !payload.password) {
+        revealAlert('Nom, username et mot de passe sont obligatoires pour creer un compte.', 'error');
+        return;
+      }
+      if (!editId && users.some((user) => user.username === payload.username)) {
+        revealAlert('Ce nom d utilisateur existe deja.', 'error');
+        return;
+      }
+      if (editId) {
+        users = users.map((user) => Number(user.id) === Number(editId) ? payload : user);
+      } else {
+        users.push(payload);
+      }
+      saveUsers(users);
+      document.getElementById('user-form').reset();
+      document.getElementById('user-edit-id').value = '';
+      renderAll();
+      revealAlert('Le compte utilisateur a ete enregistre.', 'success');
+    }
+
+    function bindUserEditButtons() {
+      document.querySelectorAll('.user-edit-button').forEach((button) => {
+        button.addEventListener('click', () => {
+          const user = findUser(button.dataset.username);
+          if (!user) return;
+          document.getElementById('user-edit-id').value = user.id;
+          document.getElementById('user-name').value = user.name;
+          document.getElementById('user-username').value = user.username;
+          document.getElementById('user-password').value = user.password || '';
+          document.getElementById('user-grade').value = user.grade;
+          document.getElementById('user-title').value = user.title || '';
+          document.getElementById('user-division').value = user.division || '';
+          document.getElementById('user-active').value = String(user.active !== false);
+          setSection('admin-users');
+        });
+      });
+      document.querySelectorAll('.grade-edit-button').forEach((button) => {
+        button.addEventListener('click', () => {
+          const user = findUser(button.dataset.username);
+          if (!user) return;
+          document.getElementById('grade-user').value = user.username;
+          document.getElementById('grade-value').value = user.grade;
+          document.getElementById('grade-title').value = user.title || '';
+          document.getElementById('grade-division').value = user.division || '';
+          document.getElementById('grade-active').value = String(user.active !== false);
+          setSection('admin-grades');
+        });
+      });
+    }
+
+    function renderGradesAdmin() {
+      const users = getUsers();
+      document.getElementById('grades-table').innerHTML = users.map((user) =>
+        '<tr>' +
+          '<td>' + user.name + '</td>' +
+          '<td>' + user.username + '</td>' +
+          '<td>' + roleLabel(user.grade) + '</td>' +
+          '<td>' + (user.title || '-') + '</td>' +
+          '<td>' + (user.division || '-') + '</td>' +
+          '<td><button type="button" class="ghost-btn grade-edit-button" data-username="' + user.username + '">Modifier</button></td>' +
+        '</tr>'
+      ).join('');
+      bindUserEditButtons();
+    }
+
+    function handleGradeSubmit(event) {
+      event.preventDefault();
+      const username = document.getElementById('grade-user').value;
+      const users = getUsers().map((user) => {
+        if (user.username !== username) return user;
+        return {
+          ...user,
+          grade: document.getElementById('grade-value').value,
+          title: document.getElementById('grade-title').value.trim() || user.title,
+          division: document.getElementById('grade-division').value.trim() || user.division,
+          active: document.getElementById('grade-active').value === 'true'
+        };
+      });
+      saveUsers(users);
+      renderAll();
+      revealAlert('Le grade et l affectation du compte ont ete mis a jour.', 'success');
+    }
+
+    function renderAdminCases() {
+      const items = getCases();
+      document.getElementById('admin-cases-table').innerHTML = items.map((item) =>
+        '<tr>' +
+          '<td><strong>' + item.id + '</strong><div class="table-cell-muted">' + item.title + '</div></td>' +
+          '<td>' + statusLabel(item.status) + '</td>' +
+          '<td>' + displayUser(item.judge) + '</td>' +
+          '<td>' + displayUser(item.prosecutor) + '</td>' +
+          '<td>' + displayUser(item.lawyer) + '</td>' +
+          '<td><button type="button" class="ghost-btn admin-case-edit" data-case-id="' + item.id + '">Reassigner</button></td>' +
+        '</tr>'
+      ).join('');
+      document.querySelectorAll('.admin-case-edit').forEach((button) => {
+        button.addEventListener('click', () => {
+          const item = getCases().find((entry) => entry.id === button.dataset.caseId);
+          if (!item) return;
+          document.getElementById('assignment-case').value = item.id;
+          document.getElementById('assignment-judge').value = item.judge;
+          document.getElementById('assignment-prosecutor').value = item.prosecutor;
+          document.getElementById('assignment-lawyer').value = item.lawyer;
+          document.getElementById('assignment-status').value = item.status;
+          setSection('admin-cases');
+        });
+      });
+    }
+
+    function handleAssignmentSubmit(event) {
+      event.preventDefault();
+      const caseId = document.getElementById('assignment-case').value;
+      if (!caseId) {
+        revealAlert('Selectionnez un dossier a reassigner.', 'error');
+        return;
+      }
+      const items = getCases().map((item) => {
+        if (item.id !== caseId) return item;
+        return {
+          ...item,
+          judge: document.getElementById('assignment-judge').value,
+          prosecutor: document.getElementById('assignment-prosecutor').value,
+          lawyer: document.getElementById('assignment-lawyer').value,
+          status: document.getElementById('assignment-status').value
+        };
+      });
+      saveCases(items);
+      state.selectedCaseId = caseId;
+      renderAll();
+      revealAlert('Le dossier a ete re assigne entre juge, procureur et avocat.', 'success');
+    }
+
+    function renderSiteAdmin() {
+      const settings = getSiteSettings();
+      document.getElementById('site-name').value = settings.siteName || '';
+      document.getElementById('site-tagline').value = settings.tagline || '';
+      document.getElementById('site-court').value = settings.courtText || '';
+      document.getElementById('site-prosecutor').value = settings.prosecutorText || '';
+      document.getElementById('site-bar').value = settings.barText || '';
+      document.getElementById('site-summary').innerHTML = [
+        { title: 'Nom du site', text: settings.siteName },
+        { title: 'Sous-titre', text: settings.tagline },
+        { title: 'Presentation de la cour', text: settings.courtText },
+        { title: 'Presentation du procureur', text: settings.prosecutorText },
+        { title: 'Presentation du barreau', text: settings.barText }
+      ].map((item) => '<div class="list-item"><div class="list-id">' + item.title + '</div><div class="list-meta">' + item.text + '</div></div>').join('');
+    }
+
+    function handleSiteSubmit(event) {
+      event.preventDefault();
+      saveSiteSettings({
+        siteName: document.getElementById('site-name').value.trim(),
+        tagline: document.getElementById('site-tagline').value.trim(),
+        courtText: document.getElementById('site-court').value.trim(),
+        prosecutorText: document.getElementById('site-prosecutor').value.trim(),
+        barText: document.getElementById('site-bar').value.trim()
+      });
+      renderSiteAdmin();
+      revealAlert('Les parametres du site ont ete sauvegardes.', 'success');
+    }
+
+    function renderAll() {
+      populateProfile();
+      populateCaseSelectors();
+      populateHearingSelectors();
+      populateGradeSelectors();
+      renderDashboard();
+      renderCasesSection();
+      renderHearingsSection();
+      renderAnnouncementsSection();
+      if (state.session.grade === 'admin') {
+        renderUsersAdmin();
+        renderGradesAdmin();
+        renderAdminCases();
+        renderSiteAdmin();
+      }
+    }
+
+    function bindCore() {
+      document.querySelectorAll('.nav-button').forEach((button) => {
+        button.addEventListener('click', () => setSection(button.dataset.section));
+      });
+      bindJumpButtons();
+      document.getElementById('logout-button').addEventListener('click', logout);
+      document.getElementById('case-search').addEventListener('input', renderCasesSection);
+      document.getElementById('case-filter-status').addEventListener('change', renderCasesSection);
+      document.getElementById('hearing-filter-case').addEventListener('change', renderHearingsSection);
+      document.getElementById('case-form').addEventListener('submit', handleCaseSubmit);
+      document.getElementById('case-reset').addEventListener('click', resetCaseForm);
+      document.getElementById('hearing-form').addEventListener('submit', handleHearingSubmit);
+      document.getElementById('hearing-reset').addEventListener('click', resetHearingForm);
+      document.getElementById('announcement-form').addEventListener('submit', handleAnnouncementSubmit);
+      document.getElementById('announcement-reset').addEventListener('click', resetAnnouncementForm);
+      document.getElementById('user-form').addEventListener('submit', handleUserSubmit);
+      document.getElementById('user-reset').addEventListener('click', () => {
+        document.getElementById('user-form').reset();
+        document.getElementById('user-edit-id').value = '';
+      });
+      document.getElementById('grade-form').addEventListener('submit', handleGradeSubmit);
+      document.getElementById('assignment-form').addEventListener('submit', handleAssignmentSubmit);
+      document.getElementById('site-form').addEventListener('submit', handleSiteSubmit);
+    }
+
+    ensureSeedData();
+    state.session = getSession();
+    if (!state.session) {
+      window.location.href = 'login.html';
+    } else {
+      state.currentUser = findUser(state.session.userId) || {
+        username: state.session.userId,
+        name: state.session.name,
+        grade: state.session.grade,
+        title: roleLabel(state.session.grade),
+        division: 'Branche judiciaire'
+      };
+      bindCore();
+      renderAll();
+      revealAlert('Le systeme intranet a charge les modules de gestion des utilisateurs, grades, affaires et site.', 'success');
     }
   </script>
 </body>

@@ -1460,53 +1460,58 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
 
   <script>
 const JBSA = (() => {
-  const credentials = [
-    { username: 'admin', password: 'JBSA#System@2025', grade: 'admin', name: 'Administrateur systeme' },
-    { username: 'r.marshall', password: 'Court#RM@1926', grade: 'judge', name: 'Juge en chef Rebecca Marshall' },
-    { username: 'da.johnson', password: 'DA#Office@SA', grade: 'prosecutor', name: 'Procureur Marcus Johnson' },
-    { username: 'atty.garcia', password: 'Bar#Assoc@2025', grade: 'lawyer', name: 'Batonnier Elena Garcia' }
-  ];
-
   const defaultUsers = [
     {
+      id: 2,
       username: 'r.marshall',
+      password: 'Court#RM@1926',
       grade: 'judge',
       name: 'Juge en chef Rebecca Marshall',
       title: 'Juge en chef',
       division: 'Cour de justice',
       email: 'r.marshall@jbsa.gov',
       phone: '(555) 010-1926',
-      permissions: ['cases', 'hearings', 'opinions', 'admin-lite']
+      permissions: ['cases', 'hearings', 'opinions', 'admin-lite'],
+      active: true
     },
     {
+      id: 3,
       username: 'da.johnson',
+      password: 'DA#Office@SA',
       grade: 'prosecutor',
       name: 'Procureur Marcus Johnson',
       title: 'Procureur de district',
       division: 'Bureau du procureur',
       email: 'm.johnson@dao.sa',
       phone: '(555) 210-4401',
-      permissions: ['cases', 'pleas', 'filings']
+      permissions: ['cases', 'pleas', 'filings'],
+      active: true
     },
     {
+      id: 4,
       username: 'atty.garcia',
+      password: 'Bar#Assoc@2025',
       grade: 'lawyer',
       name: 'Batonnier Elena Garcia',
       title: 'Presidente du barreau',
       division: 'Bar Association',
       email: 'e.garcia@sabar.org',
       phone: '(555) 310-1120',
-      permissions: ['members', 'ethics', 'licenses']
+      permissions: ['members', 'ethics', 'licenses'],
+      active: true
     },
     {
+      id: 1,
       username: 'admin',
+      password: 'JBSA#System@2025',
       grade: 'admin',
       name: 'Administrateur systeme',
       title: 'Administrateur de la plateforme',
       division: 'Intranet judiciaire',
       email: 'admin@jbsa.local',
       phone: '(555) 000-0001',
-      permissions: ['all']
+      permissions: ['all'],
+      active: true
     }
   ];
 
@@ -1592,7 +1597,24 @@ const JBSA = (() => {
   };
 
   function ensureSeedData() {
-    if (!localStorage.getItem('jbsa_users')) store.set('jbsa_users', defaultUsers);
+    const existingUsers = store.get('jbsa_users', null);
+    if (!Array.isArray(existingUsers)) {
+      store.set('jbsa_users', defaultUsers);
+    } else {
+      const byUsername = new Map();
+      defaultUsers.forEach((user) => byUsername.set(user.username, { ...user }));
+      existingUsers.forEach((user) => {
+        const base = byUsername.get(user.username) || {};
+        byUsername.set(user.username, { ...base, ...user });
+      });
+      const mergedUsers = Array.from(byUsername.values()).map((user, index) => ({
+        ...user,
+        id: user.id ?? index + 1,
+        active: user.active !== false,
+        password: user.password || (defaultUsers.find((entry) => entry.username === user.username)?.password || '')
+      }));
+      store.set('jbsa_users', mergedUsers);
+    }
     if (!localStorage.getItem('jbsa_announcements')) store.set('jbsa_announcements', defaultAnnouncements);
     if (!localStorage.getItem('jbsa_cases')) store.set('jbsa_cases', defaultCases);
     if (!localStorage.getItem('jbsa_hearings')) store.set('jbsa_hearings', defaultHearings);
@@ -1636,7 +1658,10 @@ const JBSA = (() => {
   }
 
   function login(username, password, requiredGrade) {
-    const record = credentials.find((entry) =>
+    const users = store.get('jbsa_users', defaultUsers);
+    const record = users.find((entry) =>
+      entry.username &&
+      entry.password &&
       entry.username.toLowerCase() === username.toLowerCase() &&
       entry.password === password
     );
@@ -1645,19 +1670,16 @@ const JBSA = (() => {
       return { success: false, error: 'Identifiants invalides.' };
     }
 
+    if (record.active === false) {
+      return { success: false, error: 'Ce compte est desactive.' };
+    }
+
     if (requiredGrade && record.grade !== requiredGrade && record.grade !== 'admin') {
       return { success: false, error: 'Ce compte ne correspond pas au role selectionne.' };
     }
 
-    const users = store.get('jbsa_users', defaultUsers);
-    const user = users.find((entry) => entry.username === record.username) || {
-      username: record.username,
-      grade: record.grade,
-      name: record.name
-    };
-
-    createSession(user);
-    return { success: true, user };
+    createSession(record);
+    return { success: true, user: record };
   }
 
   function logout() {
