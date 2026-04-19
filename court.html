@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Cour Suprême — Judicial Branch of San Andreas</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .page-hero {
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      padding-top: 70px;
+      background: linear-gradient(135deg, rgba(139,26,26,0.08) 0%, transparent 60%);
+      border-bottom: var(--border-gold);
+    }
+
+    .breadcrumb {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+
+    .judge-card {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .judge-avatar {
+      width: 80px;
+      height: 80px;
+      background: rgba(139,26,26,0.15);
+      border: 1px solid rgba(139,26,26,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1rem;
+    }
+
+    .procedure-step {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .procedure-step:last-child { border-bottom: none; }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      border: var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .step-content h4 { font-size: 1.1rem; color: var(--white); margin-bottom: 0.4rem; }
+    .step-content p { font-size: 0.95rem; color: var(--cream-dark); opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="../index.html" class="navbar-brand">
+    <div class="navbar-logo">
+      <img src="../assets/seal.webp" alt="JBSA" onerror="this.parentElement.innerHTML='⚖️';this.parentElement.style.fontSize='1.5rem'">
+    </div>
+    <div class="navbar-name">Judicial Branch <small>of San Andreas</small></div>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="court.html" class="active">La Cour</a></li>
+    <li><a href="prosecutor.html">Procureur</a></li>
+    <li><a href="bar.html">Barreau</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="../login.html" class="btn-nav-login">Intranet →</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">Accueil</a> › La Cour Suprême</div>
+    <span class="ui-label" style="display:block;margin-bottom:0.8rem;">Juridiction Suprême</span>
+    <h1 style="font-size:clamp(2rem,5vw,4rem);color:var(--white);margin-bottom:1rem;">La Cour Suprême<br><em style="color:var(--gold);">de San Andreas</em></h1>
+    <p style="max-width:600px;color:var(--cream-dark);opacity:0.8;font-size:1.05rem;">Plus haute juridiction de l'État, garante des droits constitutionnels et de l'uniformité du droit.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:4rem;align-items:start;">
+      <div>
+        <h2 class="section-title" style="margin-bottom:1.5rem;">Présentation</h2>
+        <div class="content-area" id="court-description">
+          <p>La Cour Suprême de San Andreas est la plus haute juridiction de l'État. Elle statue en dernier ressort sur les affaires les plus importantes, notamment celles portant sur l'interprétation de la Constitution.</p>
+          <p>Fondée en 1926, la Cour assure la cohérence et l'uniformité du droit sur l'ensemble du territoire de San Andreas. Elle est composée de juges nommés pour garantir leur indépendance vis-à-vis des pouvoirs exécutif et législatif.</p>
+          <h3>Compétences</h3>
+          <ul>
+            <li>Contentieux constitutionnel</li>
+            <li>Cassation des décisions des juridictions inférieures</li>
+            <li>Avis consultatifs au gouvernement de l'État</li>
+            <li>Contrôle de la légalité des actes administratifs</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:1.5rem;">
+          <div class="ui-label" style="margin-bottom:0.8rem;">Informations Clés</div>
+          <div style="display:flex;flex-direction:column;gap:0.8rem;">
+            <div style="display:flex;justify-content:space-between;padding-bottom:0.5rem;border-bottom:var(--border-gold);">
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--cream-dark);opacity:0.6;">Fondée en</span>
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--gold);">1926</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding-bottom:0.5rem;border-bottom:var(--border-gold);">
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--cream-dark);opacity:0.6;">Type</span>
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--gold);">Suprême</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding-bottom:0.5rem;border-bottom:var(--border-gold);">
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--cream-dark);opacity:0.6;">Juridiction</span>
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--gold);">État de SA</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--cream-dark);opacity:0.6;">Audiences</span>
+              <span style="font-family:var(--font-ui);font-size:0.72rem;color:var(--gold);">Publiques</span>
+            </div>
+          </div>
+        </div>
+        <a href="../login.html" class="btn btn-gold w-full" style="justify-content:center;">Accès Intranet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="divider"><span class="divider-icon">⚖️</span></div>
+    <h2 class="section-title" style="margin-bottom:2rem;" id="judges">Le Collège des Juges</h2>
+    <div class="grid-3" id="judges-grid"></div>
+  </div>
+</section>
+
+<section class="section" style="background:rgba(201,168,76,0.02);border-top:var(--border-gold);" id="procedure">
+  <div class="container">
+    <div class="section-header">
+      <span class="ui-label">Procédures</span>
+      <h2 class="section-title">Comment Saisir la Cour</h2>
+    </div>
+    <div style="max-width:700px;margin:0 auto;">
+      <div class="procedure-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>Dépôt du Recours</h4>
+          <p>La partie requérante dépose un mémoire auprès du greffe de la Cour, accompagné des pièces justificatives et du paiement des frais de juridiction.</p>
+        </div>
+      </div>
+      <div class="procedure-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>Examen de Recevabilité</h4>
+          <p>La Cour examine si le recours remplit les conditions de recevabilité formelle et de fond pour être jugé en dernier ressort.</p>
+        </div>
+      </div>
+      <div class="procedure-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>Instruction</h4>
+          <p>Les parties échangent leurs arguments par écrit. La Cour peut ordonner des mesures d'instruction complémentaires.</p>
+        </div>
+      </div>
+      <div class="procedure-step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h4>Audience Publique</h4>
+          <p>Les parties plaident oralement devant le collège de juges. L'audience est ouverte au public sauf exceptions.</p>
+        </div>
+      </div>
+      <div class="procedure-step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h4>Délibéré & Jugement</h4>
+          <p>Le collège délibère à huis clos. La décision est rendue publiquement et s'impose à tous.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 1926–2025 Judicial Branch of San Andreas · Tous droits réservés</p>
+      <a href="../index.html" style="font-family:var(--font-ui);font-size:0.65rem;color:var(--gold);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Retour à l'Accueil</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/jbsa.js"></script>
+<script>
+  // Load judges from users
+  const users = JBSA.store.get('users') || [];
+  const judges = users.filter(u => u.grade === 'judge' && u.active);
+  const settings = JBSA.store.get('siteSettings') || {};
+
+  if (settings.courtInfo) {
+    document.getElementById('court-description').innerHTML = `<p>${settings.courtInfo}</p>`;
+  }
+
+  document.getElementById('judges-grid').innerHTML = judges.length ?
+    judges.map(j => `
+      <div class="judge-card">
+        <div class="judge-avatar">${j.avatar}</div>
+        <div class="badge badge-judge mb-2">⚖️ Juge</div>
+        <h3 style="font-size:1.1rem;color:var(--white);margin-bottom:0.2rem;">${j.name}</h3>
+        <p style="font-family:var(--font-ui);font-size:0.68rem;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;">${j.title || 'Juge'}</p>
+        <p style="font-size:0.88rem;color:var(--cream-dark);opacity:0.6;margin-top:0.5rem;">${j.department}</p>
+      </div>
+    `).join('') :
+    '<div class="alert alert-info" style="grid-column:1/-1;">Aucun juge actif pour le moment.</div>';
+</script>
+</body>
+</html>

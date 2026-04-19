@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annonces — Intranet JBSA</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .announce-card {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 6px;
+      padding: 2rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      transition: all 0.25s;
+    }
+
+    .announce-card:hover { border-color: rgba(201,168,76,0.6); }
+
+    .pinned-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(201,168,76,0.15);
+      border: var(--border-gold);
+      border-radius: 3px;
+      padding: 0.25rem 0.6rem;
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .announce-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.7rem;
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+
+    .announce-card-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .announce-card-content {
+      color: var(--cream-dark);
+      opacity: 0.8;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .announce-card-footer {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+<div id="sidebar-mount"></div>
+
+<div class="main-content">
+  <div class="page-header">
+    <h1>Annonces & Communiqués</h1>
+    <button class="btn btn-gold btn-sm" onclick="openModal()" id="new-btn">+ Nouvelle Annonce</button>
+  </div>
+
+  <div class="page-body">
+    <div id="alert-container"></div>
+    <div id="announces-list"></div>
+  </div>
+</div>
+
+<!-- New Announcement Modal -->
+<div id="modal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📢 Nouvelle Annonce</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Titre</label>
+        <input type="text" id="a-title" class="form-input" placeholder="Objet de l'annonce">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contenu</label>
+        <textarea id="a-content" class="form-textarea" style="min-height:140px;" placeholder="Corps du message..."></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Visibilité</label>
+          <select id="a-visibility" class="form-select">
+            <option value="all">Tous</option>
+            <option value="judge">Juges uniquement</option>
+            <option value="prosecutor">Procureurs uniquement</option>
+            <option value="lawyer">Avocats uniquement</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Épingler</label>
+          <select id="a-pinned" class="form-select">
+            <option value="false">Non</option>
+            <option value="true">Oui — Épingler</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-gold" onclick="saveAnnounce()">Publier l'Annonce</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jbsa.js"></script>
+<script>
+  const session = JBSA.requireAuth();
+  if (!session) throw new Error();
+
+  const user = JBSA.getCurrentUser();
+  document.getElementById('sidebar-mount').innerHTML = JBSA.buildSidebar(session.grade, 'announcements');
+
+  // Hide new button if not authorized
+  if (!['admin','judge','prosecutor'].includes(session.grade)) {
+    document.getElementById('new-btn').style.display = 'none';
+  }
+
+  function renderAnnounces() {
+    const announces = JBSA.store.get('announcements') || [];
+    const visible = announces.filter(a => a.visibility === 'all' || a.visibility === session.grade || session.grade === 'admin');
+    const sorted = [...visible.filter(a => a.pinned), ...visible.filter(a => !a.pinned)];
+
+    const container = document.getElementById('announces-list');
+    if (!sorted.length) {
+      container.innerHTML = '<div class="alert alert-info">ℹ Aucune annonce disponible.</div>';
+      return;
+    }
+
+    const g = JBSA.getGradeConfig;
+    container.innerHTML = sorted.map(a => `
+      <div class="announce-card">
+        ${a.pinned ? '<span class="pinned-badge">📌 Épinglé</span>' : ''}
+        <div class="announce-card-meta">
+          <span class="badge ${g(a.grade).badgeClass}">${g(a.grade).icon} ${g(a.grade).label}</span>
+          <span>${a.author}</span>
+          <span>·</span>
+          <span>${JBSA.formatDate(a.date)}</span>
+        </div>
+        <div class="announce-card-title">${a.title}</div>
+        <div class="announce-card-content">${a.content}</div>
+        ${session.grade === 'admin' ? `
+        <div class="announce-card-footer">
+          <span style="font-family:var(--font-ui);font-size:0.65rem;color:var(--cream-dark);opacity:0.4;">ID: ${a.id}</span>
+          <button class="btn btn-danger btn-sm" onclick="deleteAnnounce(${a.id})">Supprimer</button>
+        </div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  function openModal() {
+    document.getElementById('modal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+  }
+
+  function saveAnnounce() {
+    const title = document.getElementById('a-title').value.trim();
+    const content = document.getElementById('a-content').value.trim();
+    if (!title || !content) { JBSA.showAlert('Remplissez tous les champs.', 'error'); return; }
+
+    const announces = JBSA.store.get('announcements') || [];
+    const newA = {
+      id: Date.now(),
+      title,
+      content,
+      author: user ? user.name : session.name,
+      grade: session.grade,
+      date: new Date().toISOString().split('T')[0],
+      visibility: document.getElementById('a-visibility').value,
+      pinned: document.getElementById('a-pinned').value === 'true'
+    };
+
+    announces.unshift(newA);
+    JBSA.store.set('announcements', announces);
+    closeModal();
+    renderAnnounces();
+    JBSA.showAlert('Annonce publiée.', 'success');
+  }
+
+  function deleteAnnounce(id) {
+    if (!confirm('Supprimer cette annonce ?')) return;
+    let announces = JBSA.store.get('announcements') || [];
+    announces = announces.filter(a => a.id !== id);
+    JBSA.store.set('announcements', announces);
+    renderAnnounces();
+    JBSA.showAlert('Annonce supprimée.', 'success');
+  }
+
+  renderAnnounces();
+</script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Judicial Branch of San Andreas — Justice & Équité</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .institutions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    @media (max-width: 900px) { .institutions-grid { grid-template-columns: 1fr; } }
+
+    .institution-card {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.4s;
+      cursor: pointer;
+    }
+
+    .institution-card:hover {
+      border-color: rgba(201,168,76,0.7);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 40px rgba(201,168,76,0.1);
+    }
+
+    .institution-banner {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .court-banner { background: linear-gradient(135deg, #1a0a0a 0%, #3d0f0f 50%, #1a0a0a 100%); }
+    .prosecutor-banner { background: linear-gradient(135deg, #0a1020 0%, #0f2040 50%, #0a1020 100%); }
+    .bar-banner { background: linear-gradient(135deg, #0a1a0a 0%, #0f3520 50%, #0a1a0a 100%); }
+
+    .institution-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(255,255,255,0.015) 20px,
+        rgba(255,255,255,0.015) 21px
+      );
+    }
+
+    .institution-body { padding: 2rem; }
+    .institution-body h3 { font-size: 1.4rem; color: var(--white); margin-bottom: 0.3rem; }
+    .institution-body .subtitle {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .institution-body p { color: var(--cream-dark); opacity: 0.8; font-size: 0.98rem; line-height: 1.75; }
+
+    .institution-footer {
+      padding: 1.2rem 2rem;
+      border-top: var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .institution-footer span {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      color: var(--gray);
+      letter-spacing: 0.08em;
+    }
+
+    /* News Section */
+    .news-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .news-item:last-child { border-bottom: none; }
+
+    .news-date {
+      text-align: center;
+      background: rgba(201,168,76,0.08);
+      border: var(--border-gold);
+      border-radius: 5px;
+      padding: 0.8rem 0.5rem;
+    }
+
+    .news-date .day {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .news-date .month {
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream-dark);
+      opacity: 0.6;
+    }
+
+    .news-content h4 { font-size: 1.1rem; color: var(--white); margin-bottom: 0.4rem; }
+    .news-content p { font-size: 0.95rem; color: var(--cream-dark); opacity: 0.75; line-height: 1.6; }
+
+    /* Stats strip */
+    .stats-strip {
+      background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(139,26,26,0.04) 100%);
+      border: var(--border-gold);
+      border-radius: 8px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) { .stats-strip { grid-template-columns: repeat(2, 1fr); } }
+
+    /* Values section */
+    .value-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      border: var(--border-gold);
+      border-radius: 6px;
+      background: rgba(201,168,76,0.03);
+      transition: all 0.3s;
+    }
+    .value-item:hover { background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.5); }
+    .value-icon { font-size: 2rem; flex-shrink: 0; }
+    .value-item h4 { font-size: 1.1rem; color: var(--gold); margin-bottom: 0.4rem; }
+    .value-item p { font-size: 0.95rem; color: var(--cream-dark); opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">
+    <div class="navbar-logo">
+      <img src="assets/seal.webp" alt="JBSA Seal" onerror="this.parentElement.innerHTML='⚖️';this.parentElement.style.fontSize='1.5rem'">
+    </div>
+    <div class="navbar-name">
+      Judicial Branch
+      <small>of San Andreas</small>
+    </div>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" class="active">Accueil</a></li>
+    <li><a href="pages/court.html">La Cour</a></li>
+    <li><a href="pages/prosecutor.html">Procureur</a></li>
+    <li><a href="pages/bar.html">Barreau</a></li>
+    <li><a href="pages/contact.html">Contact</a></li>
+    <li><a href="login.html" class="btn-nav-login">Intranet →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text anim-fade-up">
+        <div class="hero-eyebrow">État de San Andreas · Fondée en 1926</div>
+        <h1>
+          <em>Justice</em>, Équité<br>& Droit
+        </h1>
+        <p class="hero-desc">
+          La Branche Judiciaire de San Andreas garantit l'application équitable des lois, 
+          la protection des droits fondamentaux et le maintien de l'ordre constitutionnel 
+          dans tout l'État.
+        </p>
+        <div class="hero-actions">
+          <a href="pages/court.html" class="btn btn-gold btn-lg">Découvrir la Cour</a>
+          <a href="login.html" class="btn btn-outline btn-lg">Accès Intranet</a>
+        </div>
+      </div>
+      <div class="hero-seal anim-fade-up anim-delay-2">
+        <div class="seal-wrapper">
+          <div class="seal-ring"></div>
+          <img class="seal-img" src="assets/seal.webp" alt="Sceau JBSA"
+            onerror="this.style.background='var(--navy-light)';this.style.display='flex';this.style.alignItems='center';this.style.justifyContent='center';this.innerHTML='⚖️'">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section-sm" style="background:rgba(201,168,76,0.03);border-top:var(--border-gold);border-bottom:var(--border-gold);">
+  <div class="container">
+    <div class="stats-strip">
+      <div class="stat-box">
+        <div class="stat-number" data-count="98">0</div>
+        <div class="stat-label">Années de Service</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-count="3">0</div>
+        <div class="stat-label">Institutions</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-count="1249">0</div>
+        <div class="stat-label">Affaires Traitées</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-count="24">0</div>
+        <div class="stat-label">Membres Actifs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="ui-label">Nos Institutions</span>
+      <h2 class="section-title">Trois Piliers de la Justice</h2>
+      <p>La Branche Judiciaire repose sur trois institutions complémentaires, chacune jouant un rôle essentiel dans l'administration de la justice.</p>
+    </div>
+    <div class="institutions-grid">
+
+      <!-- Court -->
+      <div class="institution-card" onclick="window.location.href='pages/court.html'">
+        <div class="institution-banner court-banner">⚖️</div>
+        <div class="institution-body">
+          <div class="subtitle">Juridiction Suprême</div>
+          <h3>La Cour Suprême</h3>
+          <p>Plus haute juridiction de l'État, elle statue en dernier ressort sur les affaires constitutionnelles et garantit l'uniformité du droit.</p>
+        </div>
+        <div class="institution-footer">
+          <span>En savoir plus →</span>
+          <span class="badge badge-judge">⚖️ Judiciaire</span>
+        </div>
+      </div>
+
+      <!-- Prosecutor -->
+      <div class="institution-card" onclick="window.location.href='pages/prosecutor.html'">
+        <div class="institution-banner prosecutor-banner">📋</div>
+        <div class="institution-body">
+          <div class="subtitle">Ministère Public</div>
+          <h3>Bureau du Procureur</h3>
+          <p>Représentant de l'État dans les poursuites pénales, il enquête et engage des poursuites contre les auteurs d'infractions à la loi.</p>
+        </div>
+        <div class="institution-footer">
+          <span>En savoir plus →</span>
+          <span class="badge badge-prosecutor">📋 Parquet</span>
+        </div>
+      </div>
+
+      <!-- Bar -->
+      <div class="institution-card" onclick="window.location.href='pages/bar.html'">
+        <div class="institution-banner bar-banner">🏛️</div>
+        <div class="institution-body">
+          <div class="subtitle">Ordre des Avocats</div>
+          <h3>Barreau de San Andreas</h3>
+          <p>Régulateur de la profession d'avocat, il garantit la qualité, l'éthique et la déontologie des services juridiques dans l'État.</p>
+        </div>
+        <div class="institution-footer">
+          <span>En savoir plus →</span>
+          <span class="badge badge-lawyer">🏛️ Barreau</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="container">
+  <div class="divider"><span class="divider-icon">✦</span></div>
+</div>
+
+<!-- NEWS + VALUES -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+
+      <!-- News -->
+      <div>
+        <div class="mb-4">
+          <span class="ui-label" style="display:block;margin-bottom:0.5rem;">Actualités</span>
+          <h2 class="section-title" style="font-size:2rem;">Dernières Nouvelles</h2>
+        </div>
+        <div id="news-list">
+          <!-- Filled by JS -->
+        </div>
+        <a href="pages/court.html" class="btn btn-outline mt-4">Voir toutes les actualités</a>
+      </div>
+
+      <!-- Values -->
+      <div>
+        <div class="mb-4">
+          <span class="ui-label" style="display:block;margin-bottom:0.5rem;">Nos Valeurs</span>
+          <h2 class="section-title" style="font-size:2rem;">Principes Fondateurs</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="value-item">
+            <div class="value-icon">⚖️</div>
+            <div>
+              <h4>Impartialité</h4>
+              <p>Chaque affaire est traitée avec la même rigueur et équité, sans distinction de statut ou d'origine.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🔒</div>
+            <div>
+              <h4>Indépendance</h4>
+              <p>La justice s'exerce libre de toute pression politique, économique ou sociale.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">📜</div>
+            <div>
+              <h4>Légalité</h4>
+              <p>Toute décision est fondée exclusivement sur la loi et la Constitution de l'État.</p>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🤝</div>
+            <div>
+              <h4>Transparence</h4>
+              <p>Les procédures sont publiques et accessibles à tous les citoyens de San Andreas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:linear-gradient(135deg,rgba(201,168,76,0.06),rgba(139,26,26,0.04));border-top:var(--border-gold);">
+  <div class="container text-center">
+    <span class="ui-label" style="display:block;margin-bottom:1rem;">Accès Professionnel</span>
+    <h2 class="section-title" style="margin-bottom:1rem;">Espace Intranet</h2>
+    <p style="color:var(--cream-dark);opacity:0.75;max-width:500px;margin:0 auto 2.5rem;font-size:1rem;">
+      Accédez à la plateforme sécurisée réservée aux membres du Barreau, 
+      du Parquet et de la Cour de San Andreas.
+    </p>
+    <a href="login.html" class="btn btn-gold btn-lg">Connexion à l'Intranet →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-name" style="font-size:1.1rem;margin-bottom:1rem;">
+          Judicial Branch of San Andreas
+        </div>
+        <p>Gardienne de la justice et des libertés fondamentales dans l'État de San Andreas depuis 1926.</p>
+      </div>
+      <div class="footer-col">
+        <h4>La Cour</h4>
+        <ul>
+          <li><a href="pages/court.html">Présentation</a></li>
+          <li><a href="pages/court.html#judges">Les Juges</a></li>
+          <li><a href="pages/court.html#procedure">Procédures</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institutions</h4>
+        <ul>
+          <li><a href="pages/prosecutor.html">Bureau du Procureur</a></li>
+          <li><a href="pages/bar.html">Barreau</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Accès</h4>
+        <ul>
+          <li><a href="login.html">Intranet</a></li>
+          <li><a href="pages/court.html">Audiences Publiques</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 1926–2025 Judicial Branch of San Andreas · Tous droits réservés</p>
+      <p>Powered by FiveM · San Andreas RP</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/jbsa.js"></script>
+<script>
+  // Render news from announcements
+  function renderNews() {
+    const announcements = JBSA.store.get('announcements') || [];
+    const container = document.getElementById('news-list');
+    const recent = announcements.slice(0, 3);
+    container.innerHTML = recent.map(a => {
+      const d = new Date(a.date);
+      return `
+      <div class="news-item">
+        <div class="news-date">
+          <div class="day">${d.getDate()}</div>
+          <div class="month">${d.toLocaleDateString('fr-FR',{month:'short'})}</div>
+        </div>
+        <div class="news-content">
+          <h4>${a.title}</h4>
+          <p>${a.content.substring(0, 120)}...</p>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Counter animation
+  function animateCounters() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = parseInt(el.dataset.count);
+      let current = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current);
+        if (current >= target) clearInterval(timer);
+      }, 20);
+    });
+  }
+
+  renderNews();
+  setTimeout(animateCounters, 300);
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bureau du Procureur — Judicial Branch of San Andreas</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .page-hero {
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      padding-top: 70px;
+      background: linear-gradient(135deg, rgba(30,77,100,0.1) 0%, transparent 60%);
+      border-bottom: var(--border-gold);
+    }
+
+    .breadcrumb { font-family: var(--font-ui); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--gold-dim); text-decoration: none; }
+
+    .member-card {
+      background: var(--navy-light);
+      border: var(--border-gold);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+
+    .member-avatar {
+      width: 60px;
+      height: 60px;
+      background: rgba(30,77,100,0.2);
+      border: 1px solid rgba(60,130,180,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .member-name { font-size: 1.05rem; color: var(--white); font-weight: 600; margin-bottom: 0.2rem; }
+    .member-title { font-family: var(--font-ui); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #60a5fa; margin-bottom: 0.4rem; }
+    .member-dept { font-size: 0.88rem; color: var(--cream-dark); opacity: 0.6; }
+
+    .mission-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+
+    .mission-item:last-child { border-bottom: none; }
+    .mission-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .mission-item h4 { font-size: 1rem; color: var(--gold); margin-bottom: 0.3rem; }
+    .mission-item p { font-size: 0.92rem; color: var(--cream-dark); opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="../index.html" class="navbar-brand">
+    <div class="navbar-logo">
+      <img src="../assets/seal.webp" alt="JBSA" onerror="this.parentElement.innerHTML='⚖️';this.parentElement.style.fontSize='1.5rem'">
+    </div>
+    <div class="navbar-name">Judicial Branch <small>of San Andreas</small></div>
+  </a>
+  <ul class="navbar-nav">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="court.html">La Cour</a></li>
+    <li><a href="prosecutor.html" class="active">Procureur</a></li>
+    <li><a href="bar.html">Barreau</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="../login.html" class="btn-nav-login">Intranet →</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">Accueil</a> › Bureau du Procureur</div>
+    <span class="ui-label" style="display:block;margin-bottom:0.8rem;">Ministère Public</span>
+    <h1 style="font-size:clamp(2rem,5vw,4rem);color:var(--white);margin-bottom:1rem;">Bureau du<br><em style="color:var(--gold);">Procureur</em></h1>
+    <p style="max-width:600px;color:var(--cream-dark);opacity:0.8;font-size:1.05rem;">Représentant l'État dans les poursuites pénales, garant de l'ordre public et de la justice sociale.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;">
+      <div>
+        <h2 class="section-title" style="margin-bottom:1.5rem;">Notre Mission</h2>
+        <div class="content-area" id="prosecutor-desc">
+          <p>Le Bureau du Procureur de San Andreas est chargé de représenter l'État dans toutes les procédures pénales. Il assure la protection de l'ordre public et veille à l'application de la loi pénale sur l'ensemble du territoire.</p>
+          <p>Indépendant dans ses décisions d'engagement des poursuites, le Parquet travaille en étroite collaboration avec les services de police de l'État pour enquêter et traduire en justice les auteurs d'infractions.</p>
+        </div>
+
+        <div class="mt-4">
+          <h3 style="font-size:1.2rem;color:var(--gold);margin-bottom:1.2rem;">Missions Principales</h3>
+          <div class="mission-item">
+            <div class="mission-icon">🔍</div>
+            <div><h4>Enquête</h4><p>Direction et supervision des enquêtes judiciaires en lien avec les services de police.</p></div>
+          </div>
+          <div class="mission-item">
+            <div class="mission-icon">📋</div>
+            <div><h4>Poursuites</h4><p>Décision d'engager ou non les poursuites pénales, rédaction des actes d'accusation.</p></div>
+          </div>
+          <div class="mission-item">
+            <div class="mission-icon">⚖️</div>
+            <div><h4>Représentation</h4><p>Plaidoirie au nom de l'État devant toutes les juridictions de San Andreas.</p></div>
+          </div>
+          <div class="mission-item">
+            <div class="mission-icon">🛡️</div>
+            <div><h4>Protection</h4><p>Veille à la protection des victimes et au respect de leurs droits tout au long de la procédure.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="section-title" style="margin-bottom:1.5rem;">L'Équipe du Parquet</h2>
+        <div id="prosecutors-list" style="display:flex;flex-direction:column;gap:1rem;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 1926–2025 Judicial Branch of San Andreas · Tous droits réservés</p>
+      <a href="../index.html" style="font-family:var(--font-ui);font-size:0.65rem;color:var(--gold);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Retour à l'Accueil</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/jbsa.js"></script>
+<script>
+  const users = JBSA.store.get('users') || [];
+  const prosecutors = users.filter(u => u.grade === 'prosecutor' && u.active);
+  const settings = JBSA.store.get('siteSettings') || {};
+
+  if (settings.prosecutorInfo) document.getElementById('prosecutor-desc').innerHTML = `<p>${settings.prosecutorInfo}</p>`;
+
+  document.getElementById('prosecutors-list').innerHTML = prosecutors.length ?
+    prosecutors.map(p => `
+      <div class="member-card">
+        <div class="member-avatar">${p.avatar}</div>
+        <div>
+          <div class="member-name">${p.name}</div>
+          <div class="member-title">${p.title || 'Procureur'}</div>
+          <div class="member-dept">${p.department}</div>
+          <div class="mt-1"><span class="badge badge-prosecutor">📋 Parquet</span></div>
+        </div>
+      </div>
+    `).join('') :
+    '<div class="alert alert-info">Aucun procureur actif.</div>';
+</script>
+</body>
+</html>
