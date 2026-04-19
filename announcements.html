@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Announcements — Intranet JBSA</title>
+  <title>Annonces é Intranet JBSA</title>
   <style>
 
 :root {
@@ -958,7 +958,7 @@ tbody td {
 
 /* ===== SVG ICON ALIGNMENT FIXES ===== */
 
-/* Base inline SVG — texte courant */
+/* Base inline SVG é texte courant */
 svg[viewBox] {
   display: inline-block;
   vertical-align: -0.15em;
@@ -1026,7 +1026,7 @@ svg[viewBox] {
   flex-shrink: 0;
 }
 
-/* Tables — icônes dans td */
+/* Tables é icénes dans td */
 td svg, th svg {
   width: 0.9em !important;
   height: 0.9em !important;
@@ -1105,7 +1105,7 @@ td > svg, th > svg {
   display: block;
 }
 
-/* For SVGs that ARE inline in text — keep vertical align */
+/* For SVGs that ARE inline in text é keep vertical align */
 p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
   display: inline-block !important;
   vertical-align: -0.15em !important;
@@ -1268,7 +1268,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
 
 <div class="main-content">
   <div class="page-header">
-    <h1>Announcements & Communiqués</h1>
+    <h1>Annonces & Communiqués</h1>
     <button class="btn btn-gold btn-sm" onclick="openModal()" id="new-btn">+ Nouvelle Annonce</button>
   </div>
 
@@ -1283,7 +1283,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
   <div class="modal">
     <div class="modal-header">
       <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19 11,5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Nouvelle Annonce</h3>
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeModal()">é</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
@@ -1299,16 +1299,16 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
           <label class="form-label">Visibilité</label>
           <select id="a-visibility" class="form-select">
             <option value="all">Tous</option>
-            <option value="judge">Judges uniquement</option>
-            <option value="prosecutor">District Attorneys uniquement</option>
-            <option value="lawyer">Attorneys uniquement</option>
+            <option value="judge">Juges uniquement</option>
+            <option value="prosecutor">Procureurs uniquement</option>
+            <option value="lawyer">Avocats uniquement</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Épingler</label>
+          <label class="form-label">épingler</label>
           <select id="a-pinned" class="form-select">
             <option value="false">Non</option>
-            <option value="true">Oui — Épingler</option>
+            <option value="true">Oui é épingler</option>
           </select>
         </div>
       </div>
@@ -1322,7 +1322,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
 
 <script>
 // ===== JBSA AUTH & STATE SYSTEM =====
-// Judicial Branch of San Andreas — Intranet Core
+// Branche judiciaire de San Andreas é Intranet Core
 
 const JBSA = (() => {
 
@@ -1339,86 +1339,86 @@ const JBSA = (() => {
   const defaultUsers = [
     {
       id: 1, username: 'admin', grade: 'admin',
-      name: 'System Administrator', email: 'admin@jbsa.gov',
-      department: 'Administration', title: 'System Administrator',
+      name: 'System Administrateur', email: 'admin@jbsa.gov',
+      department: 'Administration', title: 'System Administrateur',
       active: true, created: '2024-01-01', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>'
     },
     {
       id: 2, username: 'r.marshall', grade: 'judge',
       name: 'Hon. Robert Marshall', email: 'r.marshall@jbsa.gov',
-      department: 'Supreme Court', title: 'Chief Justice',
+      department: 'Cour supr?me', title: 'Juge en chef',
       active: true, created: '2024-01-15', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>'
     },
     {
       id: 3, username: 'da.johnson', grade: 'prosecutor',
       name: 'Thomas Johnson', email: 't.johnson@jbsa.gov',
-      department: "District Attorney's Office", title: 'District Attorney',
+      department: "Bureau du procureur", title: 'Procureur',
       active: true, created: '2024-02-01', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>'
     },
     {
       id: 4, username: 'atty.garcia', grade: 'lawyer',
       name: 'Sofia Garcia, Esq.', email: 's.garcia@jbsa.gov',
-      department: 'State Bar of San Andreas', title: 'Defense Counsel',
+      department: 'Barreau de San Andreas', title: 'Avocat de la d?fense',
       active: true, created: '2024-03-10', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5,10 5,21"/><polyline points="19,10 19,21"/><polyline points="9,10 9,21"/><polyline points="15,10 15,21"/><polygon points="12,2 22,10 2,10"/></svg>'
     }
   ];
 
-  const defaultAnnouncements = [
+  const defaultAnnonces = [
     {
-      id: 1, title: 'April Hearing Schedule — Revised Docket',
-      content: 'Due to administrative scheduling conflicts, hearings originally set for April 15–22 have been rescheduled. An updated court calendar will be distributed shortly.',
+      id: 1, title: 'April Hearing Schedule é Revised Docket',
+      content: 'Due to administrative scheduling conflicts, hearings originally set for April 15é22 have been rescheduled. An updated court calendar will be distributed shortly.',
       author: 'Hon. Robert Marshall', grade: 'judge', date: '2025-04-10',
       visibility: 'all', pinned: true
     },
     {
-      id: 2, title: 'New Protocol: Electronic Filing of Indictments',
-      content: 'Effective May 1st, all indictments and charging documents must be submitted through the intranet filing system. Paper filings will no longer be accepted by the Clerk of Court.',
+      id: 2, title: 'Nouveau protocole : d?p?t ?lectronique des actes d?accusation',
+      content: ' compter du 1er mai, tous les actes d?accusation et documents de poursuite devront ?tre transmis via le syst?me de d?p?t intranet. Les d?p?ts papier ne seront plus accept?s par le greffe.',
       author: 'Thomas Johnson', grade: 'prosecutor', date: '2025-04-08',
       visibility: 'all', pinned: false
     },
     {
-      id: 3, title: 'State Bar — Updated Rules of Professional Conduct',
-      content: 'The State Bar of San Andreas has issued updated Rules of Professional Conduct. All licensed attorneys are required to review the amended provisions before April 30.',
-      author: 'System Administrator', grade: 'admin', date: '2025-04-05',
+      id: 3, title: 'Barreau é Updated Rules of Professional Conduct',
+      content: 'The Barreau de San Andreas has issued updated Rules of Professional Conduct. All licensed avocats are required to review the amended provisions before April 30.',
+      author: 'System Administrateur', grade: 'admin', date: '2025-04-05',
       visibility: 'all', pinned: false
     }
   ];
 
   const defaultCases = [
     {
-      id: 'SA-2025-0142', title: 'People v. Marcus Webb',
-      type: 'Criminal', status: 'open', priority: 'high',
+      id: 'SA-2025-0142', title: 'Le Peuple c. Marcus Webb',
+      type: 'P?nal', status: 'open', priority: 'high',
       judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
       lawyer: 'Sofia Garcia, Esq.', created: '2025-03-15',
-      nextHearing: '2025-04-28', description: 'First-degree murder. Defendant remanded without bail.'
+      nextHearing: '2025-04-28', description: 'Meurtre au premier degr?. Pr?venu plac? en d?tention sans caution.'
     },
     {
-      id: 'SA-2025-0118', title: 'People v. Diana Torres',
-      type: 'Criminal', status: 'pending', priority: 'medium',
+      id: 'SA-2025-0118', title: 'Le Peuple c. Diana Torres',
+      type: 'P?nal', status: 'pending', priority: 'medium',
       judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
       lawyer: null, created: '2025-03-01',
-      nextHearing: '2025-05-05', description: 'Class B narcotics trafficking. Awaiting counsel assignment.'
+      nextHearing: '2025-05-05', description: 'Trafic de stup?fiants de classe B. En attente d?attribution d?un avocat.'
     },
     {
       id: 'SA-2025-0099', title: 'Vespucci Corp. v. Liberty Holdings LLC',
       type: 'Civil', status: 'open', priority: 'low',
       judge: 'Hon. Robert Marshall', prosecutor: null,
       lawyer: 'Sofia Garcia, Esq.', created: '2025-02-20',
-      nextHearing: '2025-05-12', description: 'Commercial dispute, breach of contract claim.'
+      nextHearing: '2025-05-12', description: 'Litige commercial relatif ? une rupture de contrat.'
     },
     {
-      id: 'SA-2025-0075', title: 'People v. Kevin Park',
-      type: 'Criminal', status: 'closed', priority: 'medium',
+      id: 'SA-2025-0075', title: 'Le Peuple c. Kevin Park',
+      type: 'P?nal', status: 'closed', priority: 'medium',
       judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
       lawyer: 'Sofia Garcia, Esq.', created: '2025-01-10',
-      nextHearing: null, description: 'Sentenced — 5 years, Department of Corrections.'
+      nextHearing: null, description: 'Sentenced é 5 years, Department of Corrections.'
     }
   ];
 
   const defaultHearings = [
-    { id: 1, caseId: 'SA-2025-0142', date: '2025-04-28', time: '09:00', room: 'Courtroom A', type: 'Trial — Evidentiary Hearing' },
-    { id: 2, caseId: 'SA-2025-0118', date: '2025-05-05', time: '14:00', room: 'Courtroom B', type: 'Arraignment' },
-    { id: 3, caseId: 'SA-2025-0099', date: '2025-05-12', time: '10:30', room: 'Courtroom C', type: 'Mediation Conference' }
+    { id: 1, caseId: 'SA-2025-0142', date: '2025-04-28', time: '09:00', room: 'Salle d?audience A', type: 'Trial é Evidentiary Hearing' },
+    { id: 2, caseId: 'SA-2025-0118', date: '2025-05-05', time: '14:00', room: 'Salle d?audience B', type: 'Mise en accusation' },
+    { id: 3, caseId: 'SA-2025-0099', date: '2025-05-12', time: '10:30', room: 'Salle d?audience C', type: 'Conf?rence de m?diation' }
   ];
 
   // ===== STORAGE =====
@@ -1430,16 +1430,16 @@ const JBSA = (() => {
   // ===== INIT =====
   function init() {
     if (!store.get('users')) store.set('users', defaultUsers);
-    if (!store.get('announcements')) store.set('announcements', defaultAnnouncements);
+    if (!store.get('announcements')) store.set('announcements', defaultAnnonces);
     if (!store.get('cases')) store.set('cases', defaultCases);
     if (!store.get('hearings')) store.set('hearings', defaultHearings);
     if (!store.get('siteSettings')) store.set('siteSettings', {
-      siteName: 'Judicial Branch of San Andreas',
+      siteName: 'Branche judiciaire de San Andreas',
       founded: 1926,
-      heroText: 'Justice, Equity & the Rule of Law in the State of San Andreas',
-      courtInfo: 'The Supreme Court of San Andreas is the highest court in the State, exercising final appellate jurisdiction and ensuring uniformity in the interpretation of State law.',
-      prosecutorInfo: "The District Attorney's Office represents the People of San Andreas in criminal prosecutions. It investigates offenses and brings charges against violators of State law.",
-      barInfo: "The State Bar of San Andreas regulates the legal profession and ensures that all licensed attorneys meet the highest standards of competence and ethical conduct."
+      heroText: 'Justice, Équité & the Primauté du droit in the État de San Andreas',
+      courtInfo: 'The Cour supr?me of San Andreas is the plus haute juridiction in l’État, exercising final appellate jurisdiction and ensuring uniformity in the interpretation of State law.',
+      prosecutorInfo: "The Bureau du procureur represents the People of San Andreas in criminal prosecutions. It investigates offenses and brings charges against violators of State law.",
+      barInfo: "The Barreau de San Andreas regulates the legal profession and ensures that all licensed avocats meet the highest standards of competence and ethical conduct."
     });
   }
 
@@ -1447,18 +1447,18 @@ const JBSA = (() => {
   function login(username, password, requiredGrade) {
     // Validate against encoded credential store
     const match = _creds.find(c => c[0] === username && c[1] === password);
-    if (!match) return { success: false, error: 'Invalid credentials. Please try again.' };
+    if (!match) return { success: false, error: 'Identifiants invalides. Veuillez r?essayer.' };
 
     const grade = match[2];
 
     // If a role was selected, enforce it
     if (requiredGrade && grade !== requiredGrade && grade !== 'admin') {
-      return { success: false, error: 'Your account does not have access to the selected section.' };
+      return { success: false, error: 'Votre compte n’a pas accès à la section sélectionnée.' };
     }
 
     const users = store.get('users') || [];
     const userProfile = users.find(u => u.username === username && u.active !== false);
-    if (!userProfile) return { success: false, error: 'Account is inactive. Contact your administrator.' };
+    if (!userProfile) return { success: false, error: 'Ce compte est inactif. Contactez un administrateur.' };
 
     const session = {
       userId: userProfile.id,
@@ -1508,28 +1508,28 @@ const JBSA = (() => {
 
   // ===== GRADE CONFIG (US terminology) =====
   const grades = {
-    admin:      { label: 'Administrator',   icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>', color: 'gold', badgeClass: 'badge-admin' },
-    judge:      { label: 'Judge',           icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>', color: 'red',  badgeClass: 'badge-judge' },
-    prosecutor: { label: 'District Attorney', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>', color: 'blue', badgeClass: 'badge-prosecutor' },
-    lawyer:     { label: 'Attorney',        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5,10 5,21"/><polyline points="19,10 19,21"/><polyline points="9,10 9,21"/><polyline points="15,10 15,21"/><polygon points="12,2 22,10 2,10"/></svg>', color: 'green', badgeClass: 'badge-lawyer' }
+    admin:      { label: 'Administrateur',   icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>', color: 'gold', badgeClass: 'badge-admin' },
+    judge:      { label: 'Juge',           icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>', color: 'red',  badgeClass: 'badge-judge' },
+    prosecutor: { label: 'Procureur', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>', color: 'blue', badgeClass: 'badge-prosecutor' },
+    lawyer:     { label: 'Avocat',        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5,10 5,21"/><polyline points="19,10 19,21"/><polyline points="9,10 9,21"/><polyline points="15,10 15,21"/><polygon points="12,2 22,10 2,10"/></svg>', color: 'green', badgeClass: 'badge-lawyer' }
   };
 
   function getGradeConfig(grade) { return grades[grade] || grades.lawyer; }
 
   // ===== HELPERS =====
   function formatDate(dateStr) {
-    if (!dateStr) return '—';
+    if (!dateStr) return 'é';
     const d = new Date(dateStr);
     return d.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' });
   }
 
   function getStatusLabel(status) {
-    const map = { open: 'Active', pending: 'Pending', closed: 'Closed', urgent: 'Urgent' };
+    const map = { open: 'Actif', pending: 'En attente', closed: 'Cl?tur?', urgent: 'Urgent' };
     return map[status] || status;
   }
 
   function getPriorityLabel(priority) {
-    const map = { high: 'High', medium: 'Medium', low: 'Low' };
+    const map = { high: 'Haute', medium: 'Moyenne', low: 'Basse' };
     return map[priority] || priority;
   }
 
@@ -1539,7 +1539,7 @@ const JBSA = (() => {
   }
 
   function showAlert(message, type = 'info', containerId = 'alert-container') {
-    const icons = { error: '!', success: '✓', info: 'i' };
+    const icons = { error: '!', success: '', info: 'i' };
     const el = document.getElementById(containerId);
     if (!el) return;
     el.innerHTML = `<div class="alert alert-${type}"><span>${icons[type]}</span> ${message}</div>`;
@@ -1559,18 +1559,18 @@ const JBSA = (() => {
 
     const commonLinks = [
       { page: 'divisions',      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>', label: 'Divisions',          href: 'divisions.html' },
-      { page: 'intranet',       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>', label: 'Dashboard',         href: 'intranet.html' },
-      { page: 'cases',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>', label: 'Case Files',         href: 'cases.html' },
-      { page: 'calendar',       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>', label: 'Court Calendar',     href: 'calendar.html' },
-      { page: 'announcements',  icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19 11,5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>', label: 'Announcements',      href: 'announcements.html' },
+      { page: 'intranet',       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>', label: 'Tableau de bord',         href: 'intranet.html' },
+      { page: 'cases',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>', label: 'Dossiers',         href: 'cases.html' },
+      { page: 'calendar',       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>', label: 'Calendrier judiciaire',     href: 'calendar.html' },
+      { page: 'announcements',  icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19 11,5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>', label: 'Annonces',      href: 'announcements.html' },
       { page: 'documents',      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>', label: 'Documents',          href: 'documents.html' },
-      { page: 'legal',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/><polyline points="9,9 9,9"/></svg>', label: 'Legal Texts',         href: 'legal.html' },
+      { page: 'legal',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/><polyline points="9,9 9,9"/></svg>', label: 'Textes juridiques',         href: 'legal.html' },
     ];
 
-    const adminLinks = grade === 'admin' ? [
+    const adminLinks = grade === 'admin' → [
       { page: 'admin',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>', label: 'Administration',     href: 'admin.html' },
-      { page: 'admin-users',    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', label: 'User Management',    href: 'admin-users.html' },
-      { page: 'admin-settings', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>', label: 'Site Settings',      href: 'admin-settings.html' },
+      { page: 'admin-users',    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', label: 'Gestion des utilisateurs',    href: 'admin-users.html' },
+      { page: 'admin-settings', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>', label: 'Param?tres du site',      href: 'admin-settings.html' },
     ] : [];
 
     const allLinks = [...commonLinks, ...(adminLinks.length ? [{ section: 'Administration' }, ...adminLinks] : [])];
@@ -1640,23 +1640,23 @@ document.addEventListener('DOMContentLoaded', () => JBSA.init());
 
     const container = document.getElementById('announces-list');
     if (!sorted.length) {
-      container.innerHTML = '<div class="alert alert-info">ℹ Aucune annonce disponible.</div>';
+      container.innerHTML = '<div class="alert alert-info">? Aucune annonce disponible.</div>';
       return;
     }
 
     const g = JBSA.getGradeConfig;
     container.innerHTML = sorted.map(a => `
       <div class="announce-card">
-        ${a.pinned ? '<span class="pinned-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Épinglé</span>' : ''}
+        ${a.pinned ? '<span class="pinned-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> épinglé</span>' : ''}
         <div class="announce-card-meta">
           <span class="badge ${g(a.grade).badgeClass}">${g(a.grade).icon} ${g(a.grade).label}</span>
           <span>${a.author}</span>
-          <span>·</span>
+          <span>é</span>
           <span>${JBSA.formatDate(a.date)}</span>
         </div>
         <div class="announce-card-title">${a.title}</div>
         <div class="announce-card-content">${a.content}</div>
-        ${session.grade === 'admin' ? `
+        ${session.grade === 'admin' → `
         <div class="announce-card-footer">
           <span style="font-family:var(--font-ui);font-size:0.65rem;color:var(--cream-dark);opacity:0.4;">ID: ${a.id}</span>
           <button class="btn btn-danger btn-sm" onclick="deleteAnnounce(${a.id})">Supprimer</button>
