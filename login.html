@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure Login ÃƒÂ© JBSA Intranet</title>
+  <title>Connexion securisee | JBSA Intranet</title>
   <link rel="icon" type="image/webp" href="seal.webp">
   <style>
 
@@ -217,7 +217,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-display); }
 }
 
 .seal-ring::before {
-  content: '';
+  content: ';
   position: absolute;
   inset: 8px;
   border-radius: 50%;
@@ -253,7 +253,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-display); }
 }
 
 .hero-eyebrow::before {
-  content: '';
+  content: ';
   width: 40px;
   height: 1px;
   background: var(--gold);
@@ -351,7 +351,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-display); }
 }
 
 .divider::before, .divider::after {
-  content: '';
+  content: ';
   flex: 1;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
@@ -959,7 +959,7 @@ tbody td {
 
 /* ===== SVG ICON ALIGNMENT FIXES ===== */
 
-/* Base inline SVG ÃƒÂ© texte courant */
+/* Base inline SVG ÃƒÆ’Ã‚Â© texte courant */
 svg[viewBox] {
   display: inline-block;
   vertical-align: -0.15em;
@@ -1027,7 +1027,7 @@ svg[viewBox] {
   flex-shrink: 0;
 }
 
-/* Tables ÃƒÂ© icÃƒÂ©nes dans td */
+/* Tables ÃƒÆ’Ã‚Â© icÃƒÆ’Ã‚Â©nes dans td */
 td svg, th svg {
   width: 0.9em !important;
   height: 0.9em !important;
@@ -1106,7 +1106,7 @@ td > svg, th > svg {
   display: block;
 }
 
-/* For SVGs that ARE inline in text ÃƒÂ© keep vertical align */
+/* For SVGs that ARE inline in text ÃƒÆ’Ã‚Â© keep vertical align */
 p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
   display: inline-block !important;
   vertical-align: -0.15em !important;
@@ -1238,7 +1238,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
     }
 
     .login-left::before {
-      content: '';
+      content: ';
       position: absolute; inset: 0;
       background-image:
         linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
@@ -1367,7 +1367,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
       margin-bottom: 1.5rem;
     }
     .login-divider::before, .login-divider::after {
-      content: ''; flex: 1; height: 1px;
+      content: '; flex: 1; height: 1px;
       background: rgba(201,168,76,0.15);
     }
     .login-divider span {
@@ -1459,353 +1459,312 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
   </div>
 
   <script>
-// ===== JBSA AUTH & STATE SYSTEM =====
-// Branche judiciaire de San Andreas &middot; Intranet Core
-
 const JBSA = (() => {
-
-  // ===== CREDENTIAL STORE (obfuscated, never shown in UI) =====
-  // Credentials are stored as encoded pairs; not displayed anywhere
-  const _creds = [
-    ['\x61\x64\x6d\x69\x6e', '\x4a\x42\x53\x41\x23\x53\x79\x73\x74\x65\x6d\x40\x32\x30\x32\x35', 'admin'],
-    ['\x72\x2e\x6d\x61\x72\x73\x68\x61\x6c\x6c', '\x43\x6f\x75\x72\x74\x23\x52\x4d\x40\x31\x39\x32\x36', 'judge'],
-    ['\x64\x61\x2e\x6a\x6f\x68\x6e\x73\x6f\x6e', '\x44\x41\x23\x4f\x66\x66\x69\x63\x65\x40\x53\x41', 'prosecutor'],
-    ['\x61\x74\x74\x79\x2e\x67\x61\x72\x63\x69\x61', '\x42\x61\x72\x23\x41\x73\x73\x6f\x63\x40\x32\x30\x32\x35', 'lawyer']
+  const credentials = [
+    { username: 'admin', password: 'JBSA#System@2025', grade: 'admin', name: 'Administrateur systeme' },
+    { username: 'r.marshall', password: 'Court#RM@1926', grade: 'judge', name: 'Juge en chef Rebecca Marshall' },
+    { username: 'da.johnson', password: 'DA#Office@SA', grade: 'prosecutor', name: 'Procureur Marcus Johnson' },
+    { username: 'atty.garcia', password: 'Bar#Assoc@2025', grade: 'lawyer', name: 'Batonnier Elena Garcia' }
   ];
 
-  // ===== DEFAULT USER PROFILES =====
   const defaultUsers = [
     {
-      id: 1, username: 'admin', grade: 'admin',
-      name: 'Administrateur systeme', email: 'admin@jbsa.gov',
-      department: 'Administration', title: 'Administrateur systeme',
-      active: true, created: '2024-01-01', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>'
+      username: 'r.marshall',
+      grade: 'judge',
+      name: 'Juge en chef Rebecca Marshall',
+      title: 'Juge en chef',
+      division: 'Cour de justice',
+      email: 'r.marshall@jbsa.gov',
+      phone: '(555) 010-1926',
+      permissions: ['cases', 'hearings', 'opinions', 'admin-lite']
     },
     {
-      id: 2, username: 'r.marshall', grade: 'judge',
-      name: 'Hon. Robert Marshall', email: 'r.marshall@jbsa.gov',
-      department: 'Cour supr?me', title: 'Juge en chef',
-      active: true, created: '2024-01-15', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>'
+      username: 'da.johnson',
+      grade: 'prosecutor',
+      name: 'Procureur Marcus Johnson',
+      title: 'Procureur de district',
+      division: 'Bureau du procureur',
+      email: 'm.johnson@dao.sa',
+      phone: '(555) 210-4401',
+      permissions: ['cases', 'pleas', 'filings']
     },
     {
-      id: 3, username: 'da.johnson', grade: 'prosecutor',
-      name: 'Thomas Johnson', email: 't.johnson@jbsa.gov',
-      department: "Bureau du procureur", title: 'Procureur',
-      active: true, created: '2024-02-01', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>'
+      username: 'atty.garcia',
+      grade: 'lawyer',
+      name: 'Batonnier Elena Garcia',
+      title: 'Presidente du barreau',
+      division: 'Bar Association',
+      email: 'e.garcia@sabar.org',
+      phone: '(555) 310-1120',
+      permissions: ['members', 'ethics', 'licenses']
     },
     {
-      id: 4, username: 'atty.garcia', grade: 'lawyer',
-      name: 'Sofia Garcia, Esq.', email: 's.garcia@jbsa.gov',
-      department: 'Barreau de San Andreas', title: 'Avocat de la d?fense',
-      active: true, created: '2024-03-10', avatar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5,10 5,21"/><polyline points="19,10 19,21"/><polyline points="9,10 9,21"/><polyline points="15,10 15,21"/><polygon points="12,2 22,10 2,10"/></svg>'
+      username: 'admin',
+      grade: 'admin',
+      name: 'Administrateur systeme',
+      title: 'Administrateur de la plateforme',
+      division: 'Intranet judiciaire',
+      email: 'admin@jbsa.local',
+      phone: '(555) 000-0001',
+      permissions: ['all']
     }
   ];
 
-  const defaultAnnonces = [
+  const defaultAnnouncements = [
     {
-      id: 1, title: 'April Hearing Schedule ÃƒÂ© Revised Docket',
-      content: 'Due to administrative scheduling conflicts, hearings originally set for April 15ÃƒÂ©22 have been rescheduled. An updated court calendar will be distributed shortly.',
-      author: 'Hon. Robert Marshall', grade: 'judge', date: '2025-04-10',
-      visibility: 'all', pinned: true
+      id: 1,
+      category: 'Avis de la cour',
+      title: 'Mise a jour des directives de peine',
+      content: 'Les nouvelles fiches de reference sont desormais disponibles pour le personnel judiciaire actif.',
+      date: '2025-01-16',
+      priority: 'high'
     },
     {
-      id: 2, title: 'Nouveau protocole : d?p?t ?lectronique des actes d?accusation',
-      content: ' compter du 1er mai, tous les actes d?accusation et documents de poursuite devront ?tre transmis via le syst?me de d?p?t intranet. Les d?p?ts papier ne seront plus accept?s par le greffe.',
-      author: 'Thomas Johnson', grade: 'prosecutor', date: '2025-04-08',
-      visibility: 'all', pinned: false
+      id: 2,
+      category: 'Bureau du procureur',
+      title: 'Extension du depot numerique',
+      content: 'Le support des depots electroniques reste disponible jusqu a 20:00 pendant les deux prochaines semaines.',
+      date: '2025-01-12',
+      priority: 'medium'
     },
     {
-      id: 3, title: 'Barreau ÃƒÂ© Updated Rules of Professional Conduct',
-      content: 'The Barreau de San Andreas has issued updated Rules of Professional Conduct. All licensed avocats are required to review the amended provisions before April 30.',
-      author: 'Administrateur systeme', grade: 'admin', date: '2025-04-05',
-      visibility: 'all', pinned: false
+      id: 3,
+      category: 'Bar Association',
+      title: 'Rappel de formation continue',
+      content: 'La declaration trimestrielle des heures de formation se cloture vendredi a 18:00.',
+      date: '2025-01-08',
+      priority: 'low'
     }
   ];
 
   const defaultCases = [
     {
-      id: 'SA-2025-0142', title: 'Le Peuple c. Marcus Webb',
-      type: 'P?nal', status: 'open', priority: 'high',
-      judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
-      lawyer: 'Sofia Garcia, Esq.', created: '2025-03-15',
-      nextHearing: '2025-04-28', description: 'Meurtre au premier degr?. Pr?venu plac? en d?tention sans caution.'
+      id: 'SA-2025-001',
+      title: 'Etat contre Carter',
+      status: 'En attente de proces',
+      division: 'Division criminelle',
+      nextHearing: '2025-01-20',
+      prosecutor: 'M. Johnson',
+      judge: 'R. Marshall'
     },
     {
-      id: 'SA-2025-0118', title: 'Le Peuple c. Diana Torres',
-      type: 'P?nal', status: 'pending', priority: 'medium',
-      judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
-      lawyer: null, created: '2025-03-01',
-      nextHearing: '2025-05-05', description: 'Trafic de stup?fiants de classe B. En attente d?attribution d?un avocat.'
-    },
-    {
-      id: 'SA-2025-0099', title: 'Vespucci Corp. v. Liberty Holdings LLC',
-      type: 'Civil', status: 'open', priority: 'low',
-      judge: 'Hon. Robert Marshall', prosecutor: null,
-      lawyer: 'Sofia Garcia, Esq.', created: '2025-02-20',
-      nextHearing: '2025-05-12', description: 'Litige commercial relatif ? une rupture de contrat.'
-    },
-    {
-      id: 'SA-2025-0075', title: 'Le Peuple c. Kevin Park',
-      type: 'P?nal', status: 'closed', priority: 'medium',
-      judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
-      lawyer: 'Sofia Garcia, Esq.', created: '2025-01-10',
-      nextHearing: null, description: 'Sentenced ÃƒÂ© 5 years, Department of Corrections.'
+      id: 'SA-2025-014',
+      title: 'Etat contre Hernandez',
+      status: 'En examen',
+      division: 'Division des appels',
+      nextHearing: '2025-01-24',
+      prosecutor: 'M. Johnson',
+      judge: 'R. Marshall'
     }
   ];
 
   const defaultHearings = [
-    { id: 1, caseId: 'SA-2025-0142', date: '2025-04-28', time: '09:00', room: 'Salle d?audience A', type: 'Trial ÃƒÂ© Evidentiary Hearing' },
-    { id: 2, caseId: 'SA-2025-0118', date: '2025-05-05', time: '14:00', room: 'Salle d?audience B', type: 'Mise en accusation' },
-    { id: 3, caseId: 'SA-2025-0099', date: '2025-05-12', time: '10:30', room: 'Salle d?audience C', type: 'Conf?rence de m?diation' }
+    {
+      id: 'HRG-091',
+      caseId: 'SA-2025-001',
+      date: '2025-01-20',
+      time: '10:00',
+      room: 'Salle A',
+      type: 'Audience preliminaire'
+    },
+    {
+      id: 'HRG-096',
+      caseId: 'SA-2025-014',
+      date: '2025-01-24',
+      time: '14:30',
+      room: 'Salle C',
+      type: 'Examen en appel'
+    }
   ];
 
-  // ===== STORAGE =====
   const store = {
-    get: (key) => { try { return JSON.parse(localStorage.getItem('jbsa_' + key)); } catch { return null; } },
-    set: (key, val) => { localStorage.setItem('jbsa_' + key, JSON.stringify(val)); }
+    get(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    },
+    set(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   };
 
-  // ===== INIT =====
-  function init() {
-    if (!store.get('users')) store.set('users', defaultUsers);
-    if (!store.get('announcements')) store.set('announcements', defaultAnnonces);
-    if (!store.get('cases')) store.set('cases', defaultCases);
-    if (!store.get('hearings')) store.set('hearings', defaultHearings);
-    if (!store.get('siteSettings')) store.set('siteSettings', {
-      siteName: 'Branche judiciaire de San Andreas',
-      founded: 1926,
-      heroText: 'Justice, Ãƒâ€°quitÃƒÂ© & the Primaut&eacute; du droit in the Ãƒâ€°tat de San Andreas',
-      courtInfo: 'The Cour supr?me of San Andreas is the plus haute juridiction in lÃ¢â‚¬â„¢Ãƒâ€°tat, exercising final appellate jurisdiction and ensuring uniformity in the interpretation of State law.',
-      prosecutorInfo: "The Bureau du procureur represents the People of San Andreas in criminal prosecutions. It investigates offenses and brings charges against violators of State law.",
-      barInfo: "The Barreau de San Andreas regulates the legal profession and ensures that all licensed avocats meet the highest standards of competence and ethical conduct."
-    });
+  function ensureSeedData() {
+    if (!localStorage.getItem('jbsa_users')) store.set('jbsa_users', defaultUsers);
+    if (!localStorage.getItem('jbsa_announcements')) store.set('jbsa_announcements', defaultAnnouncements);
+    if (!localStorage.getItem('jbsa_cases')) store.set('jbsa_cases', defaultCases);
+    if (!localStorage.getItem('jbsa_hearings')) store.set('jbsa_hearings', defaultHearings);
   }
 
-  // ===== AUTH =====
-  function login(username, password, requiredGrade) {
-    // Validate against encoded credential store
-    const match = _creds.find(c => c[0] === username && c[1] === password);
-    if (!match) return { success: false, error: 'Identifiants invalides. Veuillez r?essayer.' };
-
-    const grade = match[2];
-
-    // If a role was selected, enforce it
-    if (requiredGrade && grade !== requiredGrade && grade !== 'admin') {
-      return { success: false, error: 'Votre compte nÃ¢â‚¬â„¢a pas accÃƒÂ¨s ÃƒÂ  la section sÃƒÂ©lectionnÃƒÂ©e.' };
-    }
-
-    const users = store.get('users') || [];
-    const userProfile = users.find(u => u.username === username && u.active !== false);
-    if (!userProfile) return { success: false, error: 'Ce compte est inactif. Contactez un administrateur.' };
-
+  function createSession(user) {
     const session = {
-      userId: userProfile.id,
-      grade: userProfile.grade,
-      name: userProfile.name,
-      expires: Date.now() + 8 * 3600000
+      userId: user.username,
+      grade: user.grade,
+      name: user.name,
+      expires: Date.now() + (8 * 60 * 60 * 1000)
     };
     sessionStorage.setItem('jbsa_session', JSON.stringify(session));
-    return { success: true, grade };
-  }
-
-  function logout() {
-    sessionStorage.removeItem('jbsa_session');
-    const base = window.location.pathname.includes('/pages/') ? '../' : '';
-    window.location.href = base + 'login.html';
+    return session;
   }
 
   function getSession() {
     try {
-      const s = JSON.parse(sessionStorage.getItem('jbsa_session'));
-      if (s && s.expires > Date.now()) return s;
+      const raw = sessionStorage.getItem('jbsa_session');
+      if (!raw) return null;
+      const session = JSON.parse(raw);
+      if (!session || !session.expires || session.expires < Date.now()) {
+        sessionStorage.removeItem('jbsa_session');
+        return null;
+      }
+      return session;
+    } catch {
       sessionStorage.removeItem('jbsa_session');
       return null;
-    } catch { return null; }
-  }
-
-  function requireAuth(allowedGrades = null) {
-    const session = getSession();
-    const base = window.location.pathname.includes('/pages/') ? '../' : '';
-    if (!session) { window.location.href = base + 'login.html'; return null; }
-    if (allowedGrades && !allowedGrades.includes(session.grade)) {
-      window.location.href = base + 'intranet.html';
-      return null;
     }
-    return session;
   }
 
-  function getCurrentUser() {
-    const session = getSession();
-    if (!session) return null;
-    const users = store.get('users') || [];
-    return users.find(u => u.id === session.userId) || null;
+  function showAlert(message, type = 'error') {
+    const box = document.getElementById('login-alert');
+    if (!box) return;
+    box.style.display = 'block';
+    box.style.color = type === 'success' ? '#d1fae5' : '#fecaca';
+    box.style.borderColor = type === 'success' ? 'rgba(34,197,94,0.35)' : 'rgba(239,68,68,0.35)';
+    box.style.background = type === 'success' ? 'rgba(22,101,52,0.18)' : 'rgba(127,29,29,0.18)';
+    box.textContent = message;
   }
 
-  function getUsers() { return store.get('users') || defaultUsers; }
-  function getSiteSettings() { return store.get('siteSettings') || {}; }
+  function login(username, password, requiredGrade) {
+    const record = credentials.find((entry) =>
+      entry.username.toLowerCase() === username.toLowerCase() &&
+      entry.password === password
+    );
 
-  // ===== GRADE CONFIG (US terminology) =====
-  const grades = {
-    admin:      { label: 'Administrateur',   icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>', color: 'gold', badgeClass: 'badge-admin' },
-    judge:      { label: 'Juge',           icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>', color: 'red',  badgeClass: 'badge-judge' },
-    prosecutor: { label: 'Procureur', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>', color: 'blue', badgeClass: 'badge-prosecutor' },
-    lawyer:     { label: 'Avocat',        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5,10 5,21"/><polyline points="19,10 19,21"/><polyline points="9,10 9,21"/><polyline points="15,10 15,21"/><polygon points="12,2 22,10 2,10"/></svg>', color: 'green', badgeClass: 'badge-lawyer' }
-  };
+    if (!record) {
+      return { success: false, error: 'Identifiants invalides.' };
+    }
 
-  function getGradeConfig(grade) { return grades[grade] || grades.lawyer; }
+    if (requiredGrade && record.grade !== requiredGrade && record.grade !== 'admin') {
+      return { success: false, error: 'Ce compte ne correspond pas au role selectionne.' };
+    }
 
-  // ===== HELPERS =====
-  function formatDate(dateStr) {
-    if (!dateStr) return 'ÃƒÂ©';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' });
+    const users = store.get('jbsa_users', defaultUsers);
+    const user = users.find((entry) => entry.username === record.username) || {
+      username: record.username,
+      grade: record.grade,
+      name: record.name
+    };
+
+    createSession(user);
+    return { success: true, user };
   }
 
-  function getStatusLabel(status) {
-    const map = { open: 'Actif', pending: 'En attente', closed: 'Cl?tur?', urgent: 'Urgent' };
-    return map[status] || status;
+  function logout() {
+    sessionStorage.removeItem('jbsa_session');
+    window.location.href = 'login.html';
   }
 
-  function getPriorityLabel(priority) {
-    const map = { high: 'Haute', medium: 'Moyenne', low: 'Basse' };
-    return map[priority] || priority;
-  }
-
-  function getStatusClass(status) {
-    const map = { open: 'status-open', pending: 'status-pending', closed: 'status-closed', urgent: 'status-urgent' };
-    return map[status] || '';
-  }
-
-  function showAlert(message, type = 'info', containerId = 'alert-container') {
-    const icons = { error: '!', success: '', info: 'i' };
-    const el = document.getElementById(containerId);
-    if (!el) return;
-    el.innerHTML = `<div class="alert alert-${type}"><span>${icons[type]}</span> ${message}</div>`;
-    setTimeout(() => { el.innerHTML = ''; }, 5000);
-  }
-
-  function generateId() {
-    return 'SA-2025-' + String(Math.floor(Math.random() * 9000) + 1000);
-  }
-
-  // ===== SIDEBAR BUILDER =====
-  function buildSidebar(grade, activePage) {
-    const session = getSession();
-    if (!session) return '';
-    const g = getGradeConfig(grade);
-    const user = getCurrentUser();
-
-    const commonLinks = [
-      { page: 'divisions',      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>', label: 'Divisions',          href: 'divisions.html' },
-      { page: 'intranet',       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>', label: 'Tableau de bord',         href: 'intranet.html' },
-      { page: 'cases',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>', label: 'Dossiers',         href: 'cases.html' },
-      { page: 'calendar',       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>', label: 'Calendrier judiciaire',     href: 'calendar.html' },
-      { page: 'announcements',  icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19 11,5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>', label: 'Annonces',      href: 'announcements.html' },
-      { page: 'documents',      icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>', label: 'Documents',          href: 'documents.html' },
-      { page: 'legal',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/><polyline points="9,9 9,9"/></svg>', label: 'Textes juridiques',         href: 'legal.html' },
-    ];
-
-    const adminLinks = grade === 'admin' ? [
-      { page: 'admin',          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>', label: 'Administration',     href: 'admin.html' },
-      { page: 'admin-users',    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', label: 'Gestion des utilisateurs',    href: 'admin-users.html' },
-      { page: 'admin-settings', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>', label: 'Param?tres du site',      href: 'admin-settings.html' },
-    ] : [];
-
-    const allLinks = [...commonLinks, ...(adminLinks.length ? [{ section: 'Administration' }, ...adminLinks] : [])];
-
-    const linksHtml = allLinks.map(link => {
-      if (link.section) return `<div class="sidebar-section-label">${link.section}</div>`;
-      return `<a href="${link.href}" class="sidebar-link ${activePage === link.page ? 'active' : ''}">
-        <span class="icon">${link.icon}</span> ${link.label}
-      </a>`;
-    }).join('');
-
-    const LOGO_PATH = 'seal.webp';
-
-    return `
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <a href="intranet.html" class="sidebar-logo">
-          <img src="${LOGO_PATH}" alt="JBSA" onerror="this.style.opacity=0">
-          <span>JBSA<br><small style="font-family:var(--font-ui);font-size:0.55rem;letter-spacing:0.1em;color:var(--cream-dark);font-weight:300;">Intranet</small></span>
-        </a>
-        <div class="sidebar-user">
-          <div class="sidebar-user-name">${user ? user.name : session.name}</div>
-          <span class="badge ${g.badgeClass}">${g.icon} ${g.label}</span>
-        </div>
-      </div>
-      <nav class="sidebar-nav">
-        <div class="sidebar-section-label">Navigation</div>
-        ${linksHtml}
-      </nav>
-      <div style="padding:1.5rem;border-top:var(--border-gold);margin-top:2rem;">
-        <a href="index.html" class="sidebar-link" style="margin-bottom:0.5rem;">
-          <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> Site public
-        </a>
-        <button onclick="JBSA.logout()" class="btn btn-ghost btn-sm w-full" style="justify-content:center;">
-          Deconnexion
-        </button>
-      </div>
-    </aside>`;
+  function init() {
+    ensureSeedData();
   }
 
   return {
-    init, login, logout, getSession, requireAuth, getCurrentUser, getUsers, getSiteSettings,
-    getGradeConfig, formatDate, getStatusLabel, getPriorityLabel, getStatusClass,
-    showAlert, generateId, buildSidebar, store
+    init,
+    login,
+    logout,
+    showAlert,
+    getSession
   };
 })();
 
-document.addEventListener('DOMContentLoaded', () => JBSA.init());
+document.addEventListener('DOMContentLoaded', () => {
+  JBSA.init();
 
+  if (JBSA.getSession()) {
+    window.location.href = 'intranet.html';
+    return;
+  }
+
+  let selectedRole = null;
+  const roleButtons = Array.from(document.querySelectorAll('.role-btn'));
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const loginButton = document.getElementById('login-btn');
+
+  function applyRoleSelection(role, element) {
+    selectedRole = role;
+    roleButtons.forEach((button) => button.classList.remove('selected'));
+    if (element) {
+      element.classList.add('selected');
+    }
+    usernameInput.focus();
+  }
+
+  function selectRole(role, element) {
+    applyRoleSelection(role, element);
+  }
+
+  function doLogin() {
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!selectedRole) {
+      JBSA.showAlert('Veuillez selectionner votre role avant de vous connecter.', 'error');
+      return;
+    }
+
+    if (!username || !password) {
+      JBSA.showAlert('Veuillez saisir votre identifiant et votre mot de passe.', 'error');
+      return;
+    }
+
+    loginButton.textContent = 'Verification...';
+    loginButton.disabled = true;
+
+    window.setTimeout(() => {
+      const result = JBSA.login(username, password, selectedRole);
+
+      if (result.success) {
+        JBSA.showAlert('Acces autorise. Redirection...','success');
+        window.setTimeout(() => {
+          window.location.href = 'intranet.html';
+        }, 800);
+        return;
+      }
+
+      JBSA.showAlert(result.error, 'error');
+      loginButton.innerHTML = "Acc&eacute;der &agrave; l'intranet &rarr;";
+      loginButton.disabled = false;
+    }, 300);
+  }
+
+  roleButtons.forEach((button) => {
+    const role = button.classList.contains('judge')
+      ? 'judge'
+      : button.classList.contains('prosecutor')
+        ? 'prosecutor'
+        : 'lawyer';
+
+    button.addEventListener('click', () => applyRoleSelection(role, button));
+  });
+
+  window.selectRole = selectRole;
+  window.doLogin = doLogin;
+
+  usernameInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      doLogin();
+    }
+  });
+
+  passwordInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      doLogin();
+    }
+  });
+});
 </script>
-  <script>
-    if (JBSA.getSession()) window.location.href = 'intranet.html';
-
-    let selectedRole = null;
-
-    function selectRole(role, el) {
-      selectedRole = role;
-      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('username').focus();
-    }
-
-    function doLogin() {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      const btn = document.getElementById('login-btn');
-
-      if (!selectedRole) {
-        JBSA.showAlert('Veuillez sÃƒÂ©lectionner votre rÃƒÂ´le avant de vous connecter.', 'error');
-        return;
-      }
-      if (!username || !password) {
-        JBSA.showAlert('Veuillez saisir votre identifiant et votre mot de passe.', 'error');
-        return;
-      }
-
-      btn.textContent = 'Verification...';
-      btn.disabled = true;
-
-      setTimeout(() => {
-        const result = JBSA.login(username, password, selectedRole);
-        if (result.success) {
-          JBSA.showAlert('Acces autorise. Redirection...', 'success');
-          setTimeout(() => { window.location.href = 'intranet.html'; }, 800);
-        } else {
-          JBSA.showAlert(result.error, 'error');
-          btn.textContent = 'Acc&eacute;der &agrave; l'intranet &rarr;';
-          btn.disabled = false;
-        }
-      }, 600);
-    }
-
-    window.selectRole = selectRole;
-    window.doLogin = doLogin;
-
-    document.addEventListener('keypress', e => { if (e.key === 'Enter') doLogin(); });
-  </script>
 </body>
 </html>
 
