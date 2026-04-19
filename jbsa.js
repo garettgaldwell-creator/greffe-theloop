@@ -1,4 +1,4 @@
-// ===== JBSA AUTH & STATE SYSTEM =====
+﻿// ===== JBSA AUTH & STATE SYSTEM =====
 
 const JBSA = (() => {
 
@@ -9,81 +9,81 @@ const JBSA = (() => {
   const defaultUsers = [
     {
       id: 1, username: 'admin', password: 'Admin@1926', grade: 'admin',
-      name: 'Administrateur Système', email: 'admin@jbsa.gov', department: 'Administration',
-      active: true, created: '2024-01-01', avatar: '⚙️'
+      name: 'Administrateur SystÃ¨me', email: 'admin@jbsa.gov', department: 'Administration',
+      active: true, created: '2024-01-01', avatar: 'âš™ï¸'
     },
     {
       id: 2, username: 'chief.justice', password: 'Judge@1926', grade: 'judge',
-      name: 'Hon. Robert Marshall', email: 'r.marshall@jbsa.gov', department: 'Cour Suprême',
-      title: 'Juge en Chef', active: true, created: '2024-01-15', avatar: '⚖️'
+      name: 'Hon. Robert Marshall', email: 'r.marshall@jbsa.gov', department: 'Cour SuprÃªme',
+      title: 'Juge en Chef', active: true, created: '2024-01-15', avatar: 'âš–ï¸'
     },
     {
       id: 3, username: 'da.johnson', password: 'Prose@1926', grade: 'prosecutor',
       name: 'Thomas Johnson', email: 't.johnson@jbsa.gov', department: 'Bureau du Procureur',
-      title: 'Procureur en Chef', active: true, created: '2024-02-01', avatar: '📋'
+      title: 'Procureur en Chef', active: true, created: '2024-02-01', avatar: 'ðŸ“‹'
     },
     {
       id: 4, username: 'me.garcia', password: 'Avoc@1926', grade: 'lawyer',
       name: 'Me. Sofia Garcia', email: 's.garcia@jbsa.gov', department: 'Barreau de San Andreas',
-      title: 'Avocate de la Défense', active: true, created: '2024-03-10', avatar: '🏛️'
+      title: 'Avocate de la DÃ©fense', active: true, created: '2024-03-10', avatar: 'ðŸ›ï¸'
     }
   ];
 
   const defaultAnnouncements = [
     {
-      id: 1, title: 'Réorganisation des audiences du mois d\'avril',
-      content: 'Suite aux décisions administratives, les audiences prévues du 15 au 22 avril sont reportées. Un nouveau calendrier sera communiqué prochainement.',
+      id: 1, title: 'RÃ©organisation des audiences du mois d\'avril',
+      content: 'Suite aux dÃ©cisions administratives, les audiences prÃ©vues du 15 au 22 avril sont reportÃ©es. Un nouveau calendrier sera communiquÃ© prochainement.',
       author: 'Hon. Robert Marshall', grade: 'judge', date: '2025-04-10',
       visibility: 'all', pinned: true
     },
     {
-      id: 2, title: 'Nouveau protocole de dépôt des actes d\'accusation',
-      content: 'À compter du 1er mai, tous les actes d\'accusation devront être déposés via la plateforme intranet. Les dépôts papier ne seront plus acceptés.',
+      id: 2, title: 'Nouveau protocole de dÃ©pÃ´t des actes d\'accusation',
+      content: 'Ã€ compter du 1er mai, tous les actes d\'accusation devront Ãªtre dÃ©posÃ©s via la plateforme intranet. Les dÃ©pÃ´ts papier ne seront plus acceptÃ©s.',
       author: 'Thomas Johnson', grade: 'prosecutor', date: '2025-04-08',
       visibility: 'all', pinned: false
     },
     {
-      id: 3, title: 'Mise à jour du règlement intérieur du Barreau',
-      content: 'Le règlement intérieur a été mis à jour. Tous les membres sont priés d\'en prendre connaissance avant le 30 avril.',
-      author: 'Administrateur Système', grade: 'admin', date: '2025-04-05',
+      id: 3, title: 'Mise Ã  jour du rÃ¨glement intÃ©rieur du Barreau',
+      content: 'Le rÃ¨glement intÃ©rieur a Ã©tÃ© mis Ã  jour. Tous les membres sont priÃ©s d\'en prendre connaissance avant le 30 avril.',
+      author: 'Administrateur SystÃ¨me', grade: 'admin', date: '2025-04-05',
       visibility: 'all', pinned: false
     }
   ];
 
   const defaultCases = [
     {
-      id: 'SA-2025-0142', title: 'État vs. Marcus Webb',
+      id: 'SA-2025-0142', title: 'Ã‰tat vs. Marcus Webb',
       type: 'Criminel', status: 'open', priority: 'high',
       judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
       lawyer: 'Me. Sofia Garcia', created: '2025-03-15',
-      nextHearing: '2025-04-28', description: 'Accusation de meurtre au premier degré.'
+      nextHearing: '2025-04-28', description: 'Accusation de meurtre au premier degrÃ©.'
     },
     {
-      id: 'SA-2025-0118', title: 'État vs. Diana Torres',
+      id: 'SA-2025-0118', title: 'Ã‰tat vs. Diana Torres',
       type: 'Correctionnel', status: 'pending', priority: 'medium',
       judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
       lawyer: null, created: '2025-03-01',
-      nextHearing: '2025-05-05', description: 'Trafic de stupéfiants, classe B.'
+      nextHearing: '2025-05-05', description: 'Trafic de stupÃ©fiants, classe B.'
     },
     {
-      id: 'SA-2025-0099', title: 'Société Vespucci vs. Liberty Corp.',
+      id: 'SA-2025-0099', title: 'SociÃ©tÃ© Vespucci vs. Liberty Corp.',
       type: 'Civil', status: 'open', priority: 'low',
       judge: 'Hon. Robert Marshall', prosecutor: null,
       lawyer: 'Me. Sofia Garcia', created: '2025-02-20',
       nextHearing: '2025-05-12', description: 'Litige commercial, violation de contrat.'
     },
     {
-      id: 'SA-2025-0075', title: 'État vs. Kevin Park',
+      id: 'SA-2025-0075', title: 'Ã‰tat vs. Kevin Park',
       type: 'Criminel', status: 'closed', priority: 'medium',
       judge: 'Hon. Robert Marshall', prosecutor: 'Thomas Johnson',
       lawyer: 'Me. Sofia Garcia', created: '2025-01-10',
-      nextHearing: null, description: 'Condamné — 5 ans ferme.'
+      nextHearing: null, description: 'CondamnÃ© â€” 5 ans ferme.'
     }
   ];
 
   const defaultHearings = [
     { id: 1, caseId: 'SA-2025-0142', date: '2025-04-28', time: '09:00', room: 'Salle A', type: 'Audience de fond' },
-    { id: 2, caseId: 'SA-2025-0118', date: '2025-05-05', time: '14:00', room: 'Salle B', type: 'Première comparution' },
+    { id: 2, caseId: 'SA-2025-0118', date: '2025-05-05', time: '14:00', room: 'Salle B', type: 'PremiÃ¨re comparution' },
     { id: 3, caseId: 'SA-2025-0099', date: '2025-05-12', time: '10:30', room: 'Salle C', type: 'Audience de conciliation' }
   ];
 
@@ -106,10 +106,10 @@ const JBSA = (() => {
     if (!store.get('siteSettings')) store.set('siteSettings', {
       siteName: 'Judicial Branch of San Andreas',
       founded: 1926,
-      heroText: 'Justice, Équité et Droit dans l\'État de San Andreas',
-      courtInfo: 'La Cour Suprême de San Andreas est la plus haute juridiction de l\'État. Elle statue en dernier ressort sur les affaires les plus importantes.',
-      prosecutorInfo: 'Le Bureau du Procureur représente l\'État dans les poursuites pénales. Il est chargé d\'enquêter et de poursuivre les infractions à la loi.',
-      barInfo: 'Le Barreau de San Andreas régule la profession d\'avocat et garantit la qualité des services juridiques dans tout l\'État.'
+      heroText: 'Justice, Ã‰quitÃ© et Droit dans l\'Ã‰tat de San Andreas',
+      courtInfo: 'La Cour SuprÃªme de San Andreas est la plus haute juridiction de l\'Ã‰tat. Elle statue en dernier ressort sur les affaires les plus importantes.',
+      prosecutorInfo: 'Le Bureau du Procureur reprÃ©sente l\'Ã‰tat dans les poursuites pÃ©nales. Il est chargÃ© d\'enquÃªter et de poursuivre les infractions Ã  la loi.',
+      barInfo: 'Le Barreau de San Andreas rÃ©gule la profession d\'avocat et garantit la qualitÃ© des services juridiques dans tout l\'Ã‰tat.'
     });
   }
 
@@ -143,7 +143,7 @@ const JBSA = (() => {
     const session = getSession();
     if (!session) { window.location.href = getBasePath() + 'login.html'; return null; }
     if (allowedGrades && !allowedGrades.includes(session.grade)) {
-      window.location.href = getBasePath() + 'pages/intranet.html';
+      window.location.href = getBasePath() + 'intranet.html';
       return null;
     }
     return session;
@@ -163,23 +163,23 @@ const JBSA = (() => {
 
   // ===== GRADE CONFIG =====
   const grades = {
-    admin: { label: 'Administrateur', icon: '⚙️', color: 'gold', badgeClass: 'badge-admin' },
-    judge: { label: 'Juge', icon: '⚖️', color: 'red', badgeClass: 'badge-judge' },
-    prosecutor: { label: 'Procureur', icon: '📋', color: 'blue', badgeClass: 'badge-prosecutor' },
-    lawyer: { label: 'Avocat', icon: '🏛️', color: 'green', badgeClass: 'badge-lawyer' }
+    admin: { label: 'Administrateur', icon: 'âš™ï¸', color: 'gold', badgeClass: 'badge-admin' },
+    judge: { label: 'Juge', icon: 'âš–ï¸', color: 'red', badgeClass: 'badge-judge' },
+    prosecutor: { label: 'Procureur', icon: 'ðŸ“‹', color: 'blue', badgeClass: 'badge-prosecutor' },
+    lawyer: { label: 'Avocat', icon: 'ðŸ›ï¸', color: 'green', badgeClass: 'badge-lawyer' }
   };
 
   function getGradeConfig(grade) { return grades[grade] || grades.lawyer; }
 
   // ===== HELPERS =====
   function formatDate(dateStr) {
-    if (!dateStr) return '—';
+    if (!dateStr) return 'â€”';
     const d = new Date(dateStr);
     return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
   }
 
   function getStatusLabel(status) {
-    const map = { open: 'En cours', pending: 'En attente', closed: 'Clôturé', urgent: 'Urgent' };
+    const map = { open: 'En cours', pending: 'En attente', closed: 'ClÃ´turÃ©', urgent: 'Urgent' };
     return map[status] || status;
   }
 
@@ -194,7 +194,7 @@ const JBSA = (() => {
   }
 
   function showAlert(message, type = 'info', containerId = 'alert-container') {
-    const icons = { error: '⚠', success: '✓', info: 'ℹ' };
+    const icons = { error: 'âš ', success: 'âœ“', info: 'â„¹' };
     const el = document.getElementById(containerId);
     if (!el) return;
     el.innerHTML = `<div class="alert alert-${type}"><span>${icons[type]}</span> ${message}</div>`;
@@ -214,17 +214,17 @@ const JBSA = (() => {
     const user = getCurrentUser();
 
     const commonLinks = [
-      { page: 'intranet', icon: '🏠', label: 'Tableau de bord', href: 'intranet.html' },
-      { page: 'cases', icon: '📂', label: 'Dossiers', href: 'cases.html' },
-      { page: 'calendar', icon: '📅', label: 'Audiences', href: 'calendar.html' },
-      { page: 'announcements', icon: '📢', label: 'Annonces', href: 'announcements.html' },
-      { page: 'documents', icon: '📄', label: 'Documents', href: 'documents.html' },
+      { page: 'intranet', icon: 'ðŸ ', label: 'Tableau de bord', href: 'intranet.html' },
+      { page: 'cases', icon: 'ðŸ“‚', label: 'Dossiers', href: 'cases.html' },
+      { page: 'calendar', icon: 'ðŸ“…', label: 'Audiences', href: 'calendar.html' },
+      { page: 'announcements', icon: 'ðŸ“¢', label: 'Annonces', href: 'announcements.html' },
+      { page: 'documents', icon: 'ðŸ“„', label: 'Documents', href: 'documents.html' },
     ];
 
     const adminLinks = grade === 'admin' ? [
-      { page: 'admin', icon: '⚙️', label: 'Administration', href: 'admin.html' },
-      { page: 'admin-users', icon: '👥', label: 'Gestion Utilisateurs', href: 'admin-users.html' },
-      { page: 'admin-settings', icon: '🔧', label: 'Paramètres Site', href: 'admin-settings.html' },
+      { page: 'admin', icon: 'âš™ï¸', label: 'Administration', href: 'admin.html' },
+      { page: 'admin-users', icon: 'ðŸ‘¥', label: 'Gestion Utilisateurs', href: 'admin-users.html' },
+      { page: 'admin-settings', icon: 'ðŸ”§', label: 'ParamÃ¨tres Site', href: 'admin-settings.html' },
     ] : [];
 
     const allLinks = [...commonLinks, ...(adminLinks.length ? [{ section: 'Administration' }, ...adminLinks] : [])];
@@ -240,7 +240,7 @@ const JBSA = (() => {
     <aside class="sidebar">
       <div class="sidebar-header">
         <a href="intranet.html" class="sidebar-logo">
-          <img src="../assets/seal.webp" alt="JBSA">
+          <img src="seal.webp" alt="JBSA">
           <span>JBSA<br><small style="font-family:var(--font-ui);font-size:0.55rem;letter-spacing:0.1em;color:var(--cream-dark);font-weight:300;">Intranet</small></span>
         </a>
         <div class="sidebar-user">
@@ -253,11 +253,11 @@ const JBSA = (() => {
         ${linksHtml}
       </nav>
       <div style="padding:1.5rem;margin-top:auto;border-top:var(--border-gold);margin-top:2rem;">
-        <a href="../index.html" class="sidebar-link" style="margin-bottom:0.5rem;">
-          <span class="icon">🌐</span> Site Public
+        <a href="index.html" class="sidebar-link" style="margin-bottom:0.5rem;">
+          <span class="icon">ðŸŒ</span> Site Public
         </a>
         <button onclick="JBSA.logout()" class="btn btn-ghost btn-sm w-full" style="justify-content:center;">
-          Déconnexion
+          DÃ©connexion
         </button>
       </div>
     </aside>`;
@@ -272,3 +272,4 @@ const JBSA = (() => {
 
 // Auto-init
 document.addEventListener('DOMContentLoaded', () => JBSA.init());
+
