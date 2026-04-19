@@ -1410,7 +1410,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
         <div style="font-family:var(--font-ui);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:0.8rem;">S&eacute;lectionnez votre r&ocirc;le</div>
         <div class="role-selector">
           <div class="role-btn judge" onclick="selectRole('judge', this)">
-            <span class="role-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg>?</span>
+            <span class="role-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M12 3v18M3 9l9-6 9 6M5 9l-2 6h4L5 9zM19 9l-2 6h4L19 9zM3 21h18"/></svg></span>
             Juge
           </div>
           <div class="role-btn prosecutor" onclick="selectRole('prosecutor', this)">
@@ -1418,7 +1418,7 @@ p svg, h1 svg, h2 svg, h3 svg, h4 svg, li svg, span svg, label svg, a svg {
             Procureur
           </div>
           <div class="role-btn lawyer" onclick="selectRole('lawyer', this)">
-            <span class="role-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5,10 5,21"/><polyline points="19,10 19,21"/><polyline points="9,10 9,21"/><polyline points="15,10 15,21"/><polygon points="12,2 22,10 2,10"/></svg>?</span>
+            <span class="role-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.15em"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5,10 5,21"/><polyline points="19,10 19,21"/><polyline points="9,10 9,21"/><polyline points="15,10 15,21"/><polygon points="12,2 22,10 2,10"/></svg></span>
             Avocat
           </div>
         </div>
@@ -1799,6 +1799,9 @@ document.addEventListener('DOMContentLoaded', () => JBSA.init());
         }
       }, 600);
     }
+
+    window.selectRole = selectRole;
+    window.doLogin = doLogin;
 
     document.addEventListener('keypress', e => { if (e.key === 'Enter') doLogin(); });
   </script>
