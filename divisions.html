@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Divisions — JBSA Intranet</title>
+  <title>Divisions — Judicial Branch of San Andreas</title>
   <style>
 
 :root {
@@ -1952,8 +1952,29 @@ document.addEventListener('DOMContentLoaded', () => JBSA.init());
 
 </script>
 <script>
-  const session = JBSA.requireAuth();
-  document.write(JBSA.buildSidebar(session ? session.grade : 'lawyer', 'divisions'));
+  document.write(`
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">
+        <img src="seal.webp" alt="JBSA Seal" onerror="this.style.opacity=0">
+      </div>
+      <div class="navbar-name">
+        Judicial Branch
+        <small>of San Andreas</small>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="divisions.html" class="active">Division</a></li>
+      <li><a href="pages/contact.html">Contact</a></li>
+      <li><a href="login.html" class="btn-nav-login">Intranet →</a></li>
+    </ul>
+  </nav>
+  <style>
+    .main-content { margin-left: 0; padding-top: 70px; }
+    .page-header { top: 70px; }
+  </style>
+  `);
 </script>
 
 <div class="main-content">
