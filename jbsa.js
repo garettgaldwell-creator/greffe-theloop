@@ -3,7 +3,7 @@
 const JBSA = (() => {
 
   // ===== LOGO (inline SVG base64 placeholder) =====
-  const LOGO_PATH = '../assets/seal.webp';
+  const LOGO_PATH = 'seal.webp';
 
   // ===== DEFAULT DATA =====
   const defaultUsers = [
